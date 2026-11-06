@@ -1,0 +1,16 @@
+{
+  "name": "@tryouts/referee",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "zod": "4.6.7"
+  }
+}
