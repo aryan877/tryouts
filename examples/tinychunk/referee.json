@@ -1,0 +1,5 @@
+{
+  "test": ["bun", "test"],
+  "scope": ["src/", "test/"],
+  "sandbox": { "image": "oven/bun:1.2.23-alpine" }
+}
