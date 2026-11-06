@@ -1,0 +1,24 @@
+{
+  "name": "@tryouts/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "tryouts": "./src/cli.ts"
+  },
+  "scripts": {
+    "test": "bun test src",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@tryouts/kit": "workspace:*",
+    "@tryouts/referee": "workspace:*",
+    "@tryouts/switch": "workspace:*"
+  },
+  "exports": {
+    "./config": "./src/config.ts",
+    "./board": "./src/board.ts",
+    "./hire": "./src/hire.ts",
+    "./bench": "./src/bench.ts"
+  }
+}
