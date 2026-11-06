@@ -74,7 +74,18 @@ export async function publishGithub(): Promise<void> {
   if (previous) {
     const tag = `run-${new Date().toISOString().slice(0, 16).replace(/\D/g, "")}`;
     step(`Tagging the previous run as ${tag}, so its commits stay on GitHub`);
-    await sh(["git", "push", "--quiet", REPOSITORY, `${previous}:refs/tags/${tag}`], ROOT);
+    await sh(
+      [
+        "gh",
+        "api",
+        `repos/${GITHUB_REPO}/git/refs`,
+        "-f",
+        `ref=refs/tags/${tag}`,
+        "-f",
+        `sha=${previous}`,
+      ],
+      ROOT,
+    );
   }
   step(`Resetting ${GITHUB_REPO} to tinychunk 1.0.0, with both bugs in place`);
   const seed = await mkdtemp(join(tmpdir(), "tinychunk-"));

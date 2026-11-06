@@ -17,7 +17,7 @@ _Flip the Switch 2026 · Track 01, Best Business Workflow_
   <img src="docs/images/run-light.png" alt="Tryout #1: Claude Code, Codex and OpenCode all verified by the referee; OpenCode hired as the cheapest verified fix, approved by Arjun">
 </picture>
 
-**[Watch the 3-minute video](#)** · **[Open the board, no login](#)** · **[Check it yourself](JUDGES.md)**
+**[Watch the 3-minute video](#)** · **[Open the board, no login](https://tryouts.aryankumar.dev)** · **[Check it yourself](JUDGES.md)**
 
 </div>
 
@@ -69,7 +69,7 @@ referee's digest, the hire, and the Switch approval that let it in.
 
 ## Try it
 
-- **Look:** the board, no login: [live link](#). Every number is Switch's own data, recorded in
+- **Look:** the board, no login: [tryouts.aryankumar.dev](https://tryouts.aryankumar.dev). Every number is Switch's own data, recorded in
   `evidence/`. The recorded run used a local Switch with Mattermost standing in for Slack and Discord.
 - **Check:** `make judge` replays every verdict and merge from `evidence/` without Switch (Bun and Docker).
 - **Run:** `bun install && bun run demo up && bun run e2e` runs the whole story on a local Switch with Mattermost.
