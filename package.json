@@ -1,0 +1,29 @@
+{
+  "name": "tryouts",
+  "private": true,
+  "packageManager": "bun@1.2.23",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "examples/*",
+    "kit"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "check": "biome check .",
+    "format": "biome check --write .",
+    "demo": "bun apps/stack/src/cli.ts",
+    "e2e": "bun apps/stack/src/cli.ts e2e",
+    "web": "bun run --cwd apps/web dev",
+    "setup": "bun apps/stack/src/setup.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.5",
+    "@types/bun": "1.4.4",
+    "turbo": "2.11.10",
+    "typescript": "7.0.2"
+  }
+}

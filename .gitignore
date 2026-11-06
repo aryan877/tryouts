@@ -1,0 +1,11 @@
+node_modules
+.next
+dist
+.turbo
+.demo
+.tools
+*.log
+.env
+.env.local
+infra/switch/.env
+notes
