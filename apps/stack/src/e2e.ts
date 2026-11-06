@@ -1,13 +1,17 @@
-import { ALIAS } from "@tryouts/kit";
+import { ALIAS, parseCandidate } from "@tryouts/kit";
 import { commandOf, Gateway, Mattermost, type Post } from "@tryouts/switch";
 import { chatPlan } from "./chat";
-import { AGENTS, ISSUES, MATTERMOST_URL, ORIGIN, PEOPLE, ROOMS, SWITCH_URL } from "./config";
+import { AGENTS, GITHUB_REPO, ISSUES, MATTERMOST_URL, PEOPLE, ROOMS, SWITCH_URL } from "./config";
 import { admins } from "./infra";
+import { mirror } from "./repos";
 import { sh, step, waitFor } from "./shell";
 import { loadState } from "./state";
 
 const MINUTE = 60_000;
-const MODELS = ["opencode-go/deepseek-v4.1-flash", "opencode-go/qwen3.8-flash"];
+const LINEUP =
+  process.env.TRYOUTS_LINEUP === "all"
+    ? "with Claude Code, Codex and OpenCode"
+    : "with two OpenCode models: opencode-go/deepseek-v4.1-flash and opencode-go/qwen3.8-flash";
 const { tryout: TRYOUT, probation: BUG } = ISSUES;
 
 type Named = Post & { author: string };
@@ -68,7 +72,7 @@ const both =
   };
 
 class Desk {
-  private readonly denied = new Set<string>();
+  private readonly answered = new Set<string>();
 
   constructor(
     readonly owner: Gateway,
@@ -78,21 +82,30 @@ class Desk {
   ) {}
 
   private open = async () =>
-    (await this.owner.openApprovals()).filter(
-      (card) => card.agentId === this.agentId && card.state === "open",
-    );
+    (await this.owner.openApprovals()).filter((card) => card.state === "open");
 
-  denyOthers = async () => {
+  answerOthers = async () => {
+    const names = new Map((await this.owner.agents()).map((agent) => [agent.id, agent.name]));
     for (const card of await this.open()) {
       const command = commandOf(card);
-      if (EXPECTED.test(command) || this.denied.has(card.requestId)) continue;
-      this.denied.add(card.requestId);
-      step(`${PEOPLE.lead.name} denies a command he did not expect: ${command}`);
-      await this.owner.answerApproval(card, "decline");
-      await this.person.post(
-        this.channel.id,
-        `@${AGENTS.hiring.name} I denied \`${command}\`. Run no command except the two tryouts commands in your instructions, exactly as written.`,
-      );
+      const name = names.get(card.agentId) ?? card.agentId;
+      if (this.answered.has(card.requestId)) continue;
+      if (card.agentId === this.agentId) {
+        if (EXPECTED.test(command)) continue;
+        this.answered.add(card.requestId);
+        step(`${PEOPLE.lead.name} denies a command he did not expect: ${command}`);
+        await this.owner.answerApproval(card, "decline");
+        await this.person.post(
+          this.channel.id,
+          `@${AGENTS.hiring.name} I denied \`${command}\`. Run no command except the two tryouts commands in your instructions, exactly as written.`,
+        );
+      } else if (parseCandidate(name)) {
+        this.answered.add(card.requestId);
+        step(
+          `${PEOPLE.lead.name} allows ${name} to work: ${command.split("\n")[0]?.slice(0, 100)}`,
+        );
+        await this.owner.answerApproval(card, "accept");
+      }
     }
   };
 
@@ -100,9 +113,12 @@ class Desk {
     const card = await waitFor(
       `the approval card for ${prefix}`,
       async () => {
-        await both(meanwhile, this.denyOthers)();
+        await both(meanwhile, this.answerOthers)();
         return (await this.open()).find(
-          (open) => EXPECTED.test(commandOf(open)) && commandOf(open).startsWith(prefix),
+          (open) =>
+            open.agentId === this.agentId &&
+            EXPECTED.test(commandOf(open)) &&
+            commandOf(open).startsWith(prefix),
         );
       },
       timeoutMs,
@@ -208,7 +224,7 @@ export async function e2e(): Promise<void> {
   step(`${PEOPLE.lead.name} posts a job in #${ROOMS.hiring}`);
   await arjun.post(
     hiring.id,
-    `@${AGENTS.hiring.name} we need a bug fixer for tinychunk. Hold a tryout on #${TRYOUT.number} (${TRYOUT.title}) with two OpenCode models: ${MODELS.join(" and ")}.`,
+    `@${AGENTS.hiring.name} we need a bug fixer for tinychunk. Hold a tryout on #${TRYOUT.number} (${TRYOUT.title}) ${LINEUP}.`,
   );
   await hiring.find(
     "the referee to set the budgets",
@@ -216,13 +232,13 @@ export async function e2e(): Promise<void> {
       post.author === AGENTS.referee.name &&
       post.message.includes(`**Tryout #${TRYOUT.number} · budgets set in Switch**`),
     10 * MINUTE,
-    desk.denyOthers,
+    desk.answerOthers,
   );
   const board = await hiring.find(
     "the referee's scoreboard with a suggested hire",
     (post) => post.author === AGENTS.referee.name && post.message.includes("Suggested hire: **"),
     30 * MINUTE,
-    both(refereeWatch(arjun, hiring, switchAsArjun, TRYOUT.number), desk.denyOthers),
+    both(refereeWatch(arjun, hiring, switchAsArjun, TRYOUT.number), desk.answerOthers),
   );
   const candidates = [...board.message.matchAll(/^\d+\. \*\*([a-z0-9-]+)\*\*/gm)].map(
     (m) => m[1] as string,
@@ -232,7 +248,7 @@ export async function e2e(): Promise<void> {
   const command = await desk.allow("tryouts hire", 10 * MINUTE, async () => undefined);
   const hired = /--agent ([a-z0-9-]+)/.exec(command)?.[1] as string;
   const losers = candidates.filter((name) => name !== hired);
-  const cleanup = both(confirmDeletions(arjun, hiring, losers), desk.denyOthers);
+  const cleanup = both(confirmDeletions(arjun, hiring, losers), desk.answerOthers);
   await hiring.find(
     "the hire record",
     (post) => post.author === AGENTS.hiring.name && post.message.includes(`**Hired · ${hired}**`),
@@ -288,7 +304,7 @@ export async function e2e(): Promise<void> {
   step(`${PEOPLE.community.name} reports #${BUG.number} to @${ALIAS} in #${ROOMS.bugs}`);
   await riya.post(
     bugs.id,
-    `@${ALIAS} #${BUG.number} ${BUG.title}: windows([1, 2, 3], 2) returns [[1, 2]] but should return [[1, 2], [2, 3]].`,
+    `@${ALIAS} #${BUG.number} ${BUG.title}: ${BUG.body.replaceAll("`", "")}${GITHUB_REPO ? ` https://github.com/${GITHUB_REPO}/issues/${BUG.number}` : ""}`,
   );
   await desk.allow(
     `tryouts merge --agent ${hired} --issue ${BUG.number}`,
@@ -301,7 +317,7 @@ export async function e2e(): Promise<void> {
     5 * MINUTE,
   );
 
-  const history = await sh(["git", "log", "-3", "--format=%B", "main"], ORIGIN);
+  const history = await sh(["git", "log", "-3", "--format=%B", "main"], await mirror());
   for (const line of [`Hired: ${hired}`, "Probation: 1 of 3"]) {
     if (!history.includes(line))
       throw new Error(`origin/main does not record "${line}":\n${history}`);

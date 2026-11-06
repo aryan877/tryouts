@@ -1,13 +1,18 @@
 export const GITHUB_URL = "https://github.com/aryan877/tryouts";
 export const SWITCH_URL = "https://github.com/sandbox-quantum/switch";
-export const TEMPLATE_URLS = [
-  `https://raw.githubusercontent.com/aryan877/tryouts/main/templates/tryouts-team.yaml`,
-  `https://raw.githubusercontent.com/aryan877/tryouts/main/templates/tryout.yaml`,
-  `https://raw.githubusercontent.com/aryan877/tryouts/main/templates/bugs-room.yaml`,
-] as const;
 export const VIDEO_URL = process.env.NEXT_PUBLIC_TRYOUTS_VIDEO || null;
 
-export function commitUrl(repository: string, sha: string): string | null {
-  const match = /^https:\/\/github\.com\/([^/]+\/[^/]+?)(?:\.git)?\/?$/.exec(repository);
-  return match ? `https://github.com/${match[1]}/commit/${sha}` : null;
+const GITHUB = /^https:\/\/github\.com\/([^/]+\/[^/]+?)(?:\.git)?\/?$/;
+
+export const repoName = (repository: string) => GITHUB.exec(repository)?.[1] ?? null;
+
+function githubUrl(repository: string, path: string): string | null {
+  const name = repoName(repository);
+  return name ? `https://github.com/${name}/${path}` : null;
 }
+
+export const commitUrl = (repository: string, sha: string) =>
+  githubUrl(repository, `commit/${sha}`);
+
+export const issueUrl = (repository: string, issue: number) =>
+  githubUrl(repository, `issues/${issue}`);

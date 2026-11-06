@@ -18,7 +18,8 @@ import { git, type ProofReport } from "@tryouts/referee";
 import { type ApprovalRecord, type ChatMessage, Gateway } from "@tryouts/switch";
 import { brief } from "./brief";
 import { chatPlan } from "./chat";
-import { ORIGIN, ROOT, SWITCH_URL } from "./config";
+import { ROOT, SWITCH_URL } from "./config";
+import { mirror } from "./repos";
 import { step } from "./shell";
 import { loadState } from "./state";
 
@@ -97,7 +98,7 @@ function approvalOf(
 }
 
 async function trailers(sha: string): Promise<string[]> {
-  const text = await git(ORIGIN, "log", "-1", "--format=%(trailers:only,unfold)", sha);
+  const text = await git(await mirror(), "log", "-1", "--format=%(trailers:only,unfold)", sha);
   return text.split("\n").filter(Boolean);
 }
 
@@ -337,7 +338,7 @@ async function writeEvidence(
     Bun.write(join(dir, "budgets.json"), json(await admin.budgets(tenant))),
     ...(hire ? [Bun.write(join(dir, "hire.json"), json(hire))] : []),
   ]);
-  await git(ORIGIN, "bundle", "create", join(dir, "origin.bundle"), "--all");
+  await git(await mirror(), "bundle", "create", join(dir, "origin.bundle"), "--all");
   const branches = [
     ...result.candidates.map((c) => ({
       agent: c.agent,

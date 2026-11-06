@@ -30,6 +30,7 @@ export interface Entry {
   digest: string | null;
   seconds: number | null;
   tally: Tally;
+  counted: boolean;
   budget: { spent: number; limit: number; exhausted: boolean } | null;
 }
 
@@ -57,13 +58,17 @@ export function rank(entries: Entry[]): Entry[] {
   return [...entries].sort(
     (a, b) =>
       STANDING[a.verdict ?? "pending"] - STANDING[b.verdict ?? "pending"] ||
+      Number(b.counted) - Number(a.counted) ||
       a.tally.cost - b.tally.cost ||
       (a.seconds ?? Number.POSITIVE_INFINITY) - (b.seconds ?? Number.POSITIVE_INFINITY),
   );
 }
 
+export const uncounted = (entries: Entry[]) =>
+  entries.filter((entry) => entry.verdict === "verified" && !entry.counted);
+
 export const suggested = (ranked: Entry[]) =>
-  ranked[0]?.verdict === "verified" ? ranked[0] : null;
+  ranked[0]?.verdict === "verified" && uncounted(ranked).length === 0 ? ranked[0] : null;
 
 export function tokens(n: number): string {
   if (n < 1_000) return String(n);
@@ -86,8 +91,12 @@ export const tokensIn = (t: Tally) => t.input + t.cacheRead + t.cacheWrite;
 export function numbers(entry: Entry): string {
   const parts = [
     entry.seconds === null ? null : duration(entry.seconds),
-    `${tokens(tokensIn(entry.tally))} in · ${tokens(entry.tally.output)} out`,
-    `est. ${dollars(entry.tally.cost)}`,
+    ...(entry.counted
+      ? [
+          `${tokens(tokensIn(entry.tally))} in · ${tokens(entry.tally.output)} out`,
+          `est. ${dollars(entry.tally.cost)}`,
+        ]
+      : ["tokens not counted yet"]),
   ];
   return parts.filter(Boolean).join(" · ");
 }
@@ -111,7 +120,11 @@ export function renderBoard(issue: number, entries: Entry[]): string {
     ...ranked.map((entry, i) => line(entry, i + 1)),
     pick
       ? `Suggested hire: **${pick.agent}**, verified at the lowest estimated cost.`
-      : `No candidate is verified yet, so there is no hire to suggest.`,
+      : uncounted(ranked).length > 0
+        ? `No suggestion yet: Switch has not counted ${uncounted(ranked)
+            .map((e) => e.agent)
+            .join(", ")}'s tokens, so costs can't be compared. Run the board again in a minute.`
+        : `No candidate is verified yet, so there is no hire to suggest.`,
     "Tokens are Switch's usage counts, added when each turn ends. Dollars are list-price estimates; time runs from the agent's creation to its last commit.",
   ].join("\n");
 }
@@ -129,16 +142,24 @@ export async function collect(
   config: Config,
   { owner, admin }: Accounts,
   issue: number,
+  settleMs = 0,
 ): Promise<Entry[]> {
   const agents = candidatesOf(await owner.agents(), issue);
   if (agents.length === 0) throw new Error(`No candidates are trying out for #${issue}.`);
   const tenant = await tenantOf(admin);
   const since = new Date(Math.min(...agents.map((agent) => Date.parse(agent.created_at))));
-  const [usage, budgets] = await Promise.all([
-    admin.usage(tenant, since, new Date(Date.now() + 60_000)),
-    admin.budgets(tenant),
-  ]);
-  return Promise.all(agents.map((agent) => entryOf(config, owner, agent, issue, usage, budgets)));
+  const deadline = Date.now() + settleMs;
+  for (;;) {
+    const [usage, budgets] = await Promise.all([
+      admin.usage(tenant, since, new Date(Date.now() + 60_000)),
+      admin.budgets(tenant),
+    ]);
+    const entries = await Promise.all(
+      agents.map((agent) => entryOf(config, owner, agent, issue, usage, budgets)),
+    );
+    if (uncounted(entries).length === 0 || Date.now() >= deadline) return entries;
+    await Bun.sleep(5_000);
+  }
 }
 
 async function entryOf(
@@ -174,6 +195,9 @@ async function entryOf(
     tally: tally(
       usage.filter((row) => row.client_name === agent.name),
       price,
+    ),
+    counted: usage.some(
+      (row) => row.client_name === agent.name && row.metric === "turns" && row.amount > 0,
     ),
     budget: budget
       ? { spent: budget.spent, limit: budget.amount_limit, exhausted: budget.exhausted }

@@ -33,8 +33,16 @@ export const VENDORS: Record<Vendor, { provider: "claude" | "codex" | "opencode"
   };
 
 export const ISSUES = {
-  tryout: { number: 12, title: "chunk() drops the last partial chunk" },
-  probation: { number: 13, title: "windows() skips the final window" },
+  tryout: {
+    number: 1,
+    title: "chunk() drops the last partial chunk",
+    body: "`chunk([1, 2, 3, 4, 5], 2)` returns `[[1, 2], [3, 4]]`. It should return `[[1, 2], [3, 4], [5]]`: the last partial chunk is missing.",
+  },
+  probation: {
+    number: 2,
+    title: "windows() skips the final window",
+    body: "`windows([1, 2, 3], 2)` returns `[[1, 2]]`. It should return `[[1, 2], [2, 3]]`: the final window is missing.",
+  },
 } as const;
 
 export const candidateName = (vendor: Vendor, issue: number) => `${vendor}-${issue}`;

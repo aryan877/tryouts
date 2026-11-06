@@ -9,9 +9,11 @@ const YOUTUBE = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/;
 
 export function VideoButton({
   size = "sm",
+  shape,
   label = "Video",
 }: {
   size?: "sm" | "lg";
+  shape?: "rounded";
   label?: string;
 }) {
   if (!VIDEO_URL) return null;
@@ -19,15 +21,15 @@ export function VideoButton({
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button size={size}>
+        <Button variant="secondary" size={size} shape={shape}>
           <Play className="size-3.5" />
           {label}
         </Button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 z-50 w-[min(92vw,1120px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-panel bg-screen outline-none">
-          <Dialog.Title className="sr-only">Tryouts in 2 minutes 30 seconds</Dialog.Title>
+        <Dialog.Content className="fixed top-1/2 left-1/2 z-50 w-[min(92vw,1120px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-black shadow-menu outline-none">
+          <Dialog.Title className="sr-only">Tryouts video</Dialog.Title>
           <div className="aspect-video">
             {youtube ? (
               <iframe
@@ -46,7 +48,7 @@ export function VideoButton({
             aria-label="Close the video"
             className="absolute top-3 right-3 grid size-9 place-items-center rounded-full bg-black/60 text-white hover:bg-black/80"
           >
-            <Close className="size-4" />
+            <Close />
           </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>

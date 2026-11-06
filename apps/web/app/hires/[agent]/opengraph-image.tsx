@@ -1,10 +1,10 @@
 import { ImageResponse } from "next/og";
-import { appOf, ownerOf } from "@/lib/board";
 import { dollars } from "@/lib/format";
-import { OG, OgCard, OgMark, ogFonts } from "@/lib/og";
+import { OG, OgMark, ogFonts } from "@/lib/og";
 import { getHire, listRecords } from "@/lib/records";
+import { appName, ownerOf, standings, vendorOf } from "@/lib/run";
 
-export const alt = "A Tryouts hire record";
+export const alt = "A Tryouts hire";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -17,57 +17,78 @@ export async function generateStaticParams() {
 export default async function Image({ params }: { params: Promise<{ agent: string }> }) {
   const { agent } = await params;
   const record = await getHire(agent);
-  const c = record?.candidates.find((x) => x.agent === agent);
+  const standing = record ? standings(record).find((s) => s.candidate.agent === agent) : null;
   const hire = record?.hire;
-  const fonts = await ogFonts();
-  const app = record && hire ? appOf(record, hire.approval.room) : null;
   return new ImageResponse(
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         width: "100%",
         height: "100%",
-        background: OG.SCREEN,
-        padding: 56,
-        alignItems: "center",
-        gap: 56,
-        color: OG.INK,
+        background: OG.background,
+        padding: 64,
+        fontFamily: "Geist",
+        color: OG.ink,
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", width: 200, height: "100%" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <OgMark size={32} />
-          <div style={{ fontFamily: "Archivo", fontWeight: 600, fontSize: 30 }}>Tryouts</div>
-        </div>
+      <div
+        style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 30, fontWeight: 600 }}
+      >
+        <OgMark size={40} />
+        Tryouts
+      </div>
+      {record && hire && standing ? (
         <div
           style={{
-            fontFamily: "Archivo",
-            fontWeight: 400,
-            fontSize: 18,
-            color: OG.INK2,
+            display: "flex",
+            flexDirection: "column",
             marginTop: "auto",
+            padding: 48,
+            borderRadius: 16,
+            border: `2px solid ${OG.border}`,
+            background: OG.card,
+            gap: 18,
           }}
         >
-          Don't pick your AI agent on vibes. Hold tryouts.
-        </div>
-      </div>
-      {record && c ? <OgCard record={record} candidate={c} scale={1.02} /> : null}
-      <div style={{ display: "flex", flexDirection: "column", width: 400, gap: 18 }}>
-        <div style={{ fontFamily: "Archivo Condensed", fontSize: 60, lineHeight: 0.95 }}>
-          {record ? `${agent} hired as ${record.role}` : "No hire record"}
-        </div>
-        {c && (
-          <div style={{ fontFamily: "Archivo", fontWeight: 600, fontSize: 26, color: OG.INK2 }}>
-            {`${dollars(c.cost)} per verified fix · est.`}
+          <div style={{ display: "flex", fontSize: 64, fontWeight: 600, letterSpacing: -3 }}>
+            {`${agent} hired as @${record.role}`}
           </div>
-        )}
-        {record && (
-          <div style={{ fontFamily: "Archivo", fontWeight: 400, fontSize: 22, color: OG.INK3 }}>
-            {`Approved by ${ownerOf(record)}${app ? ` in ${app[0]?.toUpperCase()}${app.slice(1)}` : ""} · built on Switch`}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+              fontSize: 28,
+              color: OG.muted,
+            }}
+          >
+            <div style={{ display: "flex", gap: 6 }}>
+              {standing.checks.map((check, i) => (
+                <div
+                  // biome-ignore lint/suspicious/noArrayIndexKey: checks are positional
+                  key={i}
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: 99,
+                    background: check ? OG.green : OG.red,
+                  }}
+                />
+              ))}
+            </div>
+            {`${standing.passed} of 5 checks · ${vendorOf(standing.candidate)} · est. ${dollars(standing.candidate.cost)}`}
           </div>
-        )}
-      </div>
+          <div style={{ display: "flex", fontSize: 28, color: OG.muted }}>
+            {`Picked from ${record.candidates.length} tools on tryout #${record.issue}. Approved by ${ownerOf(record)} in ${appName(record, hire.approval.room)}.`}
+          </div>
+        </div>
+      ) : (
+        <div style={{ display: "flex", marginTop: "auto", fontSize: 56, fontWeight: 600 }}>
+          Don't pick your AI coding tool on vibes. Hold tryouts.
+        </div>
+      )}
     </div>,
-    { ...size, fonts },
+    { ...size, fonts: await ogFonts() },
   );
 }

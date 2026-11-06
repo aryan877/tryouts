@@ -133,7 +133,7 @@ export async function hire(
   const [me, winner, board] = await Promise.all([
     owner.me(),
     agentNamed(owner, options.agent),
-    collect(config, accounts, options.issue),
+    collect(config, accounts, options.issue, 60_000),
   ]);
   const card = await approvedCard(
     config,
@@ -149,6 +149,7 @@ export async function hire(
     sha: options.sha,
     fork: slot.fork,
     committer: { name: me.name, email: me.email },
+    notes: [`Fixes #${options.issue}`],
     trailers: [
       `Hired: ${options.agent} (${vendor.label}) after tryout #${options.issue}`,
       `Tryout: ${board.length} candidates, ${verified} verified`,
@@ -229,6 +230,7 @@ export async function probation(
     sha: options.sha,
     fork: slot.fork,
     committer: { name: me.name, email: me.email },
+    notes: [`Fixes #${options.issue}`],
     trailers: [
       `Fixed-by: ${options.agent}, hired after tryout #${record.tryout}`,
       `Probation: ${count} of ${config.probation}`,

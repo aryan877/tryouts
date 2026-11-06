@@ -10,6 +10,10 @@ export const STATE_FILE = join(DEMO, "state.json");
 export const WEB_ENV = join(ROOT, "apps/web/.env.local");
 
 export const ORIGIN = join(DEMO, "origin/tinychunk.git");
+export const REPOSITORY = process.env.TRYOUTS_REPOSITORY || ORIGIN;
+export const GITHUB_REPO =
+  /^https:\/\/github\.com\/([^/]+\/[^/]+?)(?:\.git)?$/.exec(REPOSITORY)?.[1] ?? null;
+export const MIRROR = join(DEMO, "mirror/tinychunk.git");
 export const ARJUN = join(DEMO, "arjun");
 export const BIN_DIR = join(ARJUN, "bin");
 export const TRYOUTS_CONFIG = join(ARJUN, "tryouts/config.json");
@@ -23,4 +27,4 @@ export const CONTROLLER_BIN = join(
   ".tools/controller/node_modules/.bin/switch-agent-controller",
 );
 
-export const MODEL = process.env.TRYOUTS_MODEL ?? "opencode-go/deepseek-v4.1-flash";
+export const MODEL = process.env.TRYOUTS_MODEL ?? "opencode-go/claude-haiku-5-5";

@@ -39,6 +39,11 @@ params:
     type: boolean
     default: false
     description: Try out Codex
+  codex_model:
+    type: string
+    default: gpt-6-luna
+    description: The Codex model; it must be one your Codex login may use
+    input: advanced
   with_opencode:
     type: boolean
     default: false
@@ -110,6 +115,7 @@ resources:
     display_name: "Codex · #{issue}"
     description: "Trying out for the bug-fixer job on #{issue}"
     provider: codex
+    model: "{codex_model}"
     machine: "{machine}"
     directory: "{bench}/codex"
     auto_mode: true

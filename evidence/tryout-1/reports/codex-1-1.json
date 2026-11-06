@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "repo": "https://github.com/aryan877/tinychunk.git",
+  "fork": "/Users/aryankumar/switch-hackathon/handshake/.demo/arjun/bench/codex/issue-1",
+  "head": {
+    "ref": "tryout/codex-1",
+    "sha": "b333b1b4358eaa30a8c167c47d9a5717f08c591e"
+  },
+  "base": {
+    "ref": "main",
+    "sha": "b001242ad8745fb6d836c6c15b05b77a7da35c9e"
+  },
+  "verdict": "verified",
+  "sandboxed": true,
+  "checks": [
+    {
+      "id": "up-to-date",
+      "title": "Based on the latest base",
+      "passed": true,
+      "detail": "Contains main @ b001242, so the merge is exactly what was tested"
+    },
+    {
+      "id": "has-regression-test",
+      "title": "Has a regression test",
+      "passed": true,
+      "detail": "test/chunk.test.ts"
+    },
+    {
+      "id": "in-scope",
+      "title": "Stays in scope",
+      "passed": true,
+      "detail": "2 file(s), all inside src/, test/"
+    },
+    {
+      "id": "fix-passes",
+      "title": "Fix passes",
+      "passed": true,
+      "detail": "`bun test` exits 0 on the branch",
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) keeps the last partial chunk\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n\n 6 pass\n 0 fail\n 7 expect() calls\nRan 6 tests across 2 files. [15.00ms]"
+    },
+    {
+      "id": "test-catches-bug",
+      "title": "Test catches the bug",
+      "passed": true,
+      "detail": "The new tests fail on the base without the fix (`bun test` exits 1)",
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n\ntest/chunk.test.ts:\n(pass) splits evenly\n 7 |     [3, 4],\n 8 |   ]);\n 9 | });\n10 | \n11 | test(\"keeps the last partial chunk\", () => {\n12 |   expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([\n                                         ^\nerror: expect(received).toEqual(expected)\n\n  [\n    [\n      1,\n      2,\n    ],\n    [\n      3,\n      4,\n    ],\n-   [\n-     5,\n-   ],\n  ]\n\n- Expected  - 3\n+ Received  + 0\n\n      at <anonymous> (/work/test/chunk.test.ts:12:37)\n(fail) keeps the last partial chunk\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n\n 5 pass\n 1 fail\n 7 expect() calls\nRan 6 tests across 2 files. [15.00ms]"
+    }
+  ],
+  "changed": {
+    "tests": [
+      "test/chunk.test.ts"
+    ],
+    "source": [
+      "src/chunk.ts"
+    ],
+    "deleted": [],
+    "outOfScope": []
+  },
+  "durationMs": 1805,
+  "digest": "sha256:c27b500628d5cc19bbd38c5240a5071803242912aea26b25f46db1070e363d03"
+}

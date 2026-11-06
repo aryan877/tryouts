@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoMark } from "./logo";
+import { Button } from "@/components/ui/button";
 
 export function EmptyState({
   title,
@@ -12,17 +12,13 @@ export function EmptyState({
 }) {
   return (
     <div className="container-page py-24">
-      <div className="screen mx-auto flex max-w-xl flex-col items-start gap-4 rounded-panel p-8">
-        <LogoMark size={28} />
-        <h1 className="h2 text-screen-ink">{title}</h1>
-        <p className="text-[15px] leading-[22px] text-screen-ink-2">{body}</p>
+      <div className="card mx-auto flex max-w-lg flex-col items-center gap-3 px-8 py-12 text-center">
+        <h1 className="text-heading-24">{title}</h1>
+        <p className="text-copy-14 text-gray-900">{body}</p>
         {action && (
-          <Link
-            href={action.href}
-            className="inline-flex h-10 items-center rounded-control bg-screen-ink px-4 text-[14px] font-semibold text-screen"
-          >
-            {action.label}
-          </Link>
+          <Button asChild variant="secondary" className="mt-3">
+            <Link href={action.href}>{action.label}</Link>
+          </Button>
         )}
       </div>
     </div>

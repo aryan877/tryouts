@@ -66,3 +66,19 @@ export async function latest(config: Config, slot: Slot): Promise<Checked | null
   );
   return known ?? check(config, slot);
 }
+
+export async function pending(
+  config: Config,
+  agents: { name: string }[],
+  tryout: number,
+): Promise<string[]> {
+  const waiting = await Promise.all(
+    agents.map(async ({ name }) => {
+      const slot = slotOf(config, name, tryout);
+      const head = await headOf(slot);
+      const carded = head && (await history(slot)).some((c) => c.report.head.sha === head);
+      return carded ? null : name;
+    }),
+  );
+  return waiting.filter((name): name is string => name !== null);
+}

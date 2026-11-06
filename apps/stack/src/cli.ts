@@ -1,10 +1,11 @@
 #!/usr/bin/env bun
 import { rm } from "node:fs/promises";
 import { chatPlan } from "./chat";
-import { DEMO, ISSUES, MATTERMOST_URL, PEOPLE, ROOMS, TRYOUTS_CONFIG } from "./config";
+import { DEMO, ISSUES, MATTERMOST_URL, PEOPLE, REPOSITORY, ROOMS, TRYOUTS_CONFIG } from "./config";
 import { stop } from "./controllers";
 import { e2e } from "./e2e";
 import { infraDown, infraUp } from "./infra";
+import { publishGithub } from "./repos";
 import { retireRooms, seed } from "./seed";
 import { loadState } from "./state";
 
@@ -21,7 +22,8 @@ const commands: Record<string, () => Promise<void>> = {
   Mattermost         ${MATTERMOST_URL.replace("127.0.0.1", "localhost")}
     ${PEOPLE.lead.chat} / ${passwords.lead}   (${PEOPLE.lead.role})
     ${PEOPLE.community.chat} / ${passwords.community}   (${PEOPLE.community.role})
-  Post a job         @hiring we need a bug fixer. Hold a tryout on #12 with Claude Code, Codex and OpenCode.
+  Repository         ${REPOSITORY}
+  Post a job         @hiring we need a bug fixer. Hold a tryout on #${ISSUES.tryout.number} with Claude Code, Codex and OpenCode.
   Full run           bun run e2e
 `);
   },
@@ -36,6 +38,7 @@ const commands: Record<string, () => Promise<void>> = {
     await rm(DEMO, { recursive: true, force: true });
   },
   e2e,
+  github: publishGithub,
   async record() {
     process.env.TRYOUTS_CONFIG = TRYOUTS_CONFIG;
     const { record } = await import("./record");

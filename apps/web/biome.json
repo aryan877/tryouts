@@ -9,18 +9,5 @@
     "parser": {
       "tailwindDirectives": true
     }
-  },
-  "overrides": [
-    {
-      "includes": ["components/tryouts/tower.tsx"],
-      "linter": {
-        "rules": {
-          "a11y": {
-            "useSemanticElements": "off",
-            "useFocusableInteractive": "off"
-          }
-        }
-      }
-    }
-  ]
+  }
 }

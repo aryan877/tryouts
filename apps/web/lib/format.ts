@@ -1,11 +1,10 @@
-const pad = (n: number, width = 2) => String(n).padStart(width, "0");
+const pad = (n: number) => String(n).padStart(2, "0");
 
-export function elapsed(seconds: number): string {
-  const tenths = Math.max(0, Math.floor(seconds * 10));
-  const s = Math.floor(tenths / 10);
-  if (s >= 3_600)
-    return `${Math.floor(s / 3_600)}:${pad(Math.floor((s % 3_600) / 60))}:${pad(s % 60)}`;
-  return `${Math.floor(s / 60)}:${pad(s % 60)}.${tenths % 10}`;
+export function duration(seconds: number): string {
+  const s = Math.max(0, Math.round(seconds));
+  if (s < 60) return `${s}s`;
+  if (s < 3_600) return `${Math.floor(s / 60)}m ${pad(s % 60)}s`;
+  return `${Math.floor(s / 3_600)}h ${pad(Math.floor((s % 3_600) / 60))}m`;
 }
 
 export function tokens(n: number): string {
@@ -17,14 +16,9 @@ export function tokens(n: number): string {
 
 export const dollars = (usd: number) => (usd < 0.01 ? "<$0.01" : `$${usd.toFixed(2)}`);
 
-export const diff = (d: { added: number; removed: number }) => `+${d.added} −${d.removed}`;
-
 export const sha7 = (sha: string) => sha.slice(0, 7);
 
-export function digestShort(digest: string): string {
-  const hex = digest.replace(/^sha256:/, "");
-  return `sha256:${hex.slice(0, 4)}…${hex.slice(-4)}`;
-}
+export const hexOf = (digest: string) => digest.replace(/^sha256:/, "");
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -33,21 +27,18 @@ export function clock(iso: string): string {
   return `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
 }
 
-export function shortClock(iso: string): string {
-  return clock(iso).slice(0, 5);
+export function day(iso: string): string {
+  const d = new Date(iso);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
-export function day(iso: string, year = true): string {
-  const d = new Date(iso);
-  const text = `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
-  return year ? `${text} ${d.getUTCFullYear()}` : text;
-}
-
-export function stampDate(iso: string): string {
-  const d = new Date(iso);
-  return `${pad(d.getUTCDate())} ${MONTHS[d.getUTCMonth()]?.toUpperCase()} ${d.getUTCFullYear()}`;
-}
+export const when = (iso: string) => `${day(iso)}, ${clock(iso).slice(0, 5)} UTC`;
 
 export const ms = (iso: string) => Date.parse(iso);
 
 export const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
+
+export function list(items: string[]): string {
+  if (items.length <= 2) return items.join(" and ");
+  return `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`;
+}

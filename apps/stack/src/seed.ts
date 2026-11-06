@@ -1,15 +1,15 @@
 import { join } from "node:path";
 import { type Gateway, HttpError, type Mattermost } from "@tryouts/switch";
-import { chatPlan, claimOnApp, ensureBridges } from "./chat";
+import { chatPlan, claimOnApp, ensureBridges, freeSlackNames } from "./chat";
 import {
   AGENTS,
   ARJUN,
   BIN_DIR,
   MACHINE,
   MODEL,
-  ORIGIN,
   PEOPLE,
   type PersonKey,
+  REPOSITORY,
   ROOMS,
   SWITCH_URL,
   TRYOUTS_CONFIG,
@@ -57,7 +57,7 @@ export async function seed(): Promise<void> {
   await writeConfig(TRYOUTS_CONFIG, {
     switch: { url: SWITCH_URL, email: PEOPLE.lead.email, password: state.passwords.lead },
     admin: { email: env.GATEWAY_ADMIN_EMAIL, password: env.GATEWAY_ADMIN_PASSWORD },
-    repository: ORIGIN,
+    repository: REPOSITORY,
     bench: folders.bench,
     rooms: ROOMS,
   });
@@ -74,7 +74,7 @@ export async function seed(): Promise<void> {
   step(`${PEOPLE.lead.name} saves the tryout template and runs the team template`);
   await saveTemplate(arjun, TEMPLATE.tryout);
   await runOnce(arjun, TEMPLATE.team, () => hasAgent(arjun, AGENTS.hiring.name), {
-    repository: ORIGIN,
+    repository: REPOSITORY,
     team_app: plan.lead.displayName,
     bench: folders.bench,
     hiring_directory: folders.hiring,
@@ -158,6 +158,7 @@ export async function retireRooms(): Promise<void> {
   if (rooms.length === 0) return;
   step("Retiring the Tryouts channels");
   for (const room of rooms) await admin.gateway.deleteRoom(room.id).catch(ignore(404));
+  await freeSlackNames(rooms.map((room) => room.name));
 }
 
 const ignore =

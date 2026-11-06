@@ -72,6 +72,22 @@ test("a verified branch is merged at the approved commit, with the digest record
   expect(await git(origin, "log", "-1", "--format=%B", "main")).toContain(report.digest);
 });
 
+test("notes stay above the trailers, so both the issue link and every trailer survive", async () => {
+  const { origin, tip } = await upstream();
+  const { report } = await merge({
+    repo: origin,
+    committer,
+    head: "fix",
+    sha: await tip("fix"),
+    notes: ["Fixes #1"],
+    trailers: ["Hired: codex-1"],
+  });
+  expect(await git(origin, "log", "-1", "--format=%b", "main")).toStartWith("Fixes #1\n\n");
+  expect(await git(origin, "log", "-1", "--format=%(trailers:only,unfold)", "main")).toBe(
+    `Referee: ${report.digest}\nHired: codex-1`,
+  );
+});
+
 test("a contributor's fork is verified and merged without write access to origin", async () => {
   const { root, origin, tip } = await upstream();
   const fork = join(root, "fork.git");

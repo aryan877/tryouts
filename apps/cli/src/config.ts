@@ -41,7 +41,7 @@ export async function loadConfig(): Promise<Config> {
   const config = (await file.json()) as Partial<Config>;
   return {
     rooms: { hiring: "hiring", bugs: "bugs" },
-    budget: { outputTokens: 60_000, periodHours: 24 },
+    budget: { outputTokens: 200_000, periodHours: 24 },
     probation: 3,
     ...config,
     prices: { ...DEFAULT_PRICES, ...config.prices },

@@ -1,0 +1,103 @@
+{
+  "agent": "opencode-1",
+  "label": "OpenCode deepseek-v4.1-flash",
+  "repository": "https://github.com/aryan877/tinychunk.git",
+  "tryout": 1,
+  "hiredAt": "2026-11-06T15:00:34.636Z",
+  "hiredBy": "Arjun",
+  "hire": {
+    "issue": 1,
+    "sha": "9cdd5ef69128706af6bb83782c7d6281177a1b07",
+    "merged": "77f2f2d1f4b01dad9acf439fdeb4b5c6252077eb",
+    "digest": "sha256:464dacaac98977885917c712e170fde3eae40007100a45c9ac7845480635c63c",
+    "approval": "per_1b160143e001KqF2whwC3T8oi7",
+    "at": "2026-11-06T15:00:34.636Z"
+  },
+  "board": [
+    {
+      "agent": "opencode-1",
+      "vendor": "opencode",
+      "model": "opencode-go/deepseek-v4.1-flash",
+      "createdAt": "2026-11-06 14:58:21.030856+00:00",
+      "label": "OpenCode deepseek-v4.1-flash",
+      "verdict": "verified",
+      "failed": [],
+      "sha": "9cdd5ef69128706af6bb83782c7d6281177a1b07",
+      "digest": "sha256:464dacaac98977885917c712e170fde3eae40007100a45c9ac7845480635c63c",
+      "seconds": 35.97,
+      "tally": {
+        "input": 46023,
+        "output": 1164,
+        "cacheRead": 435968,
+        "cacheWrite": 0,
+        "cost": 0.028282739999999997
+      },
+      "counted": true,
+      "budget": {
+        "spent": 1164,
+        "limit": 200000,
+        "exhausted": false
+      }
+    },
+    {
+      "agent": "codex-1",
+      "vendor": "codex",
+      "model": "gpt-6-luna",
+      "createdAt": "2026-11-06 14:58:21.247918+00:00",
+      "label": "Codex gpt-6-luna",
+      "verdict": "verified",
+      "failed": [],
+      "sha": "b333b1b4358eaa30a8c167c47d9a5717f08c591e",
+      "digest": "sha256:c27b500628d5cc19bbd38c5240a5071803242912aea26b25f46db1070e363d03",
+      "seconds": 86.753,
+      "tally": {
+        "input": 53490,
+        "output": 3443,
+        "cacheRead": 745088,
+        "cacheWrite": 0,
+        "cost": 0.1944285
+      },
+      "counted": true,
+      "budget": {
+        "spent": 3443,
+        "limit": 200000,
+        "exhausted": false
+      }
+    },
+    {
+      "agent": "claude-1",
+      "vendor": "claude",
+      "model": null,
+      "createdAt": "2026-11-06 14:58:21.429517+00:00",
+      "label": "Claude Code",
+      "verdict": "verified",
+      "failed": [],
+      "sha": "0ac45805d881116472c31439c2bfd65285863c79",
+      "digest": "sha256:7037ac83847e82841e46b7f4afb372c1f1a4cdd5c3fe6505efa0859e3ae03bab",
+      "seconds": 33.571,
+      "tally": {
+        "input": 1562,
+        "output": 1583,
+        "cacheRead": 338826,
+        "cacheWrite": 30916,
+        "cost": 0.410023
+      },
+      "counted": true,
+      "budget": {
+        "spent": 1583,
+        "limit": 200000,
+        "exhausted": false
+      }
+    }
+  ],
+  "probation": [
+    {
+      "issue": 2,
+      "sha": "4126511ab024f6b609db4a384a93c8b9d4d5f57d",
+      "merged": "27446f3c6095b9aa65cb143f4b9c80b473a8cb0b",
+      "digest": "sha256:e7416efac6ea0073ada0cfed74b62ba5960bf8529eefe32f74946b3dd2bae928",
+      "approval": "per_1b161642e001Ylzau1fAJnXWFf",
+      "at": "2026-11-06T15:02:01.260Z"
+    }
+  ]
+}

@@ -16,6 +16,7 @@ const entry = (agent: string, overrides: Partial<Entry>): Entry => ({
   digest: "sha256:x",
   seconds: 300,
   tally: zero,
+  counted: true,
   budget: null,
   ...overrides,
 });
@@ -76,6 +77,19 @@ describe("renderBoard", () => {
     expect(text).toContain("1. **codex-12** · Codex · ✅ VERIFIED · 5m 00s");
     expect(text).toContain("2. **claude-12** · OpenCode · ❌ REFUTED: test catches the bug");
     expect(text).toContain("Suggested hire: **codex-12**");
+  });
+
+  test("withholds a suggestion while a verified candidate's tokens are uncounted", () => {
+    const text = renderBoard(1, [
+      entry("opencode-1", { tally: { ...zero, cost: 0.03 } }),
+      entry("codex-1", { counted: false }),
+    ]);
+    expect(text).toContain("1. **opencode-1**");
+    expect(text).toContain(
+      "2. **codex-1** · OpenCode · ✅ VERIFIED · 5m 00s · tokens not counted yet",
+    );
+    expect(text).toContain("No suggestion yet: Switch has not counted codex-1's tokens");
+    expect(text).not.toContain("Suggested hire");
   });
 
   test("suggests nobody when nothing is verified", () => {

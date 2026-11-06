@@ -12,6 +12,7 @@ export interface MergeOptions {
   committer: { name: string; email: string };
   base?: string;
   fork?: string;
+  notes?: string[];
   trailers?: string[];
 }
 
@@ -28,6 +29,7 @@ export async function merge({
   committer,
   base = "main",
   fork,
+  notes = [],
   trailers = [],
 }: MergeOptions): Promise<MergeResult> {
   if (!/^[0-9a-f]{40}$/.test(sha)) {
@@ -56,6 +58,7 @@ export async function merge({
       "--no-ff",
       "-m",
       `Merge ${head}`,
+      ...notes.flatMap((note) => ["-m", note]),
       "-m",
       [`Referee: ${report.digest}`, ...trailers].join("\n"),
       report.head.sha,

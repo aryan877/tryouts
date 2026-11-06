@@ -2,10 +2,11 @@
 import { homedir } from "node:os";
 import { renderCard, verify } from "@tryouts/referee";
 import { parseFlags } from "./args";
-import { check, slotOf } from "./bench";
-import { collect, renderBoard } from "./board";
+import { check, pending, slotOf } from "./bench";
+import { candidatesOf, collect, renderBoard, uncounted } from "./board";
 import { loadConfig, signIn } from "./config";
 import { budget, hire, hireOf, probation } from "./hire";
+import { nextSteps } from "./next";
 
 const USAGE = `tryouts verify --agent <name> --issue <n>
 tryouts verify --repo <repository> --head <branch> [--fork <folder>] [--base <commit>]
@@ -40,7 +41,16 @@ async function main([command, ...argv]: string[]): Promise<{ text: string; ok: b
         };
       }
       const { report } = await check(config, slot);
-      return { text: renderCard(report), ok: report.verdict === "verified" };
+      const { owner } = await signIn(config);
+      const waiting = await pending(
+        config,
+        candidatesOf(await owner.agents(), slot.tryout),
+        slot.tryout,
+      );
+      return {
+        text: `${renderCard(report)}\n\n${nextSteps(slot, report, waiting)}`,
+        ok: report.verdict === "verified",
+      };
     }
     case "board": {
       const { issue } = parseFlags(argv, ["issue"]);
@@ -53,8 +63,12 @@ async function main([command, ...argv]: string[]): Promise<{ text: string; ok: b
           ok: true,
         };
       }
-      const entries = await collect(config, await signIn(config), Number(issue));
-      return { text: renderBoard(Number(issue), entries), ok: true };
+      const entries = await collect(config, await signIn(config), Number(issue), 180_000);
+      const settled = uncounted(entries).length === 0;
+      const close = settled
+        ? `@hiring the scoreboard for #${issue} is in.`
+        : `Next: run \`tryouts board --issue ${issue}\` again in a minute.`;
+      return { text: `${renderBoard(Number(issue), entries)}\n\n${close}`, ok: true };
     }
     case "budget": {
       const { issue } = parseFlags(argv, ["issue"]);
