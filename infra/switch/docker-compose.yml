@@ -67,7 +67,7 @@ services:
 
   switch:
     # The arm64 build's cryptography extension dies with SIGILL on Apple M4 Docker.
-    platform: linux/amd64
+    platform: ${SWITCH_PLATFORM:-linux/amd64}
     image: ghcr.io/sandbox-quantum/switch-core:${SWITCH_VERSION}
     ports:
       - "127.0.0.1:${API_HOST_PORT:-8000}:8000"
@@ -99,7 +99,7 @@ services:
         condition: service_completed_successfully
 
   setup:
-    platform: linux/amd64
+    platform: ${SWITCH_PLATFORM:-linux/amd64}
     image: ghcr.io/sandbox-quantum/setup:${SWITCH_VERSION}
     restart: on-failure
     environment:

@@ -4,7 +4,7 @@ import { history, slotOf } from "@tryouts/cli/bench";
 import { collect, type Entry, rank, tenantOf } from "@tryouts/cli/board";
 import { type Config, loadConfig, PRICES_AS_OF, STATE_DIR, signIn } from "@tryouts/cli/config";
 import { type Fix, type HireRecord, loadRecord } from "@tryouts/cli/hire";
-import { ISSUES, MACHINE, PEOPLE, type PersonKey, ROOMS } from "@tryouts/kit";
+import { ISSUES, PEOPLE, type PersonKey, ROOMS } from "@tryouts/kit";
 import type {
   App,
   Approval,
@@ -18,7 +18,7 @@ import { git, type ProofReport } from "@tryouts/referee";
 import { type ApprovalRecord, type ChatMessage, Gateway } from "@tryouts/switch";
 import { brief } from "./brief";
 import { chatPlan } from "./chat";
-import { ROOT, SWITCH_URL } from "./config";
+import { MACHINE, ROOT, SWITCH_URL } from "./config";
 import { mirror } from "./repos";
 import { step } from "./shell";
 import { loadState } from "./state";

@@ -41,7 +41,7 @@ params:
     description: Try out Codex
   codex_model:
     type: string
-    default: gpt-6-luna
+    default: gpt-5.6-luna
     description: The Codex model; it must be one your Codex login may use
     input: advanced
   with_opencode:
@@ -116,6 +116,9 @@ resources:
     description: "Trying out for the bug-fixer job on #{issue}"
     provider: codex
     model: "{codex_model}"
+    advanced_config:
+      effort: none
+      verbosity: low
     machine: "{machine}"
     directory: "{bench}/codex"
     auto_mode: true

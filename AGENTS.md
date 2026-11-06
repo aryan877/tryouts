@@ -36,8 +36,8 @@
 - `TRYOUTS_REPOSITORY=https://github.com/<owner>/<repo>.git` points the stack at a real GitHub repo;
   `bun run demo github` creates or resets it to tinychunk 1.0.0 with issues #1 and #2 open. Merges
   carry `Fixes #N`, so GitHub closes the issue. `TRYOUTS_LINEUP=all` makes `bun run e2e` try Claude
-  Code, Codex and OpenCode; the default is two OpenCode models. Codex runs `gpt-6-luna`, a model a
-  ChatGPT login may use.
+  Code, Codex and OpenCode; the default is two OpenCode models. Codex runs `gpt-5.6-luna` with reasoning
+  effort `none`: the cheapest model a ChatGPT login may use, to spare the owner's ChatGPT Go limit.
 - Say only what Switch enforces: an agent cannot add itself to a room its owner does not own, but any
   person in a room can `!invite-agent`; deletion needs the owner's or an admin's confirm; approval
   cards are answered by the agent's owner. Usage is counted when a turn ends; dollars are estimates.

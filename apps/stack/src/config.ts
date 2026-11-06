@@ -1,6 +1,10 @@
 import { join, resolve } from "node:path";
 
-export { AGENTS, ALIAS, ISSUES, MACHINE, PEOPLE, type PersonKey, ROOMS } from "@tryouts/kit";
+import { MACHINE as LAPTOP } from "@tryouts/kit";
+
+export { AGENTS, ALIAS, ISSUES, PEOPLE, type PersonKey, ROOMS } from "@tryouts/kit";
+
+export const MACHINE = process.env.TRYOUTS_MACHINE || LAPTOP;
 
 export const ROOT = resolve(import.meta.dir, "../../..");
 export const DEMO = join(ROOT, ".demo");
