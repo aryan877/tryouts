@@ -1,0 +1,14 @@
+[
+  {
+    "id": "99173d52-2f7a-4128-82ab-701b462b5d77",
+    "agent_id": "c6e23ec3-4daa-40c7-a87e-678e7792b440",
+    "agent_name": "opencode2-12",
+    "metric": "output_tokens",
+    "model": "",
+    "amount_limit": 60000,
+    "period_hours": 24,
+    "spent": 3998,
+    "resets_at": "2026-11-07T00:00:00Z",
+    "exhausted": false
+  }
+]

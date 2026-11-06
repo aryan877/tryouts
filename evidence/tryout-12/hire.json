@@ -1,0 +1,76 @@
+{
+  "agent": "opencode2-12",
+  "label": "OpenCode qwen3.8-flash",
+  "repository": "/Users/aryankumar/switch-hackathon/handshake/.demo/origin/tinychunk.git",
+  "tryout": 12,
+  "hiredAt": "2026-11-06T06:12:35.491Z",
+  "hiredBy": "Arjun",
+  "hire": {
+    "issue": 12,
+    "sha": "aa204ffbb16340013bcf8c439f6c167ebb35209b",
+    "merged": "181c672cba2be3b079be02fd837b53a54bf2b9b6",
+    "digest": "sha256:dd8041daf197dda0a0bf609dc50ed71a2c3903e20f41e12588498b3ee0408a6d",
+    "approval": "per_1af7cc67e001lSiU5Hy3eMYxCr",
+    "at": "2026-11-06T06:12:35.491Z"
+  },
+  "board": [
+    {
+      "agent": "opencode2-12",
+      "vendor": "opencode2",
+      "model": "opencode-go/qwen3.8-flash",
+      "createdAt": "2026-11-06 06:07:39.985016+00:00",
+      "label": "OpenCode qwen3.8-flash",
+      "verdict": "verified",
+      "failed": [],
+      "sha": "aa204ffbb16340013bcf8c439f6c167ebb35209b",
+      "digest": "sha256:dd8041daf197dda0a0bf609dc50ed71a2c3903e20f41e12588498b3ee0408a6d",
+      "seconds": 36.015,
+      "tally": {
+        "input": 60,
+        "output": 1606,
+        "cacheRead": 536630,
+        "cacheWrite": 63100,
+        "cost": 0.0180441
+      },
+      "budget": {
+        "spent": 1606,
+        "limit": 60000,
+        "exhausted": false
+      }
+    },
+    {
+      "agent": "opencode-12",
+      "vendor": "opencode",
+      "model": "opencode-go/deepseek-v4.1-flash",
+      "createdAt": "2026-11-06 06:07:40.153616+00:00",
+      "label": "OpenCode deepseek-v4.1-flash",
+      "verdict": "verified",
+      "failed": [],
+      "sha": "354066abb764bfcc058d4d157b46bf54e95db09f",
+      "digest": "sha256:700cdecdd441edda2da8f2e3a79f7e113b5db47943d947226e67ec1c90ad01d4",
+      "seconds": 65.847,
+      "tally": {
+        "input": 49272,
+        "output": 1183,
+        "cacheRead": 429696,
+        "cacheWrite": 0,
+        "cost": 0.02909208
+      },
+      "budget": {
+        "spent": 1183,
+        "limit": 60000,
+        "exhausted": false
+      }
+    }
+  ],
+  "probation": [
+    {
+      "issue": 13,
+      "sha": "e9a002a1594cc3048a3dd8ef49d7a35b6cc13708",
+      "merged": "d40efd9279e774c273dd9c55d879c688c0432f33",
+      "digest": "sha256:efd9d48de463f6c13edbf82de1316ed8d2744771192d71fd546b416552685748",
+      "approval": "per_1af7e8f4f001RlHui5yiR6GZq3",
+      "at": "2026-11-06T06:14:32.519Z"
+    }
+  ]
+}
