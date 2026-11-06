@@ -1,0 +1,123 @@
+# Switch server, bundled Mattermost and the Mattermost seeder, from Switch's
+# published images. Trimmed from sandbox-quantum/switch
+# deploy/local/standalone-docker-compose.yml (Apache-2.0 with Commons Clause).
+name: tryouts
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "127.0.0.1:${POSTGRES_HOST_PORT:-5433}:5432"
+    environment:
+      POSTGRES_USER: ${DB_OWNER_USER}
+      POSTGRES_PASSWORD: ${DB_OWNER_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_OWNER_USER}"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  init-db:
+    image: postgres:16-alpine
+    environment:
+      PGPASSWORD: ${DB_OWNER_PASSWORD}
+    entrypoint: >
+      sh -c "
+        psql -h postgres -U ${DB_OWNER_USER} -d postgres -tc \"SELECT 1 FROM pg_database WHERE datname='mattermost'\" | grep -q 1 ||
+          psql -h postgres -U ${DB_OWNER_USER} -d postgres -c 'CREATE DATABASE mattermost;'
+        psql -h postgres -U ${DB_OWNER_USER} -d postgres -tc \"SELECT 1 FROM pg_roles WHERE rolname='${DB_USER}'\" | grep -q 1 ||
+          psql -h postgres -U ${DB_OWNER_USER} -d postgres -c 'CREATE ROLE \"${DB_USER}\" LOGIN PASSWORD '\\''${DB_PASSWORD}'\\'' NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS;'
+        psql -h postgres -U ${DB_OWNER_USER} -d postgres -c 'ALTER ROLE \"${DB_USER}\" PASSWORD '\\''${DB_PASSWORD}'\\'';'
+      "
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  mattermost:
+    image: mattermost/mattermost-team-edition:11.9.0
+    platform: linux/amd64
+    ports:
+      - "127.0.0.1:${MATTERMOST_HOST_PORT:-8065}:8065"
+    volumes:
+      - mmdata:/mattermost/data
+    environment:
+      MM_SQLSETTINGS_DRIVERNAME: postgres
+      MM_SQLSETTINGS_DATASOURCE: postgres://${DB_OWNER_USER}:${DB_OWNER_PASSWORD}@postgres:5432/mattermost?sslmode=disable
+      MM_SERVICESETTINGS_SITEURL: http://localhost:${MATTERMOST_HOST_PORT:-8065}
+      MM_SERVICESETTINGS_ENABLELOCALMODE: "true"
+      MM_SERVICESETTINGS_ENABLEONBOARDINGFLOW: "false"
+      MM_SERVICESETTINGS_ENABLEBOTACCOUNTCREATION: "true"
+      MM_SERVICESETTINGS_ENABLEUSERACCESSTOKENS: "true"
+      MM_SERVICESETTINGS_ALLOWEDUNTRUSTEDINTERNALCONNECTIONS: switch
+      MM_TEAMSETTINGS_ENABLEOPENSERVER: "true"
+      MM_TEAMSETTINGS_TEAMMATENAMEDISPLAY: "full_name"
+      MM_LOGSETTINGS_ENABLEDIAGNOSTICS: "false"
+      MM_SERVICESETTINGS_ENABLESECURITYFIXALERT: "false"
+      MM_ANNOUNCEMENTSETTINGS_ADMINNOTICESENABLED: "false"
+      MM_ANNOUNCEMENTSETTINGS_USERNOTICESENABLED: "false"
+      MM_PLUGINSETTINGS_ENABLEREMOTEMARKETPLACE: "false"
+      MM_PLUGINSETTINGS_PLUGINSTATES: |
+        {"mattermost-ai":{"Enable":false},"com.mattermost.calls":{"Enable":false}}
+    depends_on:
+      init-db:
+        condition: service_completed_successfully
+
+  switch:
+    # The arm64 build's cryptography extension dies with SIGILL on Apple M4 Docker.
+    platform: linux/amd64
+    image: ghcr.io/sandbox-quantum/switch-core:${SWITCH_VERSION}
+    ports:
+      - "127.0.0.1:${API_HOST_PORT:-8000}:8000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_OWNER_USER: ${DB_OWNER_USER}
+      DB_OWNER_PASSWORD: ${DB_OWNER_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      ID_SERVER_NAME: localhost
+      AGENT_REGISTRATION_TOKEN: ${AGENT_REGISTRATION_TOKEN}
+      SECRET_KEYS: ${SECRET_KEYS}
+      FEATURE_FLAGS_ENABLED: agent_management
+      CONTROLLER_TOKEN_SECRET: ${CONTROLLER_TOKEN_SECRET}
+      GATEWAY_COOKIE_SECURE: "false"
+      OUTBOUND_ALLOWED_PRIVATE_HOSTS: mattermost
+      GATEWAY_ADMIN_EMAIL: ${GATEWAY_ADMIN_EMAIL}
+      GATEWAY_ADMIN_PASSWORD: ${GATEWAY_ADMIN_PASSWORD}
+      FRONTEND_BASE_URL: http://localhost:${API_HOST_PORT:-8000}
+      THIRD_PARTY_AVATARS_ENABLED: "false"
+      DISABLED_SERVICES:
+      SERVICE_ACCESS_PROFILES:
+    depends_on:
+      postgres:
+        condition: service_healthy
+      init-db:
+        condition: service_completed_successfully
+
+  setup:
+    platform: linux/amd64
+    image: ghcr.io/sandbox-quantum/setup:${SWITCH_VERSION}
+    restart: on-failure
+    environment:
+      SWITCH_URL: http://switch:8000
+      MATTERMOST_URL: http://mattermost:8065
+      MATTERMOST_URL_FOR_SWITCH: http://mattermost:8065
+      MATTERMOST_CALLBACK_BASE_URL: http://switch:8081
+      MATTERMOST_ADMIN_USER: ${MATTERMOST_ADMIN_USER}
+      MATTERMOST_ADMIN_PASSWORD: ${MATTERMOST_ADMIN_PASSWORD}
+      MATTERMOST_TEAM_NAME: ${MATTERMOST_TEAM_NAME}
+      MATTERMOST_USER: ${MATTERMOST_USER}
+      MATTERMOST_USER_PASSWORD: ${MATTERMOST_USER_PASSWORD}
+      GATEWAY_ADMIN_EMAIL: ${GATEWAY_ADMIN_EMAIL}
+      GATEWAY_ADMIN_PASSWORD: ${GATEWAY_ADMIN_PASSWORD}
+    depends_on:
+      - mattermost
+      - switch
+
+volumes:
+  pgdata:
+  mmdata:

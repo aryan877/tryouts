@@ -1,0 +1,19 @@
+{
+  "name": "@tryouts/stack",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "tryouts-demo": "./src/cli.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "bun test src"
+  },
+  "dependencies": {
+    "@tryouts/cli": "workspace:*",
+    "@tryouts/kit": "workspace:*",
+    "@tryouts/referee": "workspace:*",
+    "@tryouts/switch": "workspace:*"
+  }
+}
