@@ -1,0 +1,351 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-raised: var(--raised);
+  --color-sunken: var(--sunken);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-on-ink: var(--on-ink);
+
+  --color-screen: var(--screen);
+  --color-screen-row: var(--screen-row);
+  --color-screen-line: var(--screen-line);
+  --color-screen-ink: var(--screen-ink);
+  --color-screen-ink-2: var(--screen-ink-2);
+  --color-screen-ink-3: var(--screen-ink-3);
+  --color-live: var(--live);
+
+  --color-go: var(--go);
+  --color-go-ink: var(--go-ink);
+  --color-go-tint: var(--go-tint);
+  --color-stop: var(--stop);
+  --color-stop-ink: var(--stop-ink);
+  --color-stop-tint: var(--stop-tint);
+  --color-on-stop: var(--on-stop);
+  --color-hold: var(--hold);
+  --color-hold-ink: var(--hold-ink);
+  --color-hold-tint: var(--hold-tint);
+  --color-best: var(--best);
+  --color-best-ink: var(--best-ink);
+  --color-best-tint: var(--best-tint);
+  --color-hire: var(--hire);
+  --color-hire-ink: var(--hire-ink);
+  --color-hire-tint: var(--hire-tint);
+
+  --color-bib-1: var(--bib-1);
+  --color-bib-2: var(--bib-2);
+  --color-bib-3: var(--bib-3);
+  --color-bib-4: var(--bib-4);
+
+  --color-background: var(--page);
+  --color-foreground: var(--ink);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-popover: var(--raised);
+  --color-popover-foreground: var(--ink);
+  --color-primary: var(--ink);
+  --color-primary-foreground: var(--on-ink);
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--ink);
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--ink-3);
+  --color-accent: var(--surface-2);
+  --color-accent-foreground: var(--ink);
+  --color-border: var(--line);
+  --color-input: var(--line-strong);
+  --color-ring: var(--ink);
+  --color-destructive: var(--stop);
+
+  --radius-chip: 4px;
+  --radius-control: 8px;
+  --radius-panel: 12px;
+  --radius-card: 16px;
+
+  --shadow-panel: var(--panel-shadow);
+  --shadow-raised: var(--raised-shadow);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+
+  --breakpoint-xs: 420px;
+}
+
+:root {
+  --page: #f2f3f5;
+  --surface: #ffffff;
+  --surface-2: #f7f8f9;
+  --raised: #ffffff;
+  --sunken: #e9ebee;
+  --line: #e1e4e8;
+  --line-strong: #c9ced6;
+  --ink: #0c0d10;
+  --ink-2: #464b55;
+  --ink-3: #636976;
+  --ink-4: #9aa0aa;
+  --on-ink: #ffffff;
+
+  --screen: #060709;
+  --screen-row: #101216;
+  --screen-line: #1e2127;
+  --screen-ink: #f5f6f7;
+  --screen-ink-2: #a9afba;
+  --screen-ink-3: #7a818d;
+  --live: #ff3b30;
+
+  --go: #12a150;
+  --go-ink: #0a7a3a;
+  --go-tint: #e2f5e9;
+  --stop: #d92d33;
+  --stop-ink: #b3202a;
+  --stop-tint: #fce8e8;
+  --on-stop: #ffffff;
+  --hold: #f2a60c;
+  --hold-ink: #8a5600;
+  --hold-tint: #fdf1d6;
+  --best: #8e4dff;
+  --best-ink: #6a2fd6;
+  --best-tint: #f1e9ff;
+  --hire: #e8b931;
+  --hire-ink: #8a6406;
+  --hire-tint: #fbf1d0;
+  --hire-foil: linear-gradient(135deg, #f9e7a1 0%, #e8b931 38%, #b8860b 62%, #f3d77a 100%);
+
+  --bib-1: #1f5eff;
+  --bib-1-ink: #ffffff;
+  --bib-2: #e8458b;
+  --bib-3: #0b93b0;
+  --bib-4: #ffffff;
+
+  --panel-shadow: 0 0 0 1px var(--line), 0 1px 2px rgb(12 13 16 / 0.04);
+  --raised-shadow:
+    0 0 0 1px var(--line), 0 8px 24px -8px rgb(12 13 16 / 0.18), 0 2px 4px rgb(12 13 16 / 0.04);
+
+  color-scheme: light;
+}
+
+.dark,
+.screen {
+  --page: #0a0b0d;
+  --surface: #121317;
+  --surface-2: #181a1f;
+  --raised: #1f2228;
+  --sunken: #07080a;
+  --line: #262930;
+  --line-strong: #353a43;
+  --ink: #f3f4f6;
+  --ink-2: #b4b9c3;
+  --ink-3: #858b96;
+  --ink-4: #5a606b;
+  --on-ink: #0c0d10;
+
+  --go: #30d158;
+  --go-ink: #6ee69a;
+  --go-tint: rgb(48 209 88 / 0.14);
+  --stop: #ff453a;
+  --stop-ink: #ff7d74;
+  --stop-tint: rgb(255 69 58 / 0.14);
+  --on-stop: #0c0d10;
+  --hold: #ffb224;
+  --hold-ink: #ffc963;
+  --hold-tint: rgb(255 178 36 / 0.14);
+  --best: #a87bff;
+  --best-ink: #c4a6ff;
+  --best-tint: rgb(168 123 255 / 0.16);
+  --hire: #f2c94c;
+  --hire-ink: #f7da7e;
+  --hire-tint: rgb(242 201 76 / 0.14);
+
+  --bib-1: #5b8bff;
+  --bib-1-ink: #0c0d10;
+  --bib-2: #ff6fae;
+  --bib-3: #34c8e6;
+  --bib-4: #f3f4f6;
+
+  --panel-shadow: 0 0 0 1px var(--line);
+  --raised-shadow: 0 0 0 1px var(--line-strong), 0 16px 40px -12px rgb(0 0 0 / 0.6);
+
+  color-scheme: dark;
+}
+
+.dark .screen.rounded-panel {
+  box-shadow: 0 0 0 1px var(--screen-line);
+}
+
+.screen {
+  --surface: var(--screen-row);
+  --surface-2: #15171c;
+  --line: var(--screen-line);
+  --ink: var(--screen-ink);
+  --ink-2: var(--screen-ink-2);
+  --ink-3: var(--screen-ink-3);
+  background-color: var(--screen);
+  color: var(--screen-ink);
+}
+
+@utility wdth-62 {
+  font-variation-settings: "wdth" 62;
+}
+@utility wdth-75 {
+  font-variation-settings: "wdth" 75;
+}
+@utility wdth-85 {
+  font-variation-settings: "wdth" 85;
+}
+@utility num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+@utility mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "zero" 1;
+  font-variation-settings: normal;
+}
+@utility caps {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variation-settings: "wdth" 85;
+}
+@utility h1 {
+  font-size: 30px;
+  line-height: 34px;
+  font-weight: 750;
+  letter-spacing: -0.015em;
+  font-variation-settings: "wdth" 85;
+  @media (width >= 48rem) {
+    font-size: 40px;
+    line-height: 44px;
+  }
+}
+@utility h2 {
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: 750;
+  letter-spacing: -0.012em;
+  font-variation-settings: "wdth" 85;
+  @media (width >= 48rem) {
+    font-size: 32px;
+    line-height: 36px;
+  }
+}
+@utility h3 {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+@utility container-page {
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (width >= 48rem) {
+    padding-inline: 24px;
+  }
+}
+@utility panel {
+  background-color: var(--surface);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--panel-shadow);
+}
+@utility hatch-stop {
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--stop) 18%, transparent) 0 2px,
+    transparent 2px 6px
+  );
+}
+@utility zebra {
+  background-image: repeating-linear-gradient(90deg, var(--ink) 0 2px, var(--surface) 2px 4px);
+}
+@utility muted {
+  --ink: var(--ink-3);
+  --ink-2: var(--ink-3);
+  color: var(--ink-3);
+}
+@utility foil {
+  background-image: var(--hire-foil);
+}
+
+@layer base {
+  * {
+    @apply border-line outline-ink/40;
+  }
+  html {
+    @apply font-sans antialiased;
+    scroll-padding-top: 72px;
+  }
+  body {
+    @apply min-h-dvh bg-page text-[15px] leading-[22px] text-ink;
+  }
+  ::selection {
+    @apply bg-hire/40;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes scan {
+  0%,
+  19.99% {
+    background-color: #ffb224;
+  }
+  20%,
+  100% {
+    background-color: #1a1d22;
+  }
+}
+@keyframes sheen {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+html[data-card-flip] [data-flipper] {
+  /* biome-ignore lint/complexity/noImportantStyles: must beat the inline transform set before hydration */
+  transform: rotateY(180deg) !important;
+}
+
+@utility animate-pulse-dot {
+  animation: pulse-dot 1.6s var(--ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-dot {
+    animation: none;
+  }
+}
