@@ -4,100 +4,110 @@
 
 # Tryouts
 
-**Don't pick your AI coding tool on vibes. Hold tryouts.**
+**Hire your AI coder like an employee.**
 
-Claude Code, Codex and OpenCode fix the same real bug. A plain-code referee checks every fix. The
-team lead hires the best one with one button in **Slack**, and the community's room in **Discord**
-has to let the hire in. One [Switch](https://github.com/sandbox-quantum/switch) workflow.
+Claude Code, Codex and OpenCode try out on the same real bug. A referee checks every fix with plain
+code. Your team lead hires the best one with one button in **Slack**, and your community lets it in
+on **Discord**. Built on [Switch](https://github.com/sandbox-quantum/switch).
 
 _Flip the Switch 2026 · Track 01, Best Business Workflow_
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/run-dark.png">
-  <img src="docs/images/run-light.png" alt="Tryout #1: Claude Code, Codex and OpenCode all verified by the referee; OpenCode hired as the cheapest verified fix, approved by Arjun">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/landing-dark.png">
+  <img src="docs/images/landing-light.png" alt="Tryouts: hire your AI coder like an employee. A Slack job post starts a tryout between Claude Code, Codex and OpenCode">
 </picture>
 
-**[Watch the 3-minute video](#)** · **[Open the board, no login](https://tryouts.aryankumar.dev)** · **[Check it yourself](JUDGES.md)**
+**[Watch the video](#)** · **[tryouts.aryankumar.dev](https://tryouts.aryankumar.dev)** · **[Set it up](#set-it-up-once)** · **[Check it yourself](JUDGES.md)**
 
 </div>
 
 ## The problem
 
-Teams pick an AI coding tool from a demo or a hunch, then live with it. Nobody runs them side by side
+Teams pick an AI coding tool from a demo or a hunch, then live with it. Nobody tests them side by side
 on their own code, with the same rules, and keeps the receipts.
 
-## The real run
+## How it works
 
-On [aryan877/tinychunk](https://github.com/aryan877/tinychunk), a small library with two planted bugs:
+| #   | Where         | What happens                                                                                                                                           |
+| --- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | Slack         | The team lead posts a job: _"@hiring we need a bug fixer. Hold a tryout on #1 with Claude Code, Codex and OpenCode."_                                  |
+| 2   | Switch        | The **hiring manager agent creates the three candidates itself**, each with its own private room.                                                      |
+| 3   | Switch        | Each candidate gets a **token budget**. Each one writes a test and a fix.                                                                              |
+| 4   | Referee       | Plain code runs the **same five checks** on every fix. The key one: the new test must fail without the fix. Then a scoreboard from **Switch usage**.   |
+| 5   | Slack, GitHub | The hire is an **"Allow once" button only the team lead can press**. It merges the exact checked code on GitHub and closes the issue.                  |
+| 6   | Discord       | The hire tries to join the community's #bugs. **Switch says no**: not the team lead's room. The community lets it in as `@bugfixer`. Probation 1 of 3. |
 
-| Candidate   | Fixed bug #1 | Referee   | Time | Est. cost | Outcome   |
-| ----------- | ------------ | --------- | ---- | --------- | --------- |
-| OpenCode    | yes          | 5 of 5 ✅ | 36s  | $0.03     | **Hired** |
-| Codex       | yes          | 5 of 5 ✅ | 87s  | $0.19     | Deleted   |
-| Claude Code | yes          | 5 of 5 ✅ | 34s  | $0.41     | Deleted   |
+## Why Switch makes this possible
 
-All three passed, so the cheapest verified fix won. The hire's merge
-[closed issue #1](https://github.com/aryan877/tinychunk/commit/77f2f2d), and its first real job
-[closed issue #2](https://github.com/aryan877/tinychunk/commit/27446f3). Each merge commit names the
-referee's digest, the hire, and the Switch approval that let it in.
+| Switch feature                         | What Tryouts uses it for                                                         | Without it                                     |
+| -------------------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------- |
+| Agents that create agents              | The hiring manager creates every candidate and its room from one message         | Set up three agents and three channels by hand |
+| Templates with conditions, room groups | One template picks any mix of tools; the rooms are filed together as "Tryout #1" | A separate setup per mix of tools              |
+| One controller, three AI tools         | Claude Code, Codex and OpenCode run on one machine, same rules                   | Three tools, three setups                      |
+| Usage and budgets                      | Real token counts on the scoreboard; Switch stops an agent past its budget       | Cost is a guess; nothing stops a runaway agent |
+| Approval buttons                       | The hire and every merge wait for the owner's "Allow once"                       | A bot with merge rights, or copying commands   |
+| Room ownership                         | The hire can't push itself into someone else's room                              | One bot can post anywhere                      |
+| Aliases                                | The hire answers to `@bugfixer`                                                  | Renaming bots by hand                          |
+| Owner-confirmed deletion               | Losing agents are deleted only when the owner confirms                           | Cleanup by hand, or agents deleting each other |
+| Slack and Discord bridges              | The team hires in Slack; the community reports bugs in Discord                   | Two bots, two codebases                        |
 
-## How a tryout runs
+## Set it up once
 
-| #   | Where   | What happens                                                                                                                                        |
-| --- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Slack   | Arjun posts in #hiring: _"@hiring we need a bug fixer. Hold a tryout on #1 with Claude Code, Codex and OpenCode."_                                  |
-| 2   | Slack   | The **hiring manager agent runs a Switch template itself**: three candidate agents and three private rooms appear, grouped as "Tryout #1".          |
-| 3   | Slack   | The referee sets a **Switch budget** per candidate. Each one writes a failing test and a fix.                                                       |
-| 4   | Slack   | The referee runs the same **five plain-code checks** on every fix and posts a scoreboard with token counts from **Switch usage**.                   |
-| 5   | Slack   | The hire is an **approval button only Arjun can press**. "Allow once" merges the exact checked commit on GitHub and closes the issue.               |
-| 6   | Discord | The hiring manager tries to add the hire to the community's #bugs. **Switch refuses**: Arjun doesn't own that room. Riya lets it in as `@bugfixer`. |
-| 7   | Slack   | The losers are **deleted only when Arjun confirms**.                                                                                                |
-| 8   | Discord | Riya reports bug #2 to `@bugfixer`. The hire fixes it, the referee checks it, Arjun approves: **probation 1 of 3**.                                 |
+There is no sign-up for Tryouts. A team adds it to its own Switch, and Switch handles accounts, chat
+connections and permissions. One person does this once:
 
-## What Switch does here, and what breaks without it
+1. Run Switch on your server and log in to Switch Console.
+2. Connect your Slack and Discord in Switch Console.
+3. On the machine that runs the agents: install Switch's agent controller, log in to Claude Code,
+   Codex and OpenCode, and run `bun run setup https://github.com/your/repo`.
+4. In Switch Console → Resources → Templates, upload `templates/tryout.yaml`, `bugs-room.yaml` and
+   `tryouts-team.yaml`, then press **Use** on `tryouts-team`. `#hiring` appears in your Slack.
 
-| Switch feature                                             | In Tryouts                                                                | Without Switch                                                      |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Agents run templates (`run_template`, `can_manage_agents`) | The hiring manager creates every candidate and its room from one job post | Someone sets up three agents and three channels by hand, per tryout |
-| Template v2: `if:`, room groups, links                     | One template, any mix of vendors, filed as "Tryout #1"                    | One script per vendor mix                                           |
-| Agent controller, three providers                          | Claude Code, Codex and OpenCode on one machine, same rules                | Three CLIs, three setups                                            |
-| Usage and budgets                                          | Real token counts on the board; Switch stops a candidate past its budget  | Cost is a guess; nothing stops a runaway agent                      |
-| Approval buttons                                           | The hire and every merge wait on the owner's click                        | A bot with merge rights, or a person copying commands               |
-| Room ownership and addressing                              | The hire can't push itself into #bugs; a person there lets it in          | One bot token can post anywhere                                     |
-| Aliases, owner-confirmed deletion                          | `@bugfixer` follows the hire; losers vanish only on the owner's confirm   | Renaming bots and cleaning up by hand                               |
-| Slack and Discord bridges                                  | The team hires in Slack; the community files bugs in Discord              | Two bots, two codebases                                             |
+Your repo needs one small file, `referee.json`, telling the referee how to run your tests and which
+folders a fix may touch:
 
-## Try it
+```json
+{ "test": ["npm", "test"], "scope": ["src/", "test/"], "sandbox": { "image": "node:22" } }
+```
 
-- **Look:** the board, no login: [tryouts.aryankumar.dev](https://tryouts.aryankumar.dev). Every number is Switch's own data, recorded in
-  `evidence/`. The recorded run used a local Switch with Mattermost standing in for Slack and Discord.
-- **Check:** `make judge` replays every verdict and merge from `evidence/` without Switch (Bun and Docker).
-- **Run:** `bun install && bun run demo up && bun run e2e` runs the whole story on a local Switch with Mattermost.
-- **Adopt:** `bun run setup <your repo>`, then upload the three files in [`templates/`](templates) in
-  Switch Console (Resources → Templates).
+| Who           | What they do                                                         | New account? |
+| ------------- | -------------------------------------------------------------------- | ------------ |
+| Team lead     | Posts a job in Slack `#hiring`, presses "Allow once"                 | No           |
+| Community     | Reports bugs in Discord `#bugs`                                      | No           |
+| The AI agents | Appear by themselves; Switch keeps them in their rooms and in budget | —            |
+
+## Check it yourself
+
+- A real tryout of Claude Code, Codex and OpenCode ran on [aryan877/tinychunk](https://github.com/aryan877/tinychunk).
+  All three passed the referee; OpenCode was hired as the cheapest verified fix. Its merge
+  [closed issue #1](https://github.com/aryan877/tinychunk/commit/77f2f2d) and its first real job
+  [closed issue #2](https://github.com/aryan877/tinychunk/commit/27446f3); each commit names the
+  referee's digest, the hire and the Switch approval.
+- `make judge` re-runs every recorded check from `evidence/` without Switch (Bun and Docker).
+- `bun install && bun run demo up && bun run e2e` runs the whole story on a local Switch with Mattermost.
 
 <details>
 <summary><b>How it fits together</b></summary>
 
 ```
-templates/        The artefact: team, tryout and bugs-room templates for Switch
+templates/        The product: team, tryout and bugs-room templates for Switch
 apps/cli          `tryouts verify|board|budget|hire|merge`, the only commands the agents run
 packages/referee  The five checks and the merge, deterministic, no AI
 packages/switch   Typed clients for the Switch gateway and Mattermost
 apps/stack        `bun run demo`, `bun run e2e`, the recorder and `make judge`
-apps/web          The board: Next.js and Geist, rendered from recorded Switch data
-kit/              Shared names and the record shape the board reads
+apps/web          The landing page at tryouts.aryankumar.dev
+kit/              Shared names and the record shape the recorder writes
 examples/         tinychunk, published to github.com/aryan877/tinychunk by `bun run demo github`
 evidence/         Raw Switch usage, budgets and transcripts, git bundles, referee reports
 ```
 
-The referee's five checks: based on the latest main; adds a regression test; stays in `src/` and
-`test/`; tests pass with the fix; **the new test fails without it**. Each runs in a fresh Docker
+The referee's five checks: based on the latest main; adds a regression test; stays in the allowed
+folders; tests pass with the fix; **the new test fails without it**. Each runs in a fresh Docker
 sandbox with no network, and the result is a `sha256` digest anyone can recompute.
 
 Limits, said plainly: every candidate runs as the same OS user on one machine; anyone in #bugs can
-type `!invite-agent`; usage is counted when a turn ends; dollars are list-price estimates; one bug is
-a sample of one.
+type `!invite-agent`; token counts arrive when a turn ends; dollars are list-price estimates; one bug
+is a sample of one.
 
 </details>
 

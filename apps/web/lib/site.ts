@@ -1,18 +1,11 @@
 export const GITHUB_URL = "https://github.com/aryan877/tryouts";
 export const SWITCH_URL = "https://github.com/sandbox-quantum/switch";
-export const VIDEO_URL = process.env.NEXT_PUBLIC_TRYOUTS_VIDEO || null;
+export const TEMPLATES_URL = `${GITHUB_URL}/tree/main/templates`;
+export const JUDGES_URL = `${GITHUB_URL}/blob/main/JUDGES.md`;
+export const DEMO_URL = "https://github.com/aryan877/tinychunk";
 
-const GITHUB = /^https:\/\/github\.com\/([^/]+\/[^/]+?)(?:\.git)?\/?$/;
+const YOUTUBE =
+  /^https:\/\/(?:(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})(?![\w-])/;
 
-export const repoName = (repository: string) => GITHUB.exec(repository)?.[1] ?? null;
-
-function githubUrl(repository: string, path: string): string | null {
-  const name = repoName(repository);
-  return name ? `https://github.com/${name}/${path}` : null;
-}
-
-export const commitUrl = (repository: string, sha: string) =>
-  githubUrl(repository, `commit/${sha}`);
-
-export const issueUrl = (repository: string, issue: number) =>
-  githubUrl(repository, `issues/${issue}`);
+export const youtubeId = (url: string | undefined) =>
+  url ? (YOUTUBE.exec(url.trim())?.[1] ?? null) : null;
