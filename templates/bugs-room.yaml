@@ -1,0 +1,23 @@
+# The community's public bugs room, owned by whoever runs this.
+#
+# A Tryouts hire may answer people here, but Switch refuses to let the hiring
+# manager add it. A person here lets it in with `!invite-agent @<hire>` (or the
+# room's owner adds it in Switch Console) and names it `!set-alias @<hire> @bugfixer`.
+version: 2
+
+params:
+  app:
+    type: bridge
+    description: Where the community reports bugs, for example Discord
+    default: [Discord, $first]
+
+resources:
+  bugs:
+    type: room
+    name: bugs
+    description: Report a bug; the hired bug fixer answers here
+    bridge: "{app}"
+    channel_type: channel_public
+    users: ["{$creator}"]
+    instructions: |
+      People report bugs here. The hired bug fixer, called @bugfixer once someone here lets it in, takes each bug, and a plain-code referee checks its fix before anything is merged.

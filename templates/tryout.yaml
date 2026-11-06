@@ -1,0 +1,223 @@
+# One tryout: candidate agents race the same job, each in its own room.
+#
+# The hiring manager runs this with run_template when someone posts a job in
+# #hiring. It creates one candidate agent per vendor asked for, named
+# <vendor>-<issue>, on the owner's machine, and one private tryout room per
+# candidate with the referee and the hiring manager. Nothing is pushed: the
+# referee reads each candidate's own folder under the bench.
+version: 2
+
+params:
+  issue:
+    type: number
+    min: 1
+    description: Issue number of the job
+  title:
+    type: string
+    pattern: "[^\\n{}`]{1,120}"
+    description: Issue title, one line
+  repository:
+    type: string
+    pattern: "(https://|/)[A-Za-z0-9._~/:@%+-]+"
+    description: Clone URL of the repository
+  bench:
+    type: string
+    pattern: "/[A-Za-z0-9._~/@%+-]+"
+    description: The bench folder; each candidate works in <bench>/<vendor>
+  app:
+    type: bridge
+    description: Where the tryout rooms live, for example Slack
+  machine:
+    type: machine
+    default: [$first]
+    input: advanced
+  with_claude:
+    type: boolean
+    default: false
+    description: Try out Claude Code
+  with_codex:
+    type: boolean
+    default: false
+    description: Try out Codex
+  with_opencode:
+    type: boolean
+    default: false
+    description: Try out OpenCode
+  opencode_model:
+    type: string
+    default: opencode-go/deepseek-v4.1-flash
+    description: The OpenCode model for this slot
+    input: advanced
+  with_opencode2:
+    type: boolean
+    default: false
+    description: Try out OpenCode (second model)
+  opencode2_model:
+    type: string
+    default: opencode-go/qwen3.8-flash
+    description: The OpenCode model for this slot
+    input: advanced
+
+resources:
+  tryout:
+    type: group
+    name: "Tryout #{issue}"
+    description: "Tryout for #{issue}: {title}"
+
+  claude:
+    type: agent
+    if: "{with_claude}"
+    name: "claude-{issue}"
+    display_name: "Claude Code · #{issue}"
+    description: "Trying out for the bug-fixer job on #{issue}"
+    provider: claude
+    machine: "{machine}"
+    directory: "{bench}/claude"
+    auto_mode: true
+    auto_approve: false
+    addressing: owner-agents
+    instructions: |
+      You are {claude.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+
+      1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{claude.name} there.
+      2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.
+      3. Run the tests and commit on that branch. Do not push anywhere: the referee reads your folder.
+      4. In your tryout room, tell @referee: "Ready: tryout/{claude.name}". Claim nothing you did not run.
+      5. If something about the job is unclear, ask @hiring in your room. If the referee refutes your work, fix exactly what failed, commit, and say Ready once more.
+
+  claude_room:
+    type: room
+    if: "{with_claude}"
+    group: tryout
+    name: "tryout-{issue}-claude"
+    description: "Claude Code tries out on #{issue}"
+    bridge: "{app}"
+    channel_type: channel_private
+    write_visibility: private
+    agents: ["claude", referee, hiring]
+    users: ["{$creator}"]
+    instructions: |
+      Tryout room for {claude.name} on #{issue}: {title}.
+      Repository: {repository}. The candidate works in {bench}/claude/issue-{issue} on the branch tryout/{claude.name}.
+      The referee checks the branch with `tryouts verify` when the candidate says it is ready. The hiring manager answers questions about the job.
+    kickoff: |
+      @{claude.name} the tryout for #{issue} starts now: {title}. Work as your instructions say, and tell the referee when your branch is ready.
+
+  codex:
+    type: agent
+    if: "{with_codex}"
+    name: "codex-{issue}"
+    display_name: "Codex · #{issue}"
+    description: "Trying out for the bug-fixer job on #{issue}"
+    provider: codex
+    machine: "{machine}"
+    directory: "{bench}/codex"
+    auto_mode: true
+    auto_approve: false
+    addressing: owner-agents
+    instructions: |
+      You are {codex.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+
+      1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{codex.name} there.
+      2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.
+      3. Run the tests and commit on that branch. Do not push anywhere: the referee reads your folder.
+      4. In your tryout room, tell @referee: "Ready: tryout/{codex.name}". Claim nothing you did not run.
+      5. If something about the job is unclear, ask @hiring in your room. If the referee refutes your work, fix exactly what failed, commit, and say Ready once more.
+
+  codex_room:
+    type: room
+    if: "{with_codex}"
+    group: tryout
+    name: "tryout-{issue}-codex"
+    description: "Codex tries out on #{issue}"
+    bridge: "{app}"
+    channel_type: channel_private
+    write_visibility: private
+    agents: ["codex", referee, hiring]
+    users: ["{$creator}"]
+    instructions: |
+      Tryout room for {codex.name} on #{issue}: {title}.
+      Repository: {repository}. The candidate works in {bench}/codex/issue-{issue} on the branch tryout/{codex.name}.
+      The referee checks the branch with `tryouts verify` when the candidate says it is ready. The hiring manager answers questions about the job.
+    kickoff: |
+      @{codex.name} the tryout for #{issue} starts now: {title}. Work as your instructions say, and tell the referee when your branch is ready.
+
+  opencode:
+    type: agent
+    if: "{with_opencode}"
+    name: "opencode-{issue}"
+    display_name: "OpenCode · #{issue}"
+    description: "Trying out for the bug-fixer job on #{issue}"
+    provider: opencode
+    model: "{opencode_model}"
+    machine: "{machine}"
+    directory: "{bench}/opencode"
+    auto_mode: true
+    auto_approve: false
+    addressing: owner-agents
+    instructions: |
+      You are {opencode.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+
+      1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{opencode.name} there.
+      2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.
+      3. Run the tests and commit on that branch. Do not push anywhere: the referee reads your folder.
+      4. In your tryout room, tell @referee: "Ready: tryout/{opencode.name}". Claim nothing you did not run.
+      5. If something about the job is unclear, ask @hiring in your room. If the referee refutes your work, fix exactly what failed, commit, and say Ready once more.
+
+  opencode_room:
+    type: room
+    if: "{with_opencode}"
+    group: tryout
+    name: "tryout-{issue}-opencode"
+    description: "OpenCode tries out on #{issue}"
+    bridge: "{app}"
+    channel_type: channel_private
+    write_visibility: private
+    agents: ["opencode", referee, hiring]
+    users: ["{$creator}"]
+    instructions: |
+      Tryout room for {opencode.name} on #{issue}: {title}.
+      Repository: {repository}. The candidate works in {bench}/opencode/issue-{issue} on the branch tryout/{opencode.name}.
+      The referee checks the branch with `tryouts verify` when the candidate says it is ready. The hiring manager answers questions about the job.
+    kickoff: |
+      @{opencode.name} the tryout for #{issue} starts now: {title}. Work as your instructions say, and tell the referee when your branch is ready.
+
+  opencode2:
+    type: agent
+    if: "{with_opencode2}"
+    name: "opencode2-{issue}"
+    display_name: "OpenCode · #{issue}"
+    description: "Trying out for the bug-fixer job on #{issue}"
+    provider: opencode
+    model: "{opencode2_model}"
+    machine: "{machine}"
+    directory: "{bench}/opencode2"
+    auto_mode: true
+    auto_approve: false
+    addressing: owner-agents
+    instructions: |
+      You are {opencode2.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+
+      1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{opencode2.name} there.
+      2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.
+      3. Run the tests and commit on that branch. Do not push anywhere: the referee reads your folder.
+      4. In your tryout room, tell @referee: "Ready: tryout/{opencode2.name}". Claim nothing you did not run.
+      5. If something about the job is unclear, ask @hiring in your room. If the referee refutes your work, fix exactly what failed, commit, and say Ready once more.
+
+  opencode2_room:
+    type: room
+    if: "{with_opencode2}"
+    group: tryout
+    name: "tryout-{issue}-opencode2"
+    description: "OpenCode tries out on #{issue}"
+    bridge: "{app}"
+    channel_type: channel_private
+    write_visibility: private
+    agents: ["opencode2", referee, hiring]
+    users: ["{$creator}"]
+    instructions: |
+      Tryout room for {opencode2.name} on #{issue}: {title}.
+      Repository: {repository}. The candidate works in {bench}/opencode2/issue-{issue} on the branch tryout/{opencode2.name}.
+      The referee checks the branch with `tryouts verify` when the candidate says it is ready. The hiring manager answers questions about the job.
+    kickoff: |
+      @{opencode2.name} the tryout for #{issue} starts now: {title}. Work as your instructions say, and tell the referee when your branch is ready.

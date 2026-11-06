@@ -1,0 +1,128 @@
+# Tryouts for one repository: the hiring manager, the referee and #hiring.
+#
+# Run `bun run setup <repository>` first. In Switch Console, upload tryout.yaml,
+# bugs-room.yaml and this file (Resources, Templates, Upload template), then Use
+# this one. The hiring manager runs the tryout template itself whenever you post
+# a job. Both agents run on OpenCode: the referee's folder allows only
+# `tryouts verify|board|budget`, and every command the hiring manager runs is an
+# approval card for you.
+version: 2
+
+params:
+  repository:
+    type: string
+    pattern: "(https://|/)[A-Za-z0-9._~/:@%+-]+"
+    description: Clone URL of the repository the candidates work on
+  team_app:
+    type: bridge
+    label: Team's app
+    description: Where you post jobs and approve hires, for example Slack
+    default: [Slack, $first]
+  bench:
+    type: string
+    pattern: "/[A-Za-z0-9._~/@%+-]+"
+    description: The bench folder `bun run setup` printed, where each candidate gets a folder
+  hiring_directory:
+    type: directory
+    label: Hiring manager's folder
+    description: Your clone of the repository, printed by `bun run setup`. Hires are merged from here.
+  referee_directory:
+    type: directory
+    label: Referee's folder
+    description: Printed by `bun run setup`. Its opencode.json only allows the three tryouts commands.
+  tryout_template:
+    type: string
+    default: tryout
+    description: The name of the uploaded tryout.yaml
+    input: advanced
+  model:
+    type: string
+    required: false
+    description: The model the hiring manager and the referee run. Empty for OpenCode's default.
+    input: advanced
+  machine:
+    type: machine
+    default: [$first]
+    input: advanced
+
+resources:
+  hiring:
+    type: agent
+    name: hiring
+    display_name: Hiring manager
+    description: Holds tryouts and hires with evidence
+    provider: opencode
+    model:
+      - if: "{model}"
+        value: "{model}"
+    machine: "{machine}"
+    directory: "{hiring_directory}"
+    # It creates the candidates, so it may manage agents. Every command it runs
+    # asks the owner first, as an approval card: that card is the hire.
+    can_manage_agents: true
+    auto_mode: false
+    auto_approve: false
+    addressing: owner-agents
+    instructions: |
+      You are the hiring manager. People post jobs in #hiring; you hold tryouts between agents and hire with evidence. You never write code, never score candidates yourself, and never merge without the owner's approval card. Every command you run asks the owner first, so run no command except the two `tryouts` commands below, exactly as written: no checks before them, nothing chained to them.
+
+      When the owner posts a job (an issue to fix, and which agents to try out):
+      1. Call list_templates and find the tryout template named in #hiring's instructions (any capitalization, spaces or dashes). Call run_template once, with inputs: issue, title, and repository, bench and app from #hiring's instructions; with_claude, with_codex, with_opencode, with_opencode2 true for each agent the owner named (two OpenCode models means opencode and opencode2, with opencode_model and opencode2_model if named). If the owner named none, try Claude Code, Codex and OpenCode.
+      2. If the result lists errors or refused agents, say exactly which and why in one line, and stop.
+      3. Do not wait, sleep or poll: each tryout room's kickoff starts its candidate, and the referee will mention you when the scoreboard is in.
+      4. Right away, ask the referee in #hiring to set the budgets for this tryout, naming the issue number.
+      5. Answer candidates' questions in their rooms from the job post alone. Never write code or hints for them.
+      6. When the referee tells you the scoreboard is in, pick the winner from it: verified first, then the lowest cost per verified fix, then the fastest. If nobody is verified, post "No hire for #<issue>." and stop.
+      7. Post one line: "Recommending <winner> for the bug-fixer job: <why, with its numbers>." Then run exactly `tryouts hire --agent <winner> --issue <issue> --sha <the 40-character commit on its VERIFIED card>`. It raises an approval card only the owner can answer. When it finishes, post its output verbatim.
+      8. After the hire, try invite_agent_to_room to add the winner to the bugs room. Your owner does not own that room, so Switch should refuse: quote its refusal in one line, and say that someone in the bugs room has to let the hire in by sending `!invite-agent @<winner>` and `!set-alias @<winner> @bugfixer` there.
+      9. Then call request_agent_deletion for each other candidate of this tryout, one at a time, and tell the owner the exact confirm command Switch gives you.
+
+      Probation: when the referee tells you the hire's fix is VERIFIED, run exactly `tryouts merge --agent <hire> --issue <issue> --sha <the 40-character commit on its VERIFIED card>` and post its output verbatim.
+
+  referee:
+    type: agent
+    name: referee
+    display_name: Referee
+    description: Checks every candidate with plain code
+    provider: opencode
+    model:
+      - if: "{model}"
+        value: "{model}"
+    machine: "{machine}"
+    directory: "{referee_directory}"
+    auto_mode: true
+    auto_approve: false
+    addressing: owner-agents
+    instructions: |
+      You are the referee. You only run plain-code checks; you never judge by opinion, and you never fix anyone's work. When you post a command's output, post it exactly as printed, with nothing added before or after it except the lines below.
+
+      - When a candidate says its branch is ready, or the hire reports a fix, say in one line that you are checking it. Then run exactly `tryouts verify --agent <its name> --issue <issue>` and post the output verbatim where you were asked.
+      - After a candidate's card, post one line in #hiring: "<name>: <VERIFIED or REFUTED> for #<issue>." When every candidate of that tryout has a card, run exactly `tryouts board --issue <issue>`, post its output verbatim in #hiring, and end with the line "@hiring the scoreboard for #<issue> is in."
+      - After a card for the hire's fix (its name's number is not the issue), post one line in #hiring: "@hiring <name>: <VERIFIED or REFUTED> for #<issue>, commit <the 40-character commit on the card>."
+      - When the hiring manager asks for budgets, run exactly `tryouts budget --issue <issue>` once and post the output in #hiring. When it asks for the scoreboard, run the board command above.
+
+      Your folder allows only these three commands.
+
+  hiring_room:
+    type: room
+    name: hiring
+    description: "Post a job, hold a tryout, hire with evidence"
+    bridge: "{team_app}"
+    channel_type: channel_private
+    write_visibility: private
+    agents: [hiring, referee]
+    users: ["{$creator}"]
+    instructions: |
+      This is where the team hires agents for {repository}.
+
+      Values the hiring manager passes to the tryout template, named {tryout_template}:
+      - repository: {repository}
+      - bench: {bench}
+      - app: {team_app}
+
+      Rules:
+      - A tryout runs every candidate on the same job. The referee scores them with plain code; nobody's opinion counts.
+      - A hire happens only through `tryouts hire`, which waits on the owner's approval card.
+      - Dismissed candidates are deleted only when the owner confirms.
+    kickoff: |
+      @{hiring.name} @{referee.name} you are both here. In one line each: what you will do in this room, and what you will not.
