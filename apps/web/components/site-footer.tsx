@@ -1,3 +1,4 @@
+import { SwitchLogo } from "@/components/logos";
 import { GITHUB_URL, SWITCH_URL } from "@/lib/site";
 import { LogoMark } from "./logo";
 
@@ -10,7 +11,11 @@ export function SiteFooter() {
         <span className="flex items-center gap-2 text-gray-1000">
           <LogoMark className="size-5" />
           Tryouts
-          <span className="text-gray-900">· built on Switch</span>
+          <span className="text-gray-900">·</span>
+          <a href={SWITCH_URL} className={`${link} inline-flex items-center gap-1.5`}>
+            <SwitchLogo className="size-4" />
+            built on Switch
+          </a>
         </span>
         <nav aria-label="Footer" className="ml-auto flex gap-6">
           <a href={GITHUB_URL} className={link}>

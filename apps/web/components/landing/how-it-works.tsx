@@ -1,11 +1,11 @@
-import { Scale, SwitchIcon } from "@/components/icons";
-import { DiscordLogo, GitHubLogo, type Logo, SlackLogo } from "@/components/logos";
+import { Scale } from "@/components/icons";
+import { DiscordLogo, GitHubLogo, type Logo, SlackLogo, SwitchLogo } from "@/components/logos";
 import { Band, SectionTitle } from "@/components/section";
 import { Tick } from "./illustrations";
 
 const PLACES = {
   slack: { label: "Slack", Mark: SlackLogo },
-  switch: { label: "Switch", Mark: SwitchIcon },
+  switch: { label: "Switch", Mark: SwitchLogo },
   referee: { label: "Referee", Mark: Scale },
   github: { label: "GitHub", Mark: GitHubLogo },
   discord: { label: "Discord", Mark: DiscordLogo },

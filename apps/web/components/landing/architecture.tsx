@@ -10,7 +10,6 @@ import {
   Lock,
   Scale,
   SquareCheck,
-  SwitchIcon,
   Terminal,
 } from "@/components/icons";
 import {
@@ -21,6 +20,7 @@ import {
   OpenAILogo,
   OpenCodeLogo,
   SlackLogo,
+  SwitchLogo,
 } from "@/components/logos";
 import { Band, SectionTitle } from "@/components/section";
 import { cn } from "@/lib/utils";
@@ -683,7 +683,7 @@ export function Architecture() {
             >
               <div className="flex items-center gap-3">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gray-1000 text-background-200">
-                  <SwitchIcon className="size-5" />
+                  <SwitchLogo className="size-5" />
                 </span>
                 <span>
                   <span className="block text-heading-20">Switch</span>

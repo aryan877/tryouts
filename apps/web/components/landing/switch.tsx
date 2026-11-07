@@ -9,7 +9,6 @@ import {
   Lock,
   Network,
   SquareCheck,
-  SwitchIcon,
   Terminal,
   Trash,
 } from "@/components/icons";
@@ -20,6 +19,7 @@ import {
   OpenAILogo,
   OpenCodeLogo,
   SlackLogo,
+  SwitchLogo,
 } from "@/components/logos";
 import { Band, card, SectionTitle } from "@/components/section";
 import { SWITCH_URL } from "@/lib/site";
@@ -39,7 +39,7 @@ function Spawn() {
   return (
     <div className="flex w-full max-w-[460px] flex-col items-center">
       <span className={cn(chip, "font-medium")}>
-        <SwitchIcon className="size-4" />
+        <SwitchLogo className="size-4" />
         hiring manager
         <code className="rounded bg-gray-alpha-200 px-1 font-mono text-[11px] text-gray-900">
           run_template
@@ -236,7 +236,7 @@ function Bridges() {
       {side(SlackLogo, "Slack", "#hiring", "the team")}
       <span className="h-px flex-1 bg-[length:8px_1px] bg-repeat-x [background-image:linear-gradient(to_right,var(--ds-gray-alpha-500)_50%,transparent_50%)] motion-safe:animate-[dash_1s_linear_infinite]" />
       <span className="grid size-12 shrink-0 place-items-center rounded-2xl border border-gray-alpha-400 bg-gray-1000 text-background-200">
-        <SwitchIcon className="size-6" />
+        <SwitchLogo className="size-6" />
       </span>
       <span className="h-px flex-1 bg-[length:8px_1px] bg-repeat-x [background-image:linear-gradient(to_right,var(--ds-gray-alpha-500)_50%,transparent_50%)] motion-safe:animate-[dash_1s_linear_infinite_reverse]" />
       {side(DiscordLogo, "Discord", "#bugs", "the community")}
@@ -387,6 +387,7 @@ export function SwitchStrengths() {
           href={SWITCH_URL}
           className="inline-flex items-center gap-1 text-gray-1000 underline-offset-4 hover:underline"
         >
+          <SwitchLogo className="size-4" />
           See Switch on GitHub <ArrowRight className="size-3.5" />
         </a>
       </p>

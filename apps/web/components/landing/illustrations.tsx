@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Blocked, Check, Commit, SwitchIcon } from "@/components/icons";
+import { Blocked, Check, Commit } from "@/components/icons";
 import {
   ClaudeLogo,
   DiscordLogo,
@@ -8,13 +8,14 @@ import {
   OpenAILogo,
   OpenCodeLogo,
   SlackLogo,
+  SwitchLogo,
 } from "@/components/logos";
 import { cn } from "@/lib/utils";
 import { Parallax } from "./parallax";
 
 const APPS = {
   slack: { label: "Slack", Mark: SlackLogo },
-  switch: { label: "Switch", Mark: SwitchIcon },
+  switch: { label: "Switch", Mark: SwitchLogo },
   github: { label: "GitHub", Mark: GitHubLogo },
   discord: { label: "Discord", Mark: DiscordLogo },
 } satisfies Record<string, { label: string; Mark: Logo }>;

@@ -1,5 +1,12 @@
 import { Play } from "@/components/icons";
-import { ClaudeLogo, DiscordLogo, OpenAILogo, OpenCodeLogo, SlackLogo } from "@/components/logos";
+import {
+  ClaudeLogo,
+  DiscordLogo,
+  OpenAILogo,
+  OpenCodeLogo,
+  SlackLogo,
+  SwitchLogo,
+} from "@/components/logos";
 import { SWITCH_URL, VIDEO_URL, youtubeId } from "@/lib/site";
 import { Composer } from "./composer";
 import { FloatingCards, StackedCards } from "./illustrations";
@@ -90,7 +97,11 @@ export function Hero() {
               Discord
             </span>
             <span aria-hidden>·</span>
-            <a href={SWITCH_URL} className="text-gray-1000 underline-offset-4 hover:underline">
+            <a
+              href={SWITCH_URL}
+              className="inline-flex items-center gap-1.5 text-gray-1000 underline-offset-4 hover:underline"
+            >
+              <SwitchLogo className="size-3.5" />
               built on Switch
             </a>
           </p>

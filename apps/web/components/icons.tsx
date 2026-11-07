@@ -47,12 +47,6 @@ export const Commit = stroke(
     <path d="M3 12h6M15 12h6" />
   </>,
 );
-export const SwitchIcon = stroke(
-  <>
-    <rect x="2" y="6" width="20" height="12" rx="6" />
-    <circle cx="16" cy="12" r="2.5" />
-  </>,
-);
 export const Scale = stroke(
   <>
     <path d="M12 3v18M7 21h10M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />

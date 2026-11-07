@@ -10,6 +10,11 @@ Claude Code, Codex and OpenCode try out on the same real bug. Plain code checks 
 lead hires the winner with one **Allow once** button in **Slack**, and the community gives it work in
 **Discord**. Built on [Switch](https://github.com/sandbox-quantum/switch).
 
+<a href="https://github.com/sandbox-quantum/switch"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/switch-wordmark-dark.svg">
+  <img src="docs/images/switch-wordmark.svg" alt="Built on Switch by SandboxAQ" width="150">
+</picture></a>
+
 [![Live](https://img.shields.io/badge/live-tryouts.aryankumar.dev-4ade80?style=flat-square)](https://tryouts.aryankumar.dev)
 [![Built on Switch](https://img.shields.io/badge/built%20on-Switch%200.31-111111?style=flat-square)](https://github.com/sandbox-quantum/switch)
 [![Flip the Switch 2026](https://img.shields.io/badge/Flip%20the%20Switch%202026-Track%2001%20·%20Business%20Workflow-6366f1?style=flat-square)](https://www.wemakedevs.org/hackathons/switch)
@@ -213,6 +218,6 @@ evidence/         Raw Switch usage, budgets and transcripts, git bundles, refere
 
 ## License
 
-Tryouts is MIT. Switch is © SandboxAQ, Apache-2.0 with Commons Clause;
+Tryouts is MIT. Switch, its name and its logo belong to SandboxAQ; Switch is Apache-2.0 with Commons Clause;
 `infra/switch/docker-compose.yml` is trimmed from Switch's standalone compose file. Built with Claude
 Code and Codex as coding assistants.
