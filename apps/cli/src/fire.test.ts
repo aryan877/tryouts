@@ -1,11 +1,12 @@
-import { afterAll, describe, expect, test } from "bun:test";
+import { afterAll, describe, expect, mock, test } from "bun:test";
 import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { AddressingRule, ApprovalRecord, Gateway } from "@tryouts/switch";
 
 const state = await mkdtemp(join(tmpdir(), "tryouts-fire-"));
-process.env.TRYOUTS_CONFIG = join(state, "config.json");
+const real = await import("./config");
+mock.module("./config", () => ({ ...real, STATE_DIR: state }));
 const { fire, loadRecord, probation, refutedFixes } = await import("./hire");
 
 const FIRE = "tryouts fire --agent opencode-1 --issue 2";
