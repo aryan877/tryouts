@@ -1,6 +1,6 @@
 import { Play } from "@/components/icons";
 import { ClaudeLogo, DiscordLogo, OpenAILogo, OpenCodeLogo, SlackLogo } from "@/components/logos";
-import { SWITCH_URL, youtubeId } from "@/lib/site";
+import { SWITCH_URL, VIDEO_URL, youtubeId } from "@/lib/site";
 import { Composer } from "./composer";
 import { FloatingCards, StackedCards } from "./illustrations";
 
@@ -11,7 +11,7 @@ export const CANDIDATES = [
 ];
 
 function Video() {
-  const id = youtubeId(process.env.NEXT_PUBLIC_TRYOUTS_VIDEO);
+  const id = youtubeId(VIDEO_URL);
   return (
     <div id="video" className="container-page scroll-mt-20 pt-16 pb-24 md:pt-20 md:pb-32">
       <div className="reveal mx-auto max-w-[1040px] rounded-[22px] bg-gray-alpha-100 p-1.5 md:p-2">

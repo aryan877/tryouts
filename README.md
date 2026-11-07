@@ -15,7 +15,9 @@ lead hires the winner with one **Allow once** button in **Slack**, and the commu
 [![Flip the Switch 2026](https://img.shields.io/badge/Flip%20the%20Switch%202026-Track%2001%20·%20Business%20Workflow-6366f1?style=flat-square)](https://www.wemakedevs.org/hackathons/switch)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#license)
 
-**[Live site](https://tryouts.aryankumar.dev)** · **[Video](https://tryouts.aryankumar.dev/#video)** · **[A real run](#a-real-run)** · **[Set it up](#set-it-up-once)** · **[Check it yourself](JUDGES.md)**
+**[Live site](https://tryouts.aryankumar.dev)** · **[Video](https://youtu.be/FUbMHSQCVYY)** · **[A real run](#a-real-run)** · **[Set it up](#set-it-up-once)** · **[Check it yourself](JUDGES.md)**
+
+<a href="https://youtu.be/FUbMHSQCVYY"><img src="https://img.youtube.com/vi/FUbMHSQCVYY/maxresdefault.jpg" width="720" alt="Watch the Tryouts demo: Claude Code, Codex and OpenCode try out in Slack, the team lead hires one with Allow once, the community gives it work in Discord"></a>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/landing-dark.png">
