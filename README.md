@@ -78,11 +78,12 @@ folders a fix may touch:
 
 ## Check it yourself
 
-- A real tryout of Claude Code, Codex and OpenCode ran on [aryan877/tinychunk](https://github.com/aryan877/tinychunk).
-  All three passed the referee; OpenCode was hired as the cheapest verified fix. Its merge
-  [closed issue #1](https://github.com/aryan877/tinychunk/commit/77f2f2d) and its first real job
-  [closed issue #2](https://github.com/aryan877/tinychunk/commit/27446f3); each commit names the
-  referee's digest, the hire and the Switch approval.
+- A real tryout of Claude Code, Codex and OpenCode ran in Slack and Discord on
+  [aryan877/tinychunk](https://github.com/aryan877/tinychunk), the run in the video. All three
+  passed the referee; OpenCode was hired as the cheapest verified fix ($0.044 against $0.141 and
+  $0.449). Its merge [closed issue #1](https://github.com/aryan877/tinychunk/commit/8eb0092) and its
+  first real job [closed issue #2](https://github.com/aryan877/tinychunk/commit/e644971); each commit
+  names the referee's digest, the hire and the Switch approval.
 - `make judge` re-runs every recorded check from `evidence/` without Switch (Bun and Docker).
 - `bun install && bun run demo up && bun run e2e` runs the whole story on a local Switch with Mattermost.
 

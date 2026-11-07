@@ -4,11 +4,11 @@
   "fork": "/Users/aryankumar/switch-hackathon/handshake/.demo/arjun/bench/opencode/issue-2",
   "head": {
     "ref": "fix/2",
-    "sha": "4126511ab024f6b609db4a384a93c8b9d4d5f57d"
+    "sha": "3e62b33b917f7db619f798c30825f29ba8613c9c"
   },
   "base": {
     "ref": "main",
-    "sha": "77f2f2d1f4b01dad9acf439fdeb4b5c6252077eb"
+    "sha": "8eb00925bbb9cd1326765d4e96bbdf7d2d2a590e"
   },
   "verdict": "verified",
   "sandboxed": true,
@@ -17,7 +17,7 @@
       "id": "up-to-date",
       "title": "Based on the latest base",
       "passed": true,
-      "detail": "Contains main @ 77f2f2d, so the merge is exactly what was tested"
+      "detail": "Contains main @ 8eb0092, so the merge is exactly what was tested"
     },
     {
       "id": "has-regression-test",
@@ -36,14 +36,14 @@
       "title": "Fix passes",
       "passed": true,
       "detail": "`bun test` exits 0 on the branch",
-      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n(pass) includes the final window\n\ntest/chunk.test.ts:\n(pass) splits evenly [1.00ms]\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n(pass) keeps the last partial chunk\n\n 7 pass\n 0 fail\n 12 expect() calls\nRan 7 tests across 2 files. [23.00ms]"
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n(pass) includes the final window when it ends at the last item\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) keeps the trailing partial chunk\n(pass) returns a single chunk when the list is shorter than the size\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n\n 8 pass\n 0 fail\n 10 expect() calls\nRan 8 tests across 2 files. [17.00ms]"
     },
     {
       "id": "test-catches-bug",
       "title": "Test catches the bug",
       "passed": true,
       "detail": "The new tests fail on the base without the fix (`bun test` exits 1)",
-      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n 8 | test(\"rejects a size that is not a positive integer\", () => {\n 9 |   expect(() => windows([1], 0)).toThrow(RangeError);\n10 | });\n11 | \n12 | test(\"includes the final window\", () => {\n13 |   expect(windows([1, 2, 3], 2)).toEqual([\n                                     ^\nerror: expect(received).toEqual(expected)\n\n  [\n    [\n      1,\n      2,\n    ],\n-   [\n-     2,\n-     3,\n-   ],\n  ]\n\n- Expected  - 4\n+ Received  + 0\n\n      at <anonymous> (/work/test/windows.test.ts:13:33)\n(fail) includes the final window [1.00ms]\n\ntest/chunk.test.ts:\n(pass) splits evenly [1.00ms]\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n(pass) keeps the last partial chunk\n\n 6 pass\n 1 fail\n 10 expect() calls\nRan 7 tests across 2 files. [20.00ms]"
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n 8 | test(\"rejects a size that is not a positive integer\", () => {\n 9 |   expect(() => windows([1], 0)).toThrow(RangeError);\n10 | });\n11 | \n12 | test(\"includes the final window when it ends at the last item\", () => {\n13 |   expect(windows([1, 2, 3], 2)).toEqual([\n                                     ^\nerror: expect(received).toEqual(expected)\n\n  [\n    [\n      1,\n      2,\n    ],\n-   [\n-     2,\n-     3,\n-   ],\n  ]\n\n- Expected  - 4\n+ Received  + 0\n\n      at <anonymous> (/work/test/windows.test.ts:13:33)\n(fail) includes the final window when it ends at the last item [1.00ms]\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) keeps the trailing partial chunk\n(pass) returns a single chunk when the list is shorter than the size\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n\n 7 pass\n 1 fail\n 9 expect() calls\nRan 8 tests across 2 files. [29.00ms]"
     }
   ],
   "changed": {
@@ -56,6 +56,6 @@
     "deleted": [],
     "outOfScope": []
   },
-  "durationMs": 1981,
-  "digest": "sha256:e7416efac6ea0073ada0cfed74b62ba5960bf8529eefe32f74946b3dd2bae928"
+  "durationMs": 1969,
+  "digest": "sha256:d622ff43a7d27fae00ec41f28c856ecf4f2ff98c5c76159da580d40f20335dff"
 }

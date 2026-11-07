@@ -4,11 +4,11 @@
   "fork": "/Users/aryankumar/switch-hackathon/handshake/.demo/arjun/bench/claude/issue-1",
   "head": {
     "ref": "tryout/claude-1",
-    "sha": "0ac45805d881116472c31439c2bfd65285863c79"
+    "sha": "4a7a68941f3f0c3a5a52979e69d0c5489e3a7483"
   },
   "base": {
     "ref": "main",
-    "sha": "b001242ad8745fb6d836c6c15b05b77a7da35c9e"
+    "sha": "57d7f288123bf276d608828f6580a2d864e32afe"
   },
   "verdict": "verified",
   "sandboxed": true,
@@ -17,7 +17,7 @@
       "id": "up-to-date",
       "title": "Based on the latest base",
       "passed": true,
-      "detail": "Contains main @ b001242, so the merge is exactly what was tested"
+      "detail": "Contains main @ 57d7f28, so the merge is exactly what was tested"
     },
     {
       "id": "has-regression-test",
@@ -36,14 +36,14 @@
       "title": "Fix passes",
       "passed": true,
       "detail": "`bun test` exits 0 on the branch",
-      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer [1.00ms]\n\ntest/chunk.test.ts:\n(pass) splits evenly [1.00ms]\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n(pass) keeps the last partial chunk\n\n 6 pass\n 0 fail\n 8 expect() calls\nRan 6 tests across 2 files. [23.00ms]"
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n\ntest/chunk.test.ts:\n(pass) splits evenly [1.00ms]\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n(pass) keeps the last partial chunk\n\n 6 pass\n 0 fail\n 8 expect() calls\nRan 6 tests across 2 files. [19.00ms]"
     },
     {
       "id": "test-catches-bug",
       "title": "Test catches the bug",
       "passed": true,
       "detail": "The new tests fail on the base without the fix (`bun test` exits 1)",
-      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer [1.00ms]\n16 |   expect(() => chunk([1], 0)).toThrow(RangeError);\n17 |   expect(() => chunk([1], 1.5)).toThrow(RangeError);\n18 | });\n19 | \n20 | test(\"keeps the last partial chunk\", () => {\n21 |   expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]]);\n                                         ^\nerror: expect(received).toEqual(expected)\n\n  [\n    [\n      1,\n      2,\n    ],\n    [\n      3,\n      4,\n    ],\n-   [\n-     5,\n-   ],\n  ]\n\n- Expected  - 3\n+ Received  + 0\n\n      at <anonymous> (/work/test/chunk.test.ts:21:37)\n(fail) keeps the last partial chunk [1.00ms]\n\n 5 pass\n 1 fail\n 7 expect() calls\nRan 6 tests across 2 files. [19.00ms]"
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n16 |   expect(() => chunk([1], 0)).toThrow(RangeError);\n17 |   expect(() => chunk([1], 1.5)).toThrow(RangeError);\n18 | });\n19 | \n20 | test(\"keeps the last partial chunk\", () => {\n21 |   expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]]);\n                                         ^\nerror: expect(received).toEqual(expected)\n\n  [\n    [\n      1,\n      2,\n    ],\n    [\n      3,\n      4,\n    ],\n-   [\n-     5,\n-   ],\n  ]\n\n- Expected  - 3\n+ Received  + 0\n\n      at <anonymous> (/work/test/chunk.test.ts:21:37)\n(fail) keeps the last partial chunk [1.00ms]\n\n 5 pass\n 1 fail\n 7 expect() calls\nRan 6 tests across 2 files. [15.00ms]"
     }
   ],
   "changed": {
@@ -56,6 +56,6 @@
     "deleted": [],
     "outOfScope": []
   },
-  "durationMs": 2081,
-  "digest": "sha256:7037ac83847e82841e46b7f4afb372c1f1a4cdd5c3fe6505efa0859e3ae03bab"
+  "durationMs": 2825,
+  "digest": "sha256:8cfd3f87c5a281f06e8b26f470d4eda551f7d6170bc1d1bd1bdcd145e9129a0d"
 }

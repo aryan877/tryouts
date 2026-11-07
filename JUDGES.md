@@ -7,12 +7,12 @@ Every claim below comes with a command you can run and the line you should see.
 | Claim                                                                      | Where to look                                                                                                                                                                                |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Claude Code, Codex and OpenCode each fixed the same bug, and one was hired | `apps/web/records/1.json` and `evidence/tryout-1/`                                                                                                                                           |
-| The hire's merge closed the real GitHub issue, and names its proof         | [Commit 77f2f2d](https://github.com/aryan877/tinychunk/commit/77f2f2d) closing [issue #1](https://github.com/aryan877/tinychunk/issues/1): its `Referee:`, `Hired:` and `Approved-by:` lines |
-| The hire's first real job was checked and merged                           | [Commit 27446f3](https://github.com/aryan877/tinychunk/commit/27446f3) closing [issue #2](https://github.com/aryan877/tinychunk/issues/2): `Probation: 1 of 3`                               |
+| The hire's merge closed the real GitHub issue, and names its proof         | [Commit 8eb0092](https://github.com/aryan877/tinychunk/commit/8eb0092) closing [issue #1](https://github.com/aryan877/tinychunk/issues/1): its `Referee:`, `Hired:` and `Approved-by:` lines |
+| The hire's first real job was checked and merged                           | [Commit e644971](https://github.com/aryan877/tinychunk/commit/e644971) closing [issue #2](https://github.com/aryan877/tinychunk/issues/2): `Probation: 1 of 3`                               |
 | Every recorded number is Switch's own data                                 | `evidence/tryout-1/usage.json` (Switch usage API), `budgets.json` (Switch budgets API), `transcripts.json` (Switch chats API)                                                                |
 
-The recorded run used a local Switch with Mattermost standing in for Slack and Discord; the steps
-and the Switch rules are the same on both.
+The recorded run is the one in the video: a self-hosted Switch with the team lead in Slack and the
+community in Discord. `bun run e2e` replays the same steps on Mattermost, with the same Switch rules.
 
 ## With Bun and Docker (no Switch, no accounts)
 
