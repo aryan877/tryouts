@@ -9,7 +9,7 @@
   version of every test file the branch changed, so an old test cannot be weakened. The digest covers
   each check's id and result, not its wording.
 - `apps/cli` is the `tryouts` command the agents run: `verify`, `board` and `budget` (the referee
-  runs in auto mode and its folder allows only these), `hire` and `merge` (the hiring manager is not
+  runs in auto mode and its folder allows only these), `hire`, `merge` and `fire` (the hiring manager is not
   in auto mode, so Switch turns every command it runs into an approval card for its owner). It
   validates every argument, derives paths from its config, caches referee reports and hire records
   next to the config, and merges only the exact approved commit. `hire` and `merge` also refuse unless
@@ -39,8 +39,19 @@
   next agent explicitly. The referee checks each room in its own session, so `tryouts verify` prints
   `Next:` lines (post the verdict, run the board when every candidate has a card) and the board ends
   with `@hiring`; orchestration that needs counting lives in code, not in the prompt.
-- The scoreboard waits up to three minutes for Switch to count every verified candidate's tokens
-  (counted when a turn ends) and suggests no hire while any count is missing.
+- The scoreboard waits up to 90 seconds for Switch to count every verified candidate's tokens
+  (counted when a turn ends) and suggests no hire while any count is missing. OpenCode kills a command
+  at its bash timeout, so the controller sets it to 10 minutes and the referee is told to pass 600000 ms.
+- `tryouts board` runs every verified fix against each rival's new tests (`packages/referee/src/rivals.ts`),
+  caches them in `rivals/<issue>.json`, and ranks a fix that fails below clean ones. They are not a sixth
+  check: the digest stays per-fix. `make judge` replays them from `evidence/tryout-N/rivals.json`.
+- The board and a verified probation fix print the diff and open a pull request (`review.ts`). `merge.ts`
+  still pushes the merge commit to main, so the trailers stay; GitHub marks the pull request merged.
+- Three refuted heads on one bug end probation: `Next:` wakes the hiring manager, `tryouts fire` is a card,
+  the hire loses #bugs addressing and `tryouts merge` refuses it.
+- A hire takes bugs only from people in #bugs with a linked Switch account (addressing policy, by bridge
+  account id; template rooms have no `owner_id`). A public-room stranger must never be able to address an
+  auto-mode agent on this shared OS user.
 - `TRYOUTS_REPOSITORY=https://github.com/<owner>/<repo>.git` points the stack at a real GitHub repo;
   `bun run demo github` creates or resets it to tinychunk 1.0.0 with issues #1 and #2 open. Merges
   carry `Fixes #N`, so GitHub closes the issue. `TRYOUTS_LINEUP=all` makes `bun run e2e` try Claude

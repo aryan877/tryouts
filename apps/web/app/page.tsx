@@ -8,11 +8,12 @@ import { Band, Eyebrow } from "@/components/section";
 
 const LIMITS = [
   "All candidates run on one machine as the same user, so a determined candidate could read the team lead's Switch login. Run candidates as another user to close that.",
-  "Anyone in the bugs room can invite an agent; Switch only stops agents from inviting themselves.",
+  "Anyone in the bugs room can invite an agent; Switch only stops agents from inviting themselves. Only people there with a linked Switch account can then give it work.",
+  "A branch can pass all five checks while fixing nothing. Running each fix against its rivals' tests catches that when rivals exist; on probation the person pressing the button reads the diff.",
+  "Nothing times out a stalled candidate yet: say @referee board to score whoever finished.",
   "A budget stops new messages to an agent, not a turn it is already running.",
-  "Time on the scoreboard comes from the candidate's own commit, so a candidate could fake its speed.",
   "Token counts arrive when a turn ends.",
-  "Dollar figures are estimates at list prices.",
+  "Dollar figures are estimates at list prices, not bills, so the cheapest fix is only cheapest by that table.",
   "One bug is a sample of one.",
 ];
 

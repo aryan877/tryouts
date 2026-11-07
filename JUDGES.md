@@ -24,6 +24,7 @@ It replays `evidence/` without Switch:
 
 - re-runs the referee's five checks on every recorded branch from its git bundle, in the same
   sandbox, and expects the same verdict and the same `sha256:` digest;
+- runs every fix against each rival's new tests again and expects the same digest;
 - checks that each merge on main has the approved commit as a parent and carries its digest.
 
 Expected last line: `✔ Every recorded verdict and merge holds`.
@@ -63,8 +64,10 @@ In Switch Console, go to Resources → Templates → Upload template → Load fr
 - **Enforced by OpenCode and Switch together:** the referee's folder allows only
   `tryouts verify|board|budget` and refuses everything else; every command the hiring manager runs
   is an approval card that only Arjun can answer.
+- **Enforced by Switch's addressing policy:** only people in #bugs with a linked Switch account can give the
+  hire work; strangers get Switch's refusal.
 - **Not enforced:** anyone in #bugs may type `!invite-agent`; every candidate runs as the same OS user
   on one machine, so a determined candidate could read the team lead's Switch login from the
-  `tryouts` config and act as him; time on the scoreboard comes from the candidate's own commit; usage is counted when a turn ends; dollars are list-price
-  estimates; one bug is a sample of one; a test can still pass the five checks while testing a
-  different behaviour than the issue describes, which is why the hire is a human's button.
+  `tryouts` config and act as him; usage is counted when a turn ends; dollars are list-price
+  estimates; one bug is a sample of one; a branch can pass the five checks and fix nothing, which rival
+  tests catch in a tryout and the approver's diff has to catch on probation.

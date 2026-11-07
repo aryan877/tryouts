@@ -32,7 +32,7 @@ const PEOPLE = [
   },
   {
     who: "AI agents",
-    does: "Appear by themselves. Switch keeps them in their rooms and within budget.",
+    does: "Appear by themselves. Switch keeps them in their rooms and cuts off messages past their budget.",
     account: "Made by Switch",
   },
 ];

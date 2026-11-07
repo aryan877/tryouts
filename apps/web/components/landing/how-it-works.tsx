@@ -16,7 +16,7 @@ type Place = keyof typeof PLACES;
 const CHECKS = [
   "Built on the latest code",
   "Adds a test for the bug",
-  "Changes only what the bug needs",
+  "Stays in the folders the repo allows",
   "All tests pass with the fix",
   "The new test fails without the fix",
 ];
@@ -112,8 +112,8 @@ const STEPS: { places: Place[]; title: string; body: React.ReactNode }[] = [
     body: (
       <>
         <p>
-          The hire tries to join the community's #bugs room. Switch says no, because it isn't the
-          team lead's room. The community lead lets it in as @bugfixer. Its first real fix is
+          The hiring manager tries to add the hire to the community's #bugs room. Switch says no,
+          because it isn't the team lead's room. Someone there lets it in as @bugfixer. Its first real fix is
           checked and approved the same way.
         </p>
         <Probation />

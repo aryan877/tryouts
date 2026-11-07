@@ -278,9 +278,9 @@ const FEATURES: {
   },
   {
     Icon: Lock,
-    name: "Room ownership",
-    use: "The hire can't push itself into someone else's room.",
-    without: "One bot can post anywhere.",
+    name: "Room ownership and addressing",
+    use: "The hire can't push itself into someone else's room, and strangers in that room can't give it work.",
+    without: "One bot can post anywhere, and anyone can instruct it.",
     Visual: Door,
   },
   {
