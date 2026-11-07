@@ -63,7 +63,8 @@ class Channel {
   }
 }
 
-const EXPECTED = /^tryouts (hire|merge) --agent [a-z0-9-]+ --issue \d+ --sha [0-9a-f]{40}$/;
+const EXPECTED =
+  /^tryouts ((hire|merge) --agent [a-z0-9-]+ --issue \d+ --sha [0-9a-f]{40}|fire --agent [a-z0-9-]+ --issue \d+)$/;
 
 const both =
   (...steps: (() => Promise<void>)[]) =>
@@ -97,7 +98,7 @@ class Desk {
         await this.owner.answerApproval(card, "decline");
         await this.person.post(
           this.channel.id,
-          `@${AGENTS.hiring.name} I denied \`${command}\`. Run no command except the two tryouts commands in your instructions, exactly as written.`,
+          `@${AGENTS.hiring.name} I denied \`${command}\`. Run no command except the tryouts commands in your instructions, exactly as written.`,
         );
       } else if (parseCandidate(name)) {
         this.answered.add(card.requestId);
@@ -133,7 +134,13 @@ class Desk {
   }
 }
 
-function refereeWatch(arjun: Mattermost, hiring: Channel, gateway: Gateway, issue: number) {
+function refereeWatch(
+  arjun: Mattermost,
+  hiring: Channel,
+  gateway: Gateway,
+  issue: number,
+  teamId: string,
+) {
   const nudged = new Set<string>();
   return async () => {
     const me = await gateway.me();
@@ -143,6 +150,19 @@ function refereeWatch(arjun: Mattermost, hiring: Channel, gateway: Gateway, issu
     for (const room of rooms) {
       await gateway.joinChat(room.id, me.id).catch(() => undefined);
       const messages = await gateway.chatMessages(room.id);
+      const last = messages.at(-1);
+      if (
+        last?.sender.kind === "agent" &&
+        last.body.includes("The turn failed") &&
+        !nudged.has(last.messageId)
+      ) {
+        nudged.add(last.messageId);
+        step(`${last.sender.name}'s turn failed upstream; ${PEOPLE.lead.name} asks it to carry on`);
+        await arjun.post(
+          await arjun.channelId(teamId, room.name),
+          `@${last.sender.name} your last turn failed upstream. Please carry on with the tryout.`,
+        );
+      }
       const ready = messages.findLast(
         (m) => m.sender.kind === "agent" && m.body.includes("Ready:"),
       );
@@ -238,7 +258,7 @@ export async function e2e(): Promise<void> {
     "the referee's scoreboard with a suggested hire",
     (post) => post.author === AGENTS.referee.name && post.message.includes("Suggested hire: **"),
     30 * MINUTE,
-    both(refereeWatch(arjun, hiring, switchAsArjun, TRYOUT.number), desk.answerOthers),
+    both(refereeWatch(arjun, hiring, switchAsArjun, TRYOUT.number, teamId), desk.answerOthers),
   );
   const candidates = [...board.message.matchAll(/^\d+\. \*\*([a-z0-9-]+)\*\*/gm)].map(
     (m) => m[1] as string,
@@ -314,6 +334,12 @@ export async function e2e(): Promise<void> {
   await hiring.find(
     "the probation merge",
     (post) => post.message.includes(`**Merged · #${BUG.number} by ${hired}**`),
+    5 * MINUTE,
+  );
+
+  await bugs.find(
+    `${hired} telling ${PEOPLE.community.name} after the merge`,
+    (post) => post.author === hired && post.message.includes(`#${BUG.number}`),
     5 * MINUTE,
   );
 
