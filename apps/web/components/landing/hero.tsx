@@ -69,9 +69,9 @@ export function Hero() {
             like an employee.
           </h1>
           <p className="mt-6 max-w-[540px] text-copy-16 text-pretty text-gray-900 md:text-copy-18">
-            Claude Code, Codex and OpenCode try out on the same bug. A referee checks every fix
-            with plain code. Your team lead sees the scoreboard and the code, hires with one button
-            in Slack, and your community lets the hire in on Discord.
+            Claude Code, Codex and OpenCode try out on the same bug. A referee checks every fix with
+            plain code. Your team lead sees the scoreboard and the code, hires with one button in
+            Slack, and your community lets the hire in on Discord.
           </p>
           <Composer className="mt-10" />
           <ul aria-label="The candidates" className="mt-4 flex flex-wrap justify-center gap-2">

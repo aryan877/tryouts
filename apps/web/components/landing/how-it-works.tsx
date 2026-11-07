@@ -113,8 +113,8 @@ const STEPS: { places: Place[]; title: string; body: React.ReactNode }[] = [
       <>
         <p>
           The hiring manager tries to add the hire to the community's #bugs room. Switch says no,
-          because it isn't the team lead's room. Someone there lets it in as @bugfixer. Its first real fix is
-          checked and approved the same way.
+          because it isn't the team lead's room. Someone there lets it in as @bugfixer. Its first
+          real fix is checked and approved the same way.
         </p>
         <Probation />
       </>
