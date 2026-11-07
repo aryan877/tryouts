@@ -1,5 +1,5 @@
-import { SwitchLogo } from "@/components/logos";
-import { GITHUB_URL, SWITCH_URL } from "@/lib/site";
+import { SwitchWordmark } from "@/components/logos";
+import { GITHUB_URL, SWITCH_SITE, SWITCH_URL } from "@/lib/site";
 import { LogoMark } from "./logo";
 
 const link = "text-gray-900 transition-colors hover:text-gray-1000";
@@ -12,9 +12,9 @@ export function SiteFooter() {
           <LogoMark className="size-5" />
           Tryouts
           <span className="text-gray-900">·</span>
-          <a href={SWITCH_URL} className={`${link} inline-flex items-center gap-1.5`}>
-            <SwitchLogo className="size-4" />
-            built on Switch
+          <a href={SWITCH_SITE} className={`${link} inline-flex items-center gap-2`}>
+            built on
+            <SwitchWordmark className="h-[15px] w-auto text-gray-1000" />
           </a>
         </span>
         <nav aria-label="Footer" className="ml-auto flex gap-6">

@@ -1,5 +1,6 @@
 export const GITHUB_URL = "https://github.com/aryan877/tryouts";
 export const SWITCH_URL = "https://github.com/sandbox-quantum/switch";
+export const SWITCH_SITE = "https://www.switchagents.ai";
 export const TEMPLATES_URL = `${GITHUB_URL}/tree/main/templates`;
 export const JUDGES_URL = `${GITHUB_URL}/blob/main/JUDGES.md`;
 export const DEMO_URL = "https://github.com/aryan877/tinychunk";

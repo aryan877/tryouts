@@ -20,9 +20,10 @@ import {
   OpenCodeLogo,
   SlackLogo,
   SwitchLogo,
+  SwitchWordmark,
 } from "@/components/logos";
 import { Band, card, SectionTitle } from "@/components/section";
-import { SWITCH_URL } from "@/lib/site";
+import { SWITCH_SITE, SWITCH_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const TOOLS: { name: string; agent: string; Mark: Logo }[] = [
@@ -330,6 +331,13 @@ export function SwitchStrengths() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(50%_60%_at_50%_0%,hsl(var(--glow)/0.14),transparent_70%)]"
       />
+      <a
+        href={SWITCH_SITE}
+        aria-label="Switch AI"
+        className="reveal mx-auto mb-10 flex w-fit text-gray-1000 transition-opacity hover:opacity-80"
+      >
+        <SwitchWordmark className="h-9 w-auto md:h-11" />
+      </a>
       <SectionTitle
         id="switch-title"
         eyebrow="Built on Switch"

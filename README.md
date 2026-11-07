@@ -10,9 +10,10 @@ Claude Code, Codex and OpenCode try out on the same real bug. Plain code checks 
 lead hires the winner with one **Allow once** button in **Slack**, and the community gives it work in
 **Discord**. Built on [Switch](https://github.com/sandbox-quantum/switch).
 
-<a href="https://github.com/sandbox-quantum/switch"><picture>
-<source media="(prefers-color-scheme: dark)" srcset="docs/images/switch-wordmark-dark.svg">
-<img src="docs/images/switch-wordmark.svg" alt="Built on Switch by SandboxAQ" width="150">
+<sub>Built on</sub><br>
+<a href="https://www.switchagents.ai"><picture>
+<source media="(prefers-color-scheme: dark)" srcset="docs/images/switch-ai-wordmark-dark.svg">
+<img src="docs/images/switch-ai-wordmark.svg" alt="Built on Switch AI by SandboxAQ" width="190">
 </picture></a>
 
 [![Live](https://img.shields.io/badge/live-tryouts.aryankumar.dev-4ade80?style=flat-square)](https://tryouts.aryankumar.dev)
