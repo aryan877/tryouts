@@ -851,11 +851,7 @@ export function Architecture() {
           </div>
 
           <div className="relative flex flex-col gap-4 border-t border-gray-alpha-200 bg-background-100/60 px-5 py-4 motion-reduce:hidden sm:flex-row sm:items-center sm:gap-6 sm:px-8">
-            <p aria-hidden className="flex min-w-0 flex-1 items-baseline gap-4">
-              <span className="font-mono text-[12px] whitespace-nowrap text-gray-1000 tabular-nums">
-                {String(Math.max(step, 0) + 1).padStart(2, "0")}
-                <span className="text-gray-800"> / {String(STEPS.length).padStart(2, "0")}</span>
-              </span>
+            <p aria-hidden className="min-w-0 flex-1">
               <span
                 key={`${run}-${step}`}
                 className={cn(
