@@ -18,7 +18,7 @@ const serif = Instrument_Serif({
 export const metadata: Metadata = {
   title: "Tryouts · Hire your AI coder like an employee",
   description:
-    "Claude Code, Codex and OpenCode try out on the same real bug. Plain code checks every fix. Your team lead hires the best one with one button in Slack. Built on Switch.",
+    "Claude Code, Codex and OpenCode try out on the same bug. Plain code checks every fix. Your team lead hires the best one with one button in Slack. Built on Switch.",
 };
 
 export const viewport: Viewport = {
