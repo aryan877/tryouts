@@ -42,31 +42,32 @@ who reads the diff and makes the call, and a probation that can end badly.
 This is the run in the video, on a real repo: [aryan877/tinychunk](https://github.com/aryan877/tinychunk),
 issue #1, _"chunk() drops the last partial chunk"_.
 
-| Candidate                 | Model                 | Referee     | Time   | Tokens in / out | Est. cost  |
-| ------------------------- | --------------------- | ----------- | ------ | --------------- | ---------- |
-| claude-1 · Claude Code    | Claude Code's default | ✅ verified | 21s    | 440.5k / 1.5k   | $0.449     |
-| codex-1 · Codex           | gpt-5.6-luna          | ✅ verified | 43s    | 558.9k / 1.3k   | $0.141     |
-| **opencode-1 · OpenCode** | deepseek-v4.1-flash   | ✅ verified | 4m 08s | 797.6k / 1.7k   | **$0.044** |
+| Candidate                 | Model                 | Referee     | Rival tests | Time   | Tokens in / out | Est. cost  |
+| ------------------------- | --------------------- | ----------- | ----------- | ------ | --------------- | ---------- |
+| claude-1 · Claude Code    | Claude Code's default | ✅ verified | 2 of 2      | 34s    | 380.7k / 2.1k   | $0.629     |
+| codex-1 · Codex           | gpt-5.6-luna          | ✅ verified | 2 of 2      | 51s    | 616.8k / 1.4k   | $0.142     |
+| **opencode-1 · OpenCode** | deepseek-v4.1-flash   | ✅ verified | 2 of 2      | 3m 41s | 540.8k / 1.5k   | **$0.031** |
 
-All three fixed it. OpenCode was hired: the same result for about a tenth of Claude Code's cost. Token
-counts come from Switch's usage API; dollars are list-price estimates.
+All three fixed it and passed each other's tests. OpenCode was hired: the same result for about a
+twentieth of Claude Code's cost, by list price. Token counts come from Switch's usage API; dollars are
+estimates, not bills.
 
 <table>
   <tr>
     <td width="42%" rowspan="2" valign="top">
-      <img src="docs/images/run-hire.png" alt="Slack thread: the referee's scoreboard, then the hiring manager's Permission needed card for tryouts hire, with Allow once">
+      <img src="docs/images/run-hire.png" alt="Slack thread: the referee's scoreboard with rival tests and the diff header, then the hiring manager's Permission needed card for tryouts hire, with Allow once">
       <br><b>1 · Slack.</b> The scoreboard, then the hire. The hiring manager can't hire on its own:
       Switch turns <code>tryouts hire</code> into a card only Arjun can answer.
     </td>
     <td width="58%" valign="top">
       <img src="docs/images/run-discord.png" alt="Discord #bugs: Riya invites opencode-1, names it @bugfixer, reports bug #2, and the bug fixer answers">
       <br><b>2 · Discord.</b> Riya lets the hire into her room, names it <code>@bugfixer</code> and
-      reports bug #2. It answers her there once the referee has verified the fix.
+      reports bug #2. It answers her there once the fix is merged.
     </td>
   </tr>
   <tr>
     <td valign="top">
-      <img src="docs/images/run-commit.png" alt="GitHub commit 8eb0092: Fixes #1, with Referee, Hired, Tryout, Hire-numbers and Approved-by lines">
+      <img src="docs/images/run-commit.png" alt="GitHub commit 0eb4b33: Fixes #1, with Referee, Hired, Tryout, Hire-numbers, Rival-tests and Approved-by lines">
       <br><b>3 · GitHub.</b> The merge is the receipt. It closes the issue and names the referee's
       digest, the hire and the Switch approval.
     </td>
@@ -76,11 +77,10 @@ counts come from Switch's usage API; dollars are list-price estimates.
 Between steps 1 and 2, the hiring manager tried to add the hire to Riya's room itself. Switch said no,
 because that room isn't Arjun's:
 
-> Step 8: adding opencode-1 to the bugs room was refused by Switch: "403: Not authorized to change
-> this room's membership".
+> Invite into bugs was refused: "403: Not authorized to change this room's membership".
 
-The proof is public: [commit 8eb0092](https://github.com/aryan877/tinychunk/commit/8eb0092) closed
-#1 and [commit e644971](https://github.com/aryan877/tinychunk/commit/e644971) closed #2, the hire's
+The proof is public: [commit 0eb4b33](https://github.com/aryan877/tinychunk/commit/0eb4b33) closed
+#1 and [commit 9abc13f](https://github.com/aryan877/tinychunk/commit/9abc13f) closed #2, the hire's
 first job on probation. `make judge` re-checks every verdict from [`evidence/`](evidence/tryout-1).
 
 ## How it works

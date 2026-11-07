@@ -1,5 +1,5 @@
 import { mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 import { type FixStat, git } from "@tryouts/referee";
 import type { Slot } from "./bench";
@@ -11,7 +11,11 @@ const PATCH_LINES = 40;
 export const githubRepo = (repository: string) => GITHUB.exec(repository)?.[1] ?? null;
 
 async function gh(path: string, ...args: string[]): Promise<string> {
-  const proc = Bun.spawn([path, ...args], { stdout: "pipe", stderr: "pipe" });
+  const proc = Bun.spawn([path, ...args], {
+    stdout: "pipe",
+    stderr: "pipe",
+    env: { ...process.env, GH_CONFIG_DIR: join(homedir(), ".config/gh") },
+  });
   const [out, code] = await Promise.all([new Response(proc.stdout).text(), proc.exited]);
   if (code !== 0) throw new Error(`gh ${args[0]} ${args[1]} failed`);
   return out.trim();

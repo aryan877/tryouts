@@ -1,119 +1,119 @@
 [
   {
     "metric": "cache_read_tokens",
-    "client_id": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+    "client_id": "29e2db30-48d2-4c94-87a1-49d804891703",
     "client_name": "hiring",
     "client_type": "agent",
     "model": "opencode-go/claude-haiku-5-5",
-    "amount": 1488381
+    "amount": 1245338
   },
   {
     "metric": "cache_read_tokens",
-    "client_id": "94e5c61b-3a77-4579-8e00-b51c2a36c18a",
-    "client_name": null,
-    "client_type": null,
-    "model": "gpt-5.6-luna",
-    "amount": 507392
-  },
-  {
-    "metric": "cache_read_tokens",
-    "client_id": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+    "client_id": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
     "client_name": "opencode-1",
     "client_type": "agent",
     "model": "opencode-go/deepseek-v4.1-flash",
-    "amount": 1648640
+    "amount": 1644160
   },
   {
     "metric": "cache_read_tokens",
-    "client_id": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-    "client_name": "referee",
-    "client_type": "agent",
-    "model": "opencode-go/claude-haiku-5-5",
-    "amount": 1896065
-  },
-  {
-    "metric": "cache_read_tokens",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
-    "client_name": null,
-    "client_type": null,
-    "model": "claude-opus-5-5",
-    "amount": 406838
-  },
-  {
-    "metric": "cache_write_tokens",
-    "client_id": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
-    "client_name": "hiring",
-    "client_type": "agent",
-    "model": "opencode-go/claude-haiku-5-5",
-    "amount": 238625
-  },
-  {
-    "metric": "cache_write_tokens",
-    "client_id": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-    "client_name": "referee",
-    "client_type": "agent",
-    "model": "opencode-go/claude-haiku-5-5",
-    "amount": 354846
-  },
-  {
-    "metric": "cache_write_tokens",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
-    "client_name": null,
-    "client_type": null,
-    "model": "claude-opus-5-5",
-    "amount": 32068
-  },
-  {
-    "metric": "input_tokens",
-    "client_id": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
-    "client_name": "hiring",
-    "client_type": "agent",
-    "model": "opencode-go/claude-haiku-5-5",
-    "amount": 56
-  },
-  {
-    "metric": "input_tokens",
-    "client_id": "94e5c61b-3a77-4579-8e00-b51c2a36c18a",
+    "client_id": "6e428578-7512-4e4d-b660-f8678c2766b5",
     "client_name": null,
     "client_type": null,
     "model": "gpt-5.6-luna",
-    "amount": 51531
+    "amount": 571392
   },
   {
-    "metric": "input_tokens",
-    "client_id": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
-    "client_name": "opencode-1",
-    "client_type": "agent",
-    "model": "opencode-go/deepseek-v4.1-flash",
-    "amount": 175134
+    "metric": "cache_read_tokens",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
+    "client_name": null,
+    "client_type": null,
+    "model": "claude-opus-5-5",
+    "amount": 313247
   },
   {
-    "metric": "input_tokens",
-    "client_id": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+    "metric": "cache_read_tokens",
+    "client_id": "e7e74063-cd18-4a4d-8535-ef737503224a",
     "client_name": "referee",
     "client_type": "agent",
     "model": "opencode-go/claude-haiku-5-5",
-    "amount": 78
+    "amount": 1849747
+  },
+  {
+    "metric": "cache_write_tokens",
+    "client_id": "29e2db30-48d2-4c94-87a1-49d804891703",
+    "client_name": "hiring",
+    "client_type": "agent",
+    "model": "opencode-go/claude-haiku-5-5",
+    "amount": 232850
+  },
+  {
+    "metric": "cache_write_tokens",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
+    "client_name": null,
+    "client_type": null,
+    "model": "claude-opus-5-5",
+    "amount": 65887
+  },
+  {
+    "metric": "cache_write_tokens",
+    "client_id": "e7e74063-cd18-4a4d-8535-ef737503224a",
+    "client_name": "referee",
+    "client_type": "agent",
+    "model": "opencode-go/claude-haiku-5-5",
+    "amount": 425444
   },
   {
     "metric": "input_tokens",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
+    "client_id": "29e2db30-48d2-4c94-87a1-49d804891703",
+    "client_name": "hiring",
+    "client_type": "agent",
+    "model": "opencode-go/claude-haiku-5-5",
+    "amount": 46
+  },
+  {
+    "metric": "input_tokens",
+    "client_id": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
+    "client_name": "opencode-1",
+    "client_type": "agent",
+    "model": "opencode-go/deepseek-v4.1-flash",
+    "amount": 183817
+  },
+  {
+    "metric": "input_tokens",
+    "client_id": "6e428578-7512-4e4d-b660-f8678c2766b5",
+    "client_name": null,
+    "client_type": null,
+    "model": "gpt-5.6-luna",
+    "amount": 45399
+  },
+  {
+    "metric": "input_tokens",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
     "client_name": null,
     "client_type": null,
     "model": "claude-haiku-5-5",
-    "amount": 1548
+    "amount": 1551
   },
   {
     "metric": "input_tokens",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
     "client_name": null,
     "client_type": null,
     "model": "claude-opus-5-5",
-    "amount": 16
+    "amount": 12
+  },
+  {
+    "metric": "input_tokens",
+    "client_id": "e7e74063-cd18-4a4d-8535-ef737503224a",
+    "client_name": "referee",
+    "client_type": "agent",
+    "model": "opencode-go/claude-haiku-5-5",
+    "amount": 80
   },
   {
     "metric": "messages",
-    "client_id": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+    "client_id": "29e2db30-48d2-4c94-87a1-49d804891703",
     "client_name": "hiring",
     "client_type": "agent",
     "model": "",
@@ -121,23 +121,7 @@
   },
   {
     "metric": "messages",
-    "client_id": "7e6e2311-6c34-4cba-bf31-6083c8426927",
-    "client_name": "aryankumar877",
-    "client_type": "user",
-    "model": "",
-    "amount": 1
-  },
-  {
-    "metric": "messages",
-    "client_id": "94e5c61b-3a77-4579-8e00-b51c2a36c18a",
-    "client_name": null,
-    "client_type": null,
-    "model": "",
-    "amount": 2
-  },
-  {
-    "metric": "messages",
-    "client_id": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+    "client_id": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
     "client_name": "opencode-1",
     "client_type": "agent",
     "model": "",
@@ -145,15 +129,31 @@
   },
   {
     "metric": "messages",
-    "client_id": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-    "client_name": "referee",
-    "client_type": "agent",
+    "client_id": "6e428578-7512-4e4d-b660-f8678c2766b5",
+    "client_name": null,
+    "client_type": null,
     "model": "",
-    "amount": 16
+    "amount": 3
   },
   {
     "metric": "messages",
-    "client_id": "b62f3079-b2b6-49f0-a891-2f9f179c4005",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
+    "client_name": null,
+    "client_type": null,
+    "model": "",
+    "amount": 2
+  },
+  {
+    "metric": "messages",
+    "client_id": "8c960529-4cb0-48cb-ae13-dd8c65389db9",
+    "client_name": "aryankumar877",
+    "client_type": "user",
+    "model": "",
+    "amount": 1
+  },
+  {
+    "metric": "messages",
+    "client_id": "9e53fd97-56d4-4c29-b320-ca13e67fe2a5",
     "client_name": "ak877",
     "client_type": "user",
     "model": "",
@@ -161,98 +161,98 @@
   },
   {
     "metric": "messages",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
-    "client_name": null,
-    "client_type": null,
+    "client_id": "e7e74063-cd18-4a4d-8535-ef737503224a",
+    "client_name": "referee",
+    "client_type": "agent",
     "model": "",
-    "amount": 2
+    "amount": 15
   },
   {
     "metric": "output_tokens",
-    "client_id": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+    "client_id": "29e2db30-48d2-4c94-87a1-49d804891703",
     "client_name": "hiring",
     "client_type": "agent",
     "model": "opencode-go/claude-haiku-5-5",
-    "amount": 6054
+    "amount": 4429
   },
   {
     "metric": "output_tokens",
-    "client_id": "94e5c61b-3a77-4579-8e00-b51c2a36c18a",
-    "client_name": null,
-    "client_type": null,
-    "model": "gpt-5.6-luna",
-    "amount": 1292
-  },
-  {
-    "metric": "output_tokens",
-    "client_id": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+    "client_id": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
     "client_name": "opencode-1",
     "client_type": "agent",
     "model": "opencode-go/deepseek-v4.1-flash",
-    "amount": 4521
+    "amount": 4274
   },
   {
     "metric": "output_tokens",
-    "client_id": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-    "client_name": "referee",
-    "client_type": "agent",
-    "model": "opencode-go/claude-haiku-5-5",
-    "amount": 8550
+    "client_id": "6e428578-7512-4e4d-b660-f8678c2766b5",
+    "client_name": null,
+    "client_type": null,
+    "model": "gpt-5.6-luna",
+    "amount": 1426
   },
   {
     "metric": "output_tokens",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
     "client_name": null,
     "client_type": null,
     "model": "claude-haiku-5-5",
-    "amount": 22
+    "amount": 21
   },
   {
     "metric": "output_tokens",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
     "client_name": null,
     "client_type": null,
     "model": "claude-opus-5-5",
-    "amount": 1465
+    "amount": 2089
+  },
+  {
+    "metric": "output_tokens",
+    "client_id": "e7e74063-cd18-4a4d-8535-ef737503224a",
+    "client_name": "referee",
+    "client_type": "agent",
+    "model": "opencode-go/claude-haiku-5-5",
+    "amount": 8952
   },
   {
     "metric": "turns",
-    "client_id": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+    "client_id": "29e2db30-48d2-4c94-87a1-49d804891703",
     "client_name": "hiring",
     "client_type": "agent",
     "model": "",
-    "amount": 5
+    "amount": 4
   },
   {
     "metric": "turns",
-    "client_id": "94e5c61b-3a77-4579-8e00-b51c2a36c18a",
-    "client_name": null,
-    "client_type": null,
-    "model": "",
-    "amount": 1
-  },
-  {
-    "metric": "turns",
-    "client_id": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+    "client_id": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
     "client_name": "opencode-1",
     "client_type": "agent",
     "model": "",
-    "amount": 3
+    "amount": 4
   },
   {
     "metric": "turns",
-    "client_id": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-    "client_name": "referee",
-    "client_type": "agent",
-    "model": "",
-    "amount": 6
-  },
-  {
-    "metric": "turns",
-    "client_id": "fd8331ad-03f5-4304-8fa9-6fe6ccd27865",
+    "client_id": "6e428578-7512-4e4d-b660-f8678c2766b5",
     "client_name": null,
     "client_type": null,
     "model": "",
     "amount": 1
+  },
+  {
+    "metric": "turns",
+    "client_id": "86b0dab5-e449-4f2c-8580-5b7651f79b95",
+    "client_name": null,
+    "client_type": null,
+    "model": "",
+    "amount": 1
+  },
+  {
+    "metric": "turns",
+    "client_id": "e7e74063-cd18-4a4d-8535-ef737503224a",
+    "client_name": "referee",
+    "client_type": "agent",
+    "model": "",
+    "amount": 7
   }
 ]

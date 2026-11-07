@@ -45,7 +45,8 @@
 - `tryouts board` runs every verified fix against each rival's new tests (`packages/referee/src/rivals.ts`),
   caches them in `rivals/<issue>.json`, and ranks a fix that fails below clean ones. They are not a sixth
   check: the digest stays per-fix. `make judge` replays them from `evidence/tryout-N/rivals.json`.
-- The board and a verified probation fix print the diff and open a pull request (`review.ts`). `merge.ts`
+- The board and a verified probation fix print the diff and open a pull request (`review.ts`). Switch points
+  OpenCode's `XDG_CONFIG_HOME` at a temp folder, so `gh` gets `GH_CONFIG_DIR` explicitly. `merge.ts`
   still pushes the merge commit to main, so the trailers stay; GitHub marks the pull request merged.
 - Three refuted heads on one bug end probation: `Next:` wakes the hiring manager, `tryouts fire` is a card,
   the hire loses #bugs addressing and `tryouts merge` refuses it.

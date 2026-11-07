@@ -74,7 +74,7 @@ export async function start(): Promise<void> {
     [
       "sh",
       "-c",
-      `nohup "$0" run --data-dir="$1" >> "$2" 2>&1 & echo $!`,
+      `unset SLACK_BOT_TOKEN SLACK_APP_TOKEN DISCORD_BOT_TOKEN; nohup "$0" run --data-dir="$1" >> "$2" 2>&1 & echo $!`,
       CONTROLLER_BIN,
       DATA_DIR,
       join(dirname(DATA_DIR), "controller.log"),

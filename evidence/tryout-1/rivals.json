@@ -1,0 +1,96 @@
+{
+  "fixes": [
+    {
+      "name": "claude-1",
+      "fork": "/Users/aryankumar/switch-hackathon/handshake/.demo/arjun/bench/claude/issue-1",
+      "head": "tryout/claude-1",
+      "sha": "fa58138518a2db4c701089459176424a6f3e2f79",
+      "tests": [
+        "test/chunk.test.ts"
+      ]
+    },
+    {
+      "name": "codex-1",
+      "fork": "/Users/aryankumar/switch-hackathon/handshake/.demo/arjun/bench/codex/issue-1",
+      "head": "tryout/codex-1",
+      "sha": "3a6c552b14d3c86058b827dceec290e3cf23dfdc",
+      "tests": [
+        "test/chunk.test.ts"
+      ]
+    },
+    {
+      "name": "opencode-1",
+      "fork": "/Users/aryankumar/switch-hackathon/handshake/.demo/arjun/bench/opencode/issue-1",
+      "head": "tryout/opencode-1",
+      "sha": "5a7cd8180b8b775ed34e074c691e12eaafa4300e",
+      "tests": [
+        "test/chunk.test.ts"
+      ]
+    }
+  ],
+  "report": {
+    "base": "ad7cd9ac31c2b15c208f4840221f105556e0ff97",
+    "duels": [
+      {
+        "fix": "claude-1",
+        "tests": "codex-1",
+        "passed": true
+      },
+      {
+        "fix": "claude-1",
+        "tests": "opencode-1",
+        "passed": true
+      },
+      {
+        "fix": "codex-1",
+        "tests": "claude-1",
+        "passed": true
+      },
+      {
+        "fix": "codex-1",
+        "tests": "opencode-1",
+        "passed": true
+      },
+      {
+        "fix": "opencode-1",
+        "tests": "claude-1",
+        "passed": true
+      },
+      {
+        "fix": "opencode-1",
+        "tests": "codex-1",
+        "passed": true
+      }
+    ],
+    "stats": {
+      "claude-1": {
+        "added": 6,
+        "removed": 1,
+        "files": [
+          "src/chunk.ts",
+          "test/chunk.test.ts"
+        ],
+        "patch": "diff --git a/src/chunk.ts b/src/chunk.ts\nindex f9b1c4e..674761a 100644\n--- a/src/chunk.ts\n+++ b/src/chunk.ts\n@@ -3,7 +3,7 @@ export function chunk<T>(items: readonly T[], size: number): T[][] {\n     throw new RangeError(`size must be a positive integer, got ${size}`);\n   }\n   const chunks: T[][] = [];\n-  for (let i = 0; i < Math.floor(items.length / size); i++) {\n+  for (let i = 0; i < Math.ceil(items.length / size); i++) {\n     chunks.push(items.slice(i * size, (i + 1) * size));\n   }\n   return chunks;\ndiff --git a/test/chunk.test.ts b/test/chunk.test.ts\nindex 30b1240..dd36aaa 100644\n--- a/test/chunk.test.ts\n+++ b/test/chunk.test.ts\n@@ -16,3 +16,8 @@ test(\"rejects a size that is not a positive integer\", () => {\n   expect(() => chunk([1], 0)).toThrow(RangeError);\n   expect(() => chunk([1], 1.5)).toThrow(RangeError);\n });\n+\n+test(\"keeps the last partial chunk\", () => {\n+  expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]]);\n+  expect(chunk([1, 2], 3)).toEqual([[1, 2]]);\n+});"
+      },
+      "codex-1": {
+        "added": 10,
+        "removed": 2,
+        "files": [
+          "src/chunk.ts",
+          "test/chunk.test.ts"
+        ],
+        "patch": "diff --git a/src/chunk.ts b/src/chunk.ts\nindex f9b1c4e..f2860ec 100644\n--- a/src/chunk.ts\n+++ b/src/chunk.ts\n@@ -3,8 +3,8 @@ export function chunk<T>(items: readonly T[], size: number): T[][] {\n     throw new RangeError(`size must be a positive integer, got ${size}`);\n   }\n   const chunks: T[][] = [];\n-  for (let i = 0; i < Math.floor(items.length / size); i++) {\n-    chunks.push(items.slice(i * size, (i + 1) * size));\n+  for (let i = 0; i < items.length; i += size) {\n+    chunks.push(items.slice(i, i + size));\n   }\n   return chunks;\n }\ndiff --git a/test/chunk.test.ts b/test/chunk.test.ts\nindex 30b1240..6c16bdd 100644\n--- a/test/chunk.test.ts\n+++ b/test/chunk.test.ts\n@@ -8,6 +8,14 @@ test(\"splits evenly\", () => {\n   ]);\n });\n \n+test(\"keeps a final partial chunk\", () => {\n+  expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([\n+    [1, 2],\n+    [3, 4],\n+    [5],\n+  ]);\n+});\n+\n test(\"returns no chunks for an empty list\", () => {\n   expect(chunk([], 3)).toEqual([]);\n });"
+      },
+      "opencode-1": {
+        "added": 5,
+        "removed": 1,
+        "files": [
+          "src/chunk.ts",
+          "test/chunk.test.ts"
+        ],
+        "patch": "diff --git a/src/chunk.ts b/src/chunk.ts\nindex f9b1c4e..674761a 100644\n--- a/src/chunk.ts\n+++ b/src/chunk.ts\n@@ -3,7 +3,7 @@ export function chunk<T>(items: readonly T[], size: number): T[][] {\n     throw new RangeError(`size must be a positive integer, got ${size}`);\n   }\n   const chunks: T[][] = [];\n-  for (let i = 0; i < Math.floor(items.length / size); i++) {\n+  for (let i = 0; i < Math.ceil(items.length / size); i++) {\n     chunks.push(items.slice(i * size, (i + 1) * size));\n   }\n   return chunks;\ndiff --git a/test/chunk.test.ts b/test/chunk.test.ts\nindex 30b1240..eb386d5 100644\n--- a/test/chunk.test.ts\n+++ b/test/chunk.test.ts\n@@ -16,3 +16,7 @@ test(\"rejects a size that is not a positive integer\", () => {\n   expect(() => chunk([1], 0)).toThrow(RangeError);\n   expect(() => chunk([1], 1.5)).toThrow(RangeError);\n });\n+\n+test(\"keeps the last partial chunk\", () => {\n+  expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]]);\n+});"
+      }
+    },
+    "digest": "sha256:4a463c8be63dd0ec994ff3470330a8a14078877c290d30228cb933e825c293fa"
+  }
+}

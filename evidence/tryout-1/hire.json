@@ -3,38 +3,54 @@
   "label": "OpenCode deepseek-v4.1-flash",
   "repository": "https://github.com/aryan877/tinychunk.git",
   "tryout": 1,
-  "hiredAt": "2026-11-07T02:18:11.937Z",
+  "hiredAt": "2026-11-07T10:01:20.995Z",
   "hiredBy": "Arjun",
   "hire": {
     "issue": 1,
-    "sha": "25211f41b8ce47506c1cc15257e088cf4fd55ff1",
-    "merged": "8eb00925bbb9cd1326765d4e96bbdf7d2d2a590e",
-    "digest": "sha256:7605f25a88fd3c52266eecfca251932c4ca60e5d4c80fabe41e2143f36baa91e",
-    "approval": "per_1b3cb0a0f001HHmJ7lUp8KrZZF",
-    "at": "2026-11-07T02:18:11.937Z"
+    "sha": "5a7cd8180b8b775ed34e074c691e12eaafa4300e",
+    "merged": "0eb4b33c10ffac68dbe6acefb3cbb569972faac9",
+    "digest": "sha256:542e4c8316956b75ec198c9436f9faf7352ea4baa1df7b9fe856a11cb0cc979d",
+    "approval": "per_1b5736eb4001R1ic4dMgQ1GF0U",
+    "at": "2026-11-07T10:01:20.995Z"
   },
   "board": [
     {
       "agent": "opencode-1",
       "vendor": "opencode",
       "model": "opencode-go/deepseek-v4.1-flash",
-      "createdAt": "2026-11-07 02:11:21.818872+00:00",
+      "createdAt": "2026-11-07 09:55:39.484032+00:00",
       "label": "OpenCode deepseek-v4.1-flash",
       "verdict": "verified",
       "failed": [],
-      "sha": "25211f41b8ce47506c1cc15257e088cf4fd55ff1",
-      "digest": "sha256:7605f25a88fd3c52266eecfca251932c4ca60e5d4c80fabe41e2143f36baa91e",
-      "seconds": 248.182,
+      "sha": "5a7cd8180b8b775ed34e074c691e12eaafa4300e",
+      "digest": "sha256:542e4c8316956b75ec198c9436f9faf7352ea4baa1df7b9fe856a11cb0cc979d",
+      "tests": [
+        "test/chunk.test.ts"
+      ],
+      "diff": {
+        "added": 5,
+        "removed": 1,
+        "files": [
+          "src/chunk.ts",
+          "test/chunk.test.ts"
+        ]
+      },
+      "rivals": {
+        "passed": 2,
+        "total": 2,
+        "failed": []
+      },
+      "seconds": 221.036,
       "tally": {
-        "input": 67063,
-        "output": 1722,
-        "cacheRead": 730496,
+        "input": 49513,
+        "output": 1466,
+        "cacheRead": 491264,
         "cacheWrite": 0,
-        "cost": 0.044100179999999996
+        "cost": 0.03135102
       },
       "counted": true,
       "budget": {
-        "spent": 1722,
+        "spent": 1466,
         "limit": 200000,
         "exhausted": false
       }
@@ -43,23 +59,39 @@
       "agent": "codex-1",
       "vendor": "codex",
       "model": "gpt-5.6-luna",
-      "createdAt": "2026-11-07 02:11:21.995346+00:00",
+      "createdAt": "2026-11-07 09:55:39.072544+00:00",
       "label": "Codex gpt-5.6-luna",
       "verdict": "verified",
       "failed": [],
-      "sha": "2f8e678dc306674790d82eab726bba0703e0aa37",
-      "digest": "sha256:52edf8368e2218ea95ea00c28d9a6f2d082d830d9b53b36266c07f5eb35851bc",
-      "seconds": 43.005,
+      "sha": "3a6c552b14d3c86058b827dceec290e3cf23dfdc",
+      "digest": "sha256:2b5d2d22885f86b62db024a5ae0e13eb21c96df4c7fcc28a57f602221588fae2",
+      "tests": [
+        "test/chunk.test.ts"
+      ],
+      "diff": {
+        "added": 10,
+        "removed": 2,
+        "files": [
+          "src/chunk.ts",
+          "test/chunk.test.ts"
+        ]
+      },
+      "rivals": {
+        "passed": 2,
+        "total": 2,
+        "failed": []
+      },
+      "seconds": 51.08,
       "tally": {
-        "input": 51531,
-        "output": 1292,
-        "cacheRead": 507392,
+        "input": 45399,
+        "output": 1426,
+        "cacheRead": 571392,
         "cacheWrite": 0,
-        "cost": 0.14075775
+        "cost": 0.14243275
       },
       "counted": true,
       "budget": {
-        "spent": 1292,
+        "spent": 1426,
         "limit": 200000,
         "exhausted": false
       }
@@ -68,23 +100,39 @@
       "agent": "claude-1",
       "vendor": "claude",
       "model": null,
-      "createdAt": "2026-11-07 02:11:21.650122+00:00",
+      "createdAt": "2026-11-07 09:55:38.603596+00:00",
       "label": "Claude Code",
       "verdict": "verified",
       "failed": [],
-      "sha": "4a7a68941f3f0c3a5a52979e69d0c5489e3a7483",
-      "digest": "sha256:8cfd3f87c5a281f06e8b26f470d4eda551f7d6170bc1d1bd1bdcd145e9129a0d",
-      "seconds": 21.35,
+      "sha": "fa58138518a2db4c701089459176424a6f3e2f79",
+      "digest": "sha256:effde5f08b9b300372c89817281ca3335eb8fa5a3ed4ab8269fa6ad178b2c2c6",
+      "tests": [
+        "test/chunk.test.ts"
+      ],
+      "diff": {
+        "added": 6,
+        "removed": 1,
+        "files": [
+          "src/chunk.ts",
+          "test/chunk.test.ts"
+        ]
+      },
+      "rivals": {
+        "passed": 2,
+        "total": 2,
+        "failed": []
+      },
+      "seconds": 34.018,
       "tally": {
-        "input": 1564,
-        "output": 1487,
-        "cacheRead": 406838,
-        "cacheWrite": 32068,
-        "cost": 0.44883900000000004
+        "input": 1563,
+        "output": 2110,
+        "cacheRead": 313247,
+        "cacheWrite": 65887,
+        "cost": 0.6289822499999999
       },
       "counted": true,
       "budget": {
-        "spent": 1487,
+        "spent": 2110,
         "limit": 200000,
         "exhausted": false
       }
@@ -93,11 +141,12 @@
   "probation": [
     {
       "issue": 2,
-      "sha": "3e62b33b917f7db619f798c30825f29ba8613c9c",
-      "merged": "e64497120692fd67aca346333a930a8bad0b9cdc",
-      "digest": "sha256:d622ff43a7d27fae00ec41f28c856ecf4f2ff98c5c76159da580d40f20335dff",
-      "approval": "per_1b3d3faf2001wwCh5XsAL1sHqq",
-      "at": "2026-11-07T02:27:31.464Z"
+      "sha": "4319680d8d1875ba892791af73894672dd314c6e",
+      "merged": "9abc13fa05402fc577b6d93dd00348caa5b277c3",
+      "digest": "sha256:83e88c993635ddabb1a45e5db1f427ef269d0f632f9d3537e65f977e1c7b4694",
+      "approval": "per_1b581ed9c001eU3FVAsZ0FeYbq",
+      "at": "2026-11-07T10:16:31.451Z",
+      "cost": 0.07083402
     }
   ]
 }

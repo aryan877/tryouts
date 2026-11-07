@@ -5,16 +5,16 @@
       "app": "slack",
       "owner": "Arjun",
       "group": "Tryout #1",
-      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CFK9TARKP"
+      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CFKQ8PMM1"
     },
     "messages": [
       {
-        "messageId": "sw_2275a3a4b28241dc906bb26b61d92bf2",
+        "messageId": "sw_979e37a4cf894f3e9848fc67aba168d9",
         "seq": 7,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:11:25.232656+00:00",
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T09:55:43.031125+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -28,12 +28,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_8abd6845f0ca4d239388adda91c829dc",
+        "messageId": "sw_9ef046af573141189f3533f719e6419b",
         "seq": 8,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:11:25.239795+00:00",
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T09:55:43.037398+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -42,15 +42,15 @@
         "source": "switch",
         "body": "@codex-1 the tryout for #1 starts now: chunk() drops the last partial chunk. Work as your instructions say, and tell the referee when your branch is ready.\n\n\nThis room is part of a run that started in hiring. So far:\n1. hiring (a person's room): Post a job, hold a tryout, hire with evidence\n2. this room (created by hiring)\nIf you are asked to repeat a step that already ran, say so here and stop, rather than creating another room.",
         "format": "org.matrix.custom.html",
-        "threadRootId": "sw_2275a3a4b28241dc906bb26b61d92bf2",
+        "threadRootId": "sw_979e37a4cf894f3e9848fc67aba168d9",
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_ae0670cd70f24816b125f1faa52a0aa5",
+        "messageId": "sw_784c0bfb36214718a5140c933458b41c",
         "seq": 9,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:11:25.385307+00:00",
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T09:55:43.110209+00:00",
         "sender": {
           "clientId": "",
           "name": "codex-1",
@@ -66,10 +66,10 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_13523854049d49bb822294094b6260c2",
+        "messageId": "sw_9e8ad2fefcae4663baa73a63a952161c",
         "seq": 10,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:12:06.457506+00:00",
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T09:55:53.333339+00:00",
         "sender": {
           "clientId": "",
           "name": "codex-1",
@@ -78,79 +78,41 @@
           "userId": null
         },
         "source": "switch",
-        "body": "@referee Ready: tryout/codex-1",
+        "body": "I’m reproducing the partial-chunk failure and will commit the smallest test-backed fix on tryout/codex-1.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_2aeb5700bca44869b05f9dbd63706c88",
+        "messageId": "sw_bce8f64bf579452184ad7ea71655d892",
         "seq": 11,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:12:06.526084+00:00",
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T09:56:30.152260+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
-          "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "clientId": "",
+          "name": "codex-1",
+          "kind": "system",
+          "agentId": null,
           "userId": null
         },
         "source": "switch",
-        "body": "Starting a session to handle this — one moment.",
+        "body": "@referee Ready: tryout/codex-1. Added a regression test for chunk([1,2,3,4,5], 2) => [[1,2],[3,4],[5]], fixed iteration to retain the final partial chunk, ran `bun test` (6 passed), committed 3a6c552b14d3c86058b827dceec290e3cf23dfdc.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_1f703975dae047e898681870975ea669",
+        "messageId": "sw_d57bb76b4c99425a8df957aa24503f11",
         "seq": 12,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:12:23.685955+00:00",
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T09:56:30.253234+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "**Referee · VERIFIED** `tryout/codex-1` @ `2f8e678dc306674790d82eab726bba0703e0aa37` against `main` @ `57d7f28`\n- ✅ **Based on the latest base** Contains main @ 57d7f28, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/chunk.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:52edf8368e2218ea95ea00c28d9a6f2d082d830d9b53b36266c07f5eb35851bc` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/codex/issue-1 --head tryout/codex-1 --base 57d7f288123bf276d608828f6580a2d864e32afe`",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_89ad685882d44a88af868f8dee3cfe11",
-        "seq": 13,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:12:23.892942+00:00",
-        "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
-          "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "@hiring codex-1: VERIFIED for #1.",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_5ae2e1752815429a8ff256cf2e37a2d4",
-        "seq": 14,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:12:23.960342+00:00",
-        "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
-          "name": "hiring",
-          "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
@@ -161,31 +123,31 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_e00f89ff41924eba9d97e5dae8beb4d5",
-        "seq": 15,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:12:34.169164+00:00",
+        "messageId": "sw_675e43d64bba4171b59f502b3f2eb8b5",
+        "seq": 13,
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T09:56:45.417149+00:00",
         "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
-          "name": "hiring",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
+          "name": "referee",
           "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
-        "body": "Noted: codex-1 is VERIFIED for #1 (card at 2f8e678dc306674790d82eab726bba0703e0aa37). Waiting for the scoreboard before recommending a hire.",
+        "body": "**Referee · VERIFIED** `tryout/codex-1` @ `3a6c552b14d3c86058b827dceec290e3cf23dfdc` against `main` @ `ad7cd9a`\n- ✅ **Based on the latest base** Contains main @ ad7cd9a, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/chunk.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch, and with the original test/chunk.test.ts\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:2b5d2d22885f86b62db024a5ae0e13eb21c96df4c7fcc28a57f602221588fae2` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/codex/issue-1 --head tryout/codex-1 --base ad7cd9ac31c2b15c208f4840221f105556e0ff97`\n\nVerified. The `Next:` line says to post in #hiring, so I'm posting this card here. Still waiting for opencode-1 before the board runs.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_6c29a708c3713b3b4cd72ff203ffe9d5",
-        "seq": 17,
-        "roomId": "b44c27f6-9269-4076-bf57-a4a19858ef55",
-        "sentAt": "2026-11-07T02:18:57.155967+00:00",
+        "messageId": "sw_048a6d0804763402ce10ed846ebc5d56",
+        "seq": 15,
+        "roomId": "09a6af85-18bf-42e2-ad61-4a9f98f9b9c1",
+        "sentAt": "2026-11-07T10:02:09.196429+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -207,16 +169,16 @@
       "app": "slack",
       "owner": "Arjun",
       "group": "Tryout #1",
-      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CFU9MD17W"
+      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CFRRNMC3U"
     },
     "messages": [
       {
-        "messageId": "sw_7c7bf18190614e648629417f0a017655",
+        "messageId": "sw_c02da622a7104d3ea0d18fd35891dc18",
         "seq": 7,
-        "roomId": "27bcdbc5-924a-4297-b1a7-b8e4843b68ff",
-        "sentAt": "2026-11-07T02:11:23.697556+00:00",
+        "roomId": "11ed48e3-4d26-4079-93ab-2566ac855668",
+        "sentAt": "2026-11-07T09:55:41.480991+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -230,12 +192,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_5254570d40a541cabfeba3793383d55a",
+        "messageId": "sw_b21b863a6f5b4a3eb4dada08cecf69c4",
         "seq": 8,
-        "roomId": "27bcdbc5-924a-4297-b1a7-b8e4843b68ff",
-        "sentAt": "2026-11-07T02:11:23.703220+00:00",
+        "roomId": "11ed48e3-4d26-4079-93ab-2566ac855668",
+        "sentAt": "2026-11-07T09:55:41.487543+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -244,15 +206,15 @@
         "source": "switch",
         "body": "@claude-1 the tryout for #1 starts now: chunk() drops the last partial chunk. Work as your instructions say, and tell the referee when your branch is ready.\n\n\nThis room is part of a run that started in hiring. So far:\n1. hiring (a person's room): Post a job, hold a tryout, hire with evidence\n2. this room (created by hiring)\nIf you are asked to repeat a step that already ran, say so here and stop, rather than creating another room.",
         "format": "org.matrix.custom.html",
-        "threadRootId": "sw_7c7bf18190614e648629417f0a017655",
+        "threadRootId": "sw_c02da622a7104d3ea0d18fd35891dc18",
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_84d4752ca2744fcdab0d8c0a827d2b85",
+        "messageId": "sw_ffc15aa803914e63824f009a8484550b",
         "seq": 9,
-        "roomId": "27bcdbc5-924a-4297-b1a7-b8e4843b68ff",
-        "sentAt": "2026-11-07T02:11:23.797862+00:00",
+        "roomId": "11ed48e3-4d26-4079-93ab-2566ac855668",
+        "sentAt": "2026-11-07T09:55:41.579312+00:00",
         "sender": {
           "clientId": "",
           "name": "claude-1",
@@ -268,10 +230,10 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_5d66da986ea340c8abf4b56c0585c865",
+        "messageId": "sw_614bfd99fa92447393bc657872263d46",
         "seq": 10,
-        "roomId": "27bcdbc5-924a-4297-b1a7-b8e4843b68ff",
-        "sentAt": "2026-11-07T02:11:46.114498+00:00",
+        "roomId": "11ed48e3-4d26-4079-93ab-2566ac855668",
+        "sentAt": "2026-11-07T09:56:12.621357+00:00",
         "sender": {
           "clientId": "",
           "name": "claude-1",
@@ -280,22 +242,22 @@
           "userId": null
         },
         "source": "switch",
-        "body": "@referee Ready: tryout/claude-1\n\nCommit 4a7a689. chunk() now rounds the chunk count up (Math.ceil instead of Math.floor), so the last partial chunk is kept. I added a test for it, which failed on main and passes now. bun test: 6 pass, 0 fail. I only changed src/chunk.ts and test/chunk.test.ts.",
+        "body": "@referee Ready: tryout/claude-1\n\nCommit fa58138, changes src/chunk.ts and test/chunk.test.ts. I ran `bun test` locally: the new test failed before the fix (5 pass, 1 fail) and all pass after it (6 pass, 0 fail). I did not run it in the sandbox.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_0ef3a3aab8d240c3b414faeb1da31a40",
+        "messageId": "sw_a71b53ee7cab49b6936e53ce1d254f79",
         "seq": 11,
-        "roomId": "27bcdbc5-924a-4297-b1a7-b8e4843b68ff",
-        "sentAt": "2026-11-07T02:11:46.207902+00:00",
+        "roomId": "11ed48e3-4d26-4079-93ab-2566ac855668",
+        "sentAt": "2026-11-07T09:56:12.697684+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
@@ -306,31 +268,31 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_fa77b44f47eb4fe294aaa0994871a9c9",
+        "messageId": "sw_717fc9cb8a634d728445378465748858",
         "seq": 12,
-        "roomId": "27bcdbc5-924a-4297-b1a7-b8e4843b68ff",
-        "sentAt": "2026-11-07T02:12:04.847576+00:00",
+        "roomId": "11ed48e3-4d26-4079-93ab-2566ac855668",
+        "sentAt": "2026-11-07T09:56:27.349283+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
-        "body": "**Referee · VERIFIED** `tryout/claude-1` @ `4a7a68941f3f0c3a5a52979e69d0c5489e3a7483` against `main` @ `57d7f28`\n- ✅ **Based on the latest base** Contains main @ 57d7f28, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/chunk.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:8cfd3f87c5a281f06e8b26f470d4eda551f7d6170bc1d1bd1bdcd145e9129a0d` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/claude/issue-1 --head tryout/claude-1 --base 57d7f288123bf276d608828f6580a2d864e32afe`",
+        "body": "**Referee · VERIFIED** `tryout/claude-1` @ `fa58138518a2db4c701089459176424a6f3e2f79` against `main` @ `ad7cd9a`\n- ✅ **Based on the latest base** Contains main @ ad7cd9a, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/chunk.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch, and with the original test/chunk.test.ts\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:effde5f08b9b300372c89817281ca3335eb8fa5a3ed4ab8269fa6ad178b2c2c6` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/claude/issue-1 --head tryout/claude-1 --base ad7cd9ac31c2b15c208f4840221f105556e0ff97`\n\nNext: in #hiring, post exactly: claude-1: VERIFIED for #1.\nStill waiting for codex-1, opencode-1, so do nothing else.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_8b5740769596fc5a7323a6b5a98ec00f",
+        "messageId": "sw_f251fe40e9400dd461560685b4842369",
         "seq": 14,
-        "roomId": "27bcdbc5-924a-4297-b1a7-b8e4843b68ff",
-        "sentAt": "2026-11-07T02:19:06.912556+00:00",
+        "roomId": "11ed48e3-4d26-4079-93ab-2566ac855668",
+        "sentAt": "2026-11-07T10:02:20.014041+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -348,146 +310,20 @@
   },
   {
     "room": {
-      "name": "tryout-1-opencode",
-      "app": "slack",
-      "owner": "Arjun",
-      "group": "Tryout #1",
-      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CFSFBQCBB"
-    },
-    "messages": [
-      {
-        "messageId": "sw_0a8c6b0a9c8a4e5d9a31efa5365936de",
-        "seq": 7,
-        "roomId": "070c3e94-361b-4a01-80f8-c0838f571d4f",
-        "sentAt": "2026-11-07T02:11:26.858219+00:00",
-        "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
-          "name": "admin",
-          "kind": "system",
-          "agentId": null,
-          "userId": null
-        },
-        "source": "switch",
-        "body": "Kickoff from hiring, Arjun's agent",
-        "format": "org.matrix.custom.html",
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_d9c1d1a5fcf1469594a0d3dc372861e1",
-        "seq": 8,
-        "roomId": "070c3e94-361b-4a01-80f8-c0838f571d4f",
-        "sentAt": "2026-11-07T02:11:26.865648+00:00",
-        "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
-          "name": "admin",
-          "kind": "system",
-          "agentId": null,
-          "userId": null
-        },
-        "source": "switch",
-        "body": "@opencode-1 the tryout for #1 starts now: chunk() drops the last partial chunk. Work as your instructions say, and tell the referee when your branch is ready.\n\n\nThis room is part of a run that started in hiring. So far:\n1. hiring (a person's room): Post a job, hold a tryout, hire with evidence\n2. this room (created by hiring)\nIf you are asked to repeat a step that already ran, say so here and stop, rather than creating another room.",
-        "format": "org.matrix.custom.html",
-        "threadRootId": "sw_0a8c6b0a9c8a4e5d9a31efa5365936de",
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_65dfff31245b46c981da6a4269956e5d",
-        "seq": 9,
-        "roomId": "070c3e94-361b-4a01-80f8-c0838f571d4f",
-        "sentAt": "2026-11-07T02:11:26.983955+00:00",
-        "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
-          "name": "opencode-1",
-          "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "Starting a session to handle this — one moment.",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_4dceb6cc6f9c411385616d0e4d1bcdcd",
-        "seq": 11,
-        "roomId": "070c3e94-361b-4a01-80f8-c0838f571d4f",
-        "sentAt": "2026-11-07T02:15:57.318970+00:00",
-        "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
-          "name": "opencode-1",
-          "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "@referee Ready: tryout/opencode-1",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_3b89e5b09b734956bb3a70f427b4c2d5",
-        "seq": 12,
-        "roomId": "070c3e94-361b-4a01-80f8-c0838f571d4f",
-        "sentAt": "2026-11-07T02:15:57.432294+00:00",
-        "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
-          "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "Starting a session to handle this — one moment.",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_24b07b08c74a46bc9c315cdb9ccf7f20",
-        "seq": 13,
-        "roomId": "070c3e94-361b-4a01-80f8-c0838f571d4f",
-        "sentAt": "2026-11-07T02:16:12.260591+00:00",
-        "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
-          "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "**Referee · VERIFIED** `tryout/opencode-1` @ `25211f41b8ce47506c1cc15257e088cf4fd55ff1` against `main` @ `57d7f28`\n- ✅ **Based on the latest base** Contains main @ 57d7f28, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/chunk.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:7605f25a88fd3c52266eecfca251932c4ca60e5d4c80fabe41e2143f36baa91e` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/opencode/issue-1 --head tryout/opencode-1 --base 57d7f288123bf276d608828f6580a2d864e32afe`",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      }
-    ],
-    "approvals": []
-  },
-  {
-    "room": {
       "name": "hiring",
       "app": "slack",
       "owner": "Arjun",
       "group": null,
-      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CGJVAD47J"
+      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CFLMQFDGD"
     },
     "messages": [
       {
-        "messageId": "sw_08872755449e49fcb61a24a2db5026b6",
+        "messageId": "sw_adc35d8bb8f3482fab34f022414747a5",
         "seq": 6,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:09:55.037924+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:47:41.368782+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -501,12 +337,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_3e638438cef247f5a36a40d788cf7bd9",
+        "messageId": "sw_00f178b2df0340eba581a910d89d9e1e",
         "seq": 7,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:09:55.049194+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:47:41.379356+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -515,20 +351,20 @@
         "source": "switch",
         "body": "@hiring @referee you are both here. In one line each: what you will do in this room, and what you will not.\n",
         "format": "org.matrix.custom.html",
-        "threadRootId": "sw_08872755449e49fcb61a24a2db5026b6",
+        "threadRootId": "sw_adc35d8bb8f3482fab34f022414747a5",
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_6358b84b24b444349dc803617412d9df",
+        "messageId": "sw_6a57f09de8f14bd7b412544ab036181f",
         "seq": 8,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:09:55.144094+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:47:41.469349+00:00",
         "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
           "name": "hiring",
           "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
           "userId": null
         },
         "source": "switch",
@@ -539,15 +375,15 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_1091c71bd0c74eaf9783b94d20ad8a48",
+        "messageId": "sw_dd0915aa6ac04eda9a70c4b8d51b021a",
         "seq": 9,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:09:55.155109+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:47:41.475171+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
@@ -558,50 +394,50 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_86244d0008f74e108bdde40e223b8486",
+        "messageId": "sw_eba4a1d2b86844eb9a33e426f5c59997",
         "seq": 10,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:10:04.415188+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:47:49.201090+00:00",
         "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
           "name": "hiring",
           "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
           "userId": null
         },
         "source": "switch",
-        "body": "Hiring: I post jobs from the owner's request, run the tryout template, pick a winner from the referee's scoreboard, and hire only through `tryouts hire` with the owner's approval. I will not write code, score candidates myself, or merge without the owner's approval card.",
+        "body": "Hiring manager: I will run the tryout template for each job the owner posts, answer candidates' questions from the job post, and recommend a hire from the referee's scoreboard, with merges only after the owner's approval card. I will not write code or hints for candidates, score them myself, or run any command other than `tryouts verify`, `tryouts board` and `tryouts hire`/`merge`/`fire` as written.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_d542382008444f2e87921f0c9b20750f",
+        "messageId": "sw_e1925f338fbd44b7a8c5f74681373613",
         "seq": 11,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:10:07.014245+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:47:49.603816+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
-        "body": "Referee: I run plain-code checks only. I will run `tryouts verify` on candidate branches when asked, `tryouts budget` when the hiring manager asks, and `tryouts board` for the scoreboard, then post their output as printed and follow the Next: lines. I will not judge work by opinion, fix candidates' code, or hire or merge anything.",
+        "body": "Referee: I will run only `tryouts verify`, `tryouts budget` and `tryouts board` when asked, post their output exactly as printed, and follow their Next: lines. I will not judge candidates by opinion, edit or fix anyone's work, or run hire, merge or fire.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_749e4bb27df589c793892207b0732504",
-        "seq": 12,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:11:17.011753+00:00",
+        "messageId": "sw_4f8e5e90c7cb8bafaa6daf2a7af6f436",
+        "seq": 13,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:55:29.915559+00:00",
         "sender": {
-          "clientId": "7e6e2311-6c34-4cba-bf31-6083c8426927",
+          "clientId": "8c960529-4cb0-48cb-ae13-dd8c65389db9",
           "name": "aryankumar877",
           "kind": "human",
           "agentId": null,
@@ -615,72 +451,91 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_f755624d95bb48c5bbfed58115e26015",
-        "seq": 13,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:11:29.181391+00:00",
+        "messageId": "sw_080d3ffb5a8f403b8c5b0eff71d54075",
+        "seq": 14,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:55:47.339945+00:00",
         "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
           "name": "hiring",
           "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
           "userId": null
         },
         "source": "switch",
-        "body": "@referee Tryout #1 is running (issue #1, chunk() drops the last partial chunk) with claude-1, codex-1 and opencode-1. Please set the budgets for this tryout, issue #1, and tell us when the scoreboard is in.",
+        "body": "@referee Tryout for #1 (chunk() drops the last partial chunk) is started with claude-1, codex-1 and opencode-1, in rooms tryout-1-claude, tryout-1-codex and tryout-1-opencode. Please set the budgets for this tryout on #1.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_193efbf6bb5e40f9b02a3bf478d755ed",
-        "seq": 14,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:11:34.351036+00:00",
-        "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
-          "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "Referee: budgets for tryout #1 (issue #1) are set in Switch:\n\n```\n**Tryout #1 · budgets set in Switch**\n- claude-1: 200,000 output tokens per 24h\n- codex-1: 200,000 output tokens per 24h\n- opencode-1: 200,000 output tokens per 24h\nSwitch stops delivering messages to a candidate that spends its budget.\n```\n\nI will run the scoreboard when a candidate's verify card asks for it. I will not run it before every candidate has a verified card.",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_5a339075cd5a4ab293131b33e51d91f3",
+        "messageId": "sw_43025915517d44eebab8d1ca14521ff4",
         "seq": 15,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:12:08.842896+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:55:47.741780+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
+          "name": "hiring",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
           "userId": null
         },
         "source": "switch",
-        "body": "claude-1: VERIFIED for #1.",
+        "body": "Tryout for #1 started: claude-1, codex-1 and opencode-1, each in its own private room (tryout-1-claude, tryout-1-codex, tryout-1-opencode). @referee is setting the budgets. I'll take the referee's scoreboard when it is in.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_ecc2d5ee833742b9a23ddd64e40b2b99",
+        "messageId": "sw_74b109835b2e4ca28bd8d74200c36991",
         "seq": 16,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:12:28.200601+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:55:53.758444+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "Referee: output of `tryouts budget --issue 1`:\n\n**Tryout #1 · budgets set in Switch**\n- claude-1: 200,000 output tokens per 24h\n- codex-1: 200,000 output tokens per 24h\n- opencode-1: 200,000 output tokens per 24h\nSwitch stops delivering messages to a candidate that spends its budget. If one stalls, say `@referee board` here to score whoever finished.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_f9168eaeadf145d196edefd61847158c",
+        "seq": 17,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:55:58.147446+00:00",
+        "sender": {
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
+          "name": "referee",
+          "kind": "agent",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "Referee: noted. The budgets for #1 are already set (200,000 output tokens per 24h each for claude-1, codex-1 and opencode-1). I will run `tryouts board --issue 1` when a Next: line or the owner asks for the scoreboard.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_26edce49f334462298aaaae6654af253",
+        "seq": 18,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:56:54.116241+00:00",
+        "sender": {
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
+          "name": "referee",
+          "kind": "agent",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
@@ -691,15 +546,15 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_9972fc2682ce43a09f7cf418905aa1d9",
-        "seq": 18,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:16:19.059345+00:00",
+        "messageId": "sw_ee4afe084b554e3f890897a13e50060d",
+        "seq": 19,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:59:43.613725+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
@@ -710,69 +565,107 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_4088912c0da2490fb21fbdccdd704cae",
-        "seq": 19,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:16:23.639793+00:00",
+        "messageId": "sw_ceaf5549a1794faa8850ca10de44dd64",
+        "seq": 20,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T09:59:57.633523+00:00",
         "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
           "name": "referee",
           "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
           "userId": null
         },
         "source": "switch",
-        "body": "**Tryout #1 · scoreboard**\n1. **opencode-1** · OpenCode deepseek-v4.1-flash · ✅ VERIFIED · 4m 08s · 797.6k in · 1.7k out · est. $0.044\n2. **codex-1** · Codex gpt-5.6-luna · ✅ VERIFIED · 43s · 558.9k in · 1.3k out · est. $0.141\n3. **claude-1** · Claude Code · ✅ VERIFIED · 21s · 440.5k in · 1.5k out · est. $0.449\nSuggested hire: **opencode-1**, verified at the lowest estimated cost.\nTokens are Switch's usage counts, added when each turn ends. Dollars are list-price estimates; time runs from the agent's creation to its last commit.\n\n@hiring the scoreboard for #1 is in.",
+        "body": "**Tryout #1 · scoreboard**\n1. **opencode-1** · OpenCode deepseek-v4.1-flash · ✅ VERIFIED · rival tests 2/2 · +5 −1 · 3m 41s · 540.8k in · 1.5k out · est. $0.031\n2. **codex-1** · Codex gpt-5.6-luna · ✅ VERIFIED · rival tests 2/2 · +10 −2 · 51s · 616.8k in · 1.4k out · est. $0.142\n3. **claude-1** · Claude Code · ✅ VERIFIED · rival tests 2/2 · +6 −1 · 34s · 380.7k in · 2.1k out · est. $0.629\nSuggested hire: **opencode-1**, verified and clean against its rivals' tests, at the lowest estimated cost.\nRival tests run each fix against the other candidates' new tests. Tokens are Switch's usage counts, added when each turn ends. Dollars are list-price estimates, not bills. Time runs from the agent's creation to when it said Ready.\n\n**What you'd approve: opencode-1's fix** · +5 −1 in src/chunk.ts, test/chunk.test.ts\n```diff\n--- a/src/chunk.ts\n+++ b/src/chunk.ts\n@@ -3,7 +3,7 @@ export function chunk<T>(items: readonly T[], size: number): T[][] {\n     throw new RangeError(`size must be a positive integer, got ${size}`);\n   }\n   const chunks: T[][] = [];\n-  for (let i = 0; i < Math.floor(items.length / size); i++) {\n+  for (let i = 0; i < Math.ceil(items.length / size); i++) {\n     chunks.push(items.slice(i * size, (i + 1) * size));\n   }\n   return chunks;\n--- a/test/chunk.test.ts\n+++ b/test/chunk.test.ts\n@@ -16,3 +16,7 @@ test(\"rejects a size that is not a positive integer\", () => {\n   expect(() => chunk([1], 0)).toThrow(RangeError);\n   expect(() => chunk([1], 1.5)).toThrow(RangeError);\n });\n+\n+test(\"keeps the last partial chunk\", () => {\n+  expect(chunk([1, 2, 3, 4, 5], 2)).toEqual([[1, 2], [3, 4], [5]]);\n+});\n```\n\nCommits: opencode-1 `5a7cd8180b8b775ed34e074c691e12eaafa4300e` · codex-1 `3a6c552b14d3c86058b827dceec290e3cf23dfdc` · claude-1 `fa58138518a2db4c701089459176424a6f3e2f79`\n@hiring the scoreboard for #1 is in.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_9bebc6e3d755435198cded7b9b45e7c5",
-        "seq": 20,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:16:30.270566+00:00",
+        "messageId": "sw_2aaea79bf5834ac380f2dddb2a47604a",
+        "seq": 21,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:00:01.044715+00:00",
         "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
           "name": "hiring",
           "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
           "userId": null
         },
         "source": "switch",
-        "body": "Recommending opencode-1 for the bug-fixer job: VERIFIED on #1 at the lowest estimated cost ($0.044, 797.6k in, 4m 08s), against codex-1 at $0.141 and claude-1 at $0.449.",
+        "body": "Recommending opencode-1 for the bug-fixer job: VERIFIED, passes both rivals' tests (2/2), +5 −1, est. $0.031 (lowest of the three; codex-1 $0.142, claude-1 $0.629), 3m 41s. No verified candidate failed a rival's tests.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_4d2d578f178141ac9d062518b2c2e2aa",
-        "seq": 22,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:15.722725+00:00",
-        "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
-          "name": "hiring",
-          "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "**Hired · opencode-1** (OpenCode deepseek-v4.1-flash) as the bug fixer for tinychunk\n- Won tryout #1 against 2 others; 3 of 3 verified\n- Its numbers: 4m 08s · 797.6k in · 1.7k out · est. $0.044\n- Merged `tryout/opencode-1` @ `25211f4` into main as `8eb0092`, referee digest `sha256:7605f25a88fd3c52266eecfca251932c4ca60e5d4c80fabe41e2143f36baa91e`\n- Anyone in bugs may now address it, once someone there lets it in\n- Probation: 0 of 3 fixes merged\n\nNote: `tryouts hire` reported a merge into main, which I did not request. The hire was meant to wait for the owner's approval card, so the owner should check main at 8eb0092.",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_354e83e0ce434fa6968484afc5995718",
+        "messageId": "sw_dc29ce0eede741d98802f96627cad4e3",
         "seq": 23,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:18.523675+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:01:24.544274+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
+          "name": "hiring",
+          "kind": "agent",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "**Hired · opencode-1** (OpenCode deepseek-v4.1-flash) as the bug fixer for tinychunk\n- Won tryout #1 against 2 others; 3 of 3 verified\n- Its numbers: 3m 41s · 540.8k in · 1.5k out · est. $0.031\n- Merged `tryout/opencode-1` @ `5a7cd81` into main as `0eb4b33`, referee digest `sha256:542e4c8316956b75ec198c9436f9faf7352ea4baa1df7b9fe856a11cb0cc979d`\n- Riya can give it bugs in bugs once someone there lets it in. Switch refuses everyone else\n- Approved by Arjun on Switch card `per_1b5736eb4001R1ic4dMgQ1GF0U`\n- Probation: 0 of 3 fixes merged",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_cb1f4a6b7f824265ab159fe2a14d9e8c",
+        "seq": 24,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:01:29.391908+00:00",
+        "sender": {
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
+          "name": "hiring",
+          "kind": "agent",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "Invite into bugs was refused: \"403: Not authorized to change this room's membership\". Someone in the bugs room has to let the hire in by sending `!invite-agent @opencode-1` and `!set-alias @opencode-1 @bugfixer` there.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_4eff0cb811984b2a9cb5a167c2ea8a90",
+        "seq": 25,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:01:29.490004+00:00",
+        "sender": {
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
+          "name": "opencode-1",
+          "kind": "agent",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "Starting a session to handle this — one moment.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_2d26a7b7faf4413985f83b322dd4503d",
+        "seq": 26,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:01:30.835954+00:00",
+        "sender": {
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -786,12 +679,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_ddbc5f308c7e43bb91fea576070ba236",
-        "seq": 24,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:20.404823+00:00",
+        "messageId": "sw_2f02f6f5ef134adaaf8d113178d9aedf",
+        "seq": 27,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:01:33.408560+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -805,69 +698,50 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_fb9251452a844e07ba5505072e8c8b5a",
-        "seq": 25,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:23.010501+00:00",
+        "messageId": "sw_d437c14f651b4967895cabd04ce0b945",
+        "seq": 28,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:01:35.600263+00:00",
         "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
           "name": "hiring",
           "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
           "userId": null
         },
         "source": "switch",
-        "body": "Step 8: adding opencode-1 to the bugs room was refused by Switch: \"403: Not authorized to change this room's membership\". Someone in the bugs room has to send `!invite-agent @opencode-1` and `!set-alias @opencode-1 @bugfixer` there.\n\nStep 9: deletion requested for the two dismissed candidates. Owner or admin, reply in this room within 2 minutes:\n- `!delete-agent codex-1 confirm`\n- `!delete-agent claude-1 confirm`",
+        "body": "Deletion requested for the two dismissed candidates. Only the owner or a workspace admin can confirm, within 2 minutes each:\n- codex-1: reply `!delete-agent codex-1 confirm`\n- claude-1: reply `!delete-agent claude-1 confirm`",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_a643934c5f0e4f3f86af85362ce2064a",
-        "seq": 26,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:23.115213+00:00",
+        "messageId": "sw_32759f2fd9fa4e51baa028865e9db723",
+        "seq": 29,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:02:07.940347+00:00",
         "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
           "name": "opencode-1",
           "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
           "userId": null
         },
         "source": "switch",
-        "body": "Starting a session to handle this — one moment.",
+        "body": "I finished without replying. The turn failed: APIError: Upstream request failed: [overloaded] the server is overloaded; retry shortly",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_1cde429716db4aaf836fe2adf77d8a89",
-        "seq": 27,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:37.733309+00:00",
+        "messageId": "sw_a4e60b0d85b51127811cf70c3316ba69",
+        "seq": 30,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:02:09.127343+00:00",
         "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
-          "name": "opencode-1",
-          "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "I take bugs in bugs.",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_7ccecb9cfa6847ff2636dbc4f6087991",
-        "seq": 28,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:57.092865+00:00",
-        "sender": {
-          "clientId": "7e6e2311-6c34-4cba-bf31-6083c8426927",
+          "clientId": "8c960529-4cb0-48cb-ae13-dd8c65389db9",
           "name": "aryankumar877",
           "kind": "human",
           "agentId": null,
@@ -881,12 +755,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_91df1f5a9f627153b81803edd16318a2",
-        "seq": 29,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:18:57.185523+00:00",
+        "messageId": "sw_8244a4712673f5d596626908489431a1",
+        "seq": 31,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:02:09.223978+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -895,17 +769,17 @@
         "source": "switch",
         "body": "Deleted **Codex · #1 (`codex-1`)**, as hiring asked.",
         "format": "org.matrix.custom.html",
-        "threadRootId": "sw_7ccecb9cfa6847ff2636dbc4f6087991",
+        "threadRootId": "sw_a4e60b0d85b51127811cf70c3316ba69",
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_a516a1552a62313f20817f8985198eff",
-        "seq": 30,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:19:06.849368+00:00",
+        "messageId": "sw_ea68026af316c406680c94420d69bc68",
+        "seq": 32,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:02:19.948704+00:00",
         "sender": {
-          "clientId": "7e6e2311-6c34-4cba-bf31-6083c8426927",
+          "clientId": "8c960529-4cb0-48cb-ae13-dd8c65389db9",
           "name": "aryankumar877",
           "kind": "human",
           "agentId": null,
@@ -919,12 +793,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_5954a35afcb1435bdd9ce3e0d590fcc4",
-        "seq": 31,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:19:06.930222+00:00",
+        "messageId": "sw_14746bdff2962f372c1636a83fdabbe4",
+        "seq": 33,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:02:20.038927+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -933,20 +807,20 @@
         "source": "switch",
         "body": "Deleted **Claude Code · #1 (`claude-1`)**, as hiring asked.",
         "format": "org.matrix.custom.html",
-        "threadRootId": "sw_a516a1552a62313f20817f8985198eff",
+        "threadRootId": "sw_ea68026af316c406680c94420d69bc68",
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_e8396129c7cc4ccda23ba503f4fec836",
-        "seq": 32,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:25:53.025862+00:00",
+        "messageId": "sw_25893891eeeb40998abebe8a10c8c353",
+        "seq": 34,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:15:32.560914+00:00",
         "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
           "name": "opencode-1",
           "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
           "userId": null
         },
         "source": "switch",
@@ -957,57 +831,57 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_54dd294ffa4b4cf9b393d9b6fa27418e",
-        "seq": 33,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:26:07.336330+00:00",
-        "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
-          "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "**Referee · VERIFIED** `fix/2` @ `3e62b33b917f7db619f798c30825f29ba8613c9c` against `main` @ `8eb0092`\n- ✅ **Based on the latest base** Contains main @ 8eb0092, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/windows.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:d622ff43a7d27fae00ec41f28c856ecf4f2ff98c5c76159da580d40f20335dff` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/opencode/issue-2 --head fix/2 --base 8eb00925bbb9cd1326765d4e96bbdf7d2d2a590e`",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_dbe4bb1e1f354486aa8f4b8e338bc7a3",
-        "seq": 34,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:26:07.630428+00:00",
-        "sender": {
-          "clientId": "b2402585-2822-42b8-ae0f-eb3e291d4b83",
-          "name": "referee",
-          "kind": "agent",
-          "agentId": "6ecaace0-8150-4057-bd0c-c292951276b0",
-          "userId": null
-        },
-        "source": "switch",
-        "body": "@hiring opencode-1: VERIFIED for #2, commit 3e62b33b917f7db619f798c30825f29ba8613c9c.",
-        "format": null,
-        "threadRootId": null,
-        "attachments": [],
-        "clientTxn": null
-      },
-      {
-        "messageId": "sw_110e1c4a4f9a44139a9df27f1989e1ec",
+        "messageId": "sw_f4a6c80a18764b9eba24ae3c49909ce3",
         "seq": 35,
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "sentAt": "2026-11-07T02:27:33.601665+00:00",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:15:50.623416+00:00",
         "sender": {
-          "clientId": "6c1bf3b6-34ba-4a36-a487-c1d6d5354016",
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
+          "name": "referee",
+          "kind": "agent",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "**Referee · VERIFIED** `fix/2` @ `4319680d8d1875ba892791af73894672dd314c6e` against `main` @ `0eb4b33`\n- ✅ **Based on the latest base** Contains main @ 0eb4b33, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/windows.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch, and with the original test/windows.test.ts\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:83e88c993635ddabb1a45e5db1f427ef269d0f632f9d3537e65f977e1c7b4694` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/opencode/issue-2 --head fix/2 --base 0eb4b33c10ffac68dbe6acefb3cbb569972faac9`\n\n**What you'd approve: opencode-1's fix** · +17 −1 in src/windows.ts, test/windows.test.ts\n```diff\n--- a/src/windows.ts\n+++ b/src/windows.ts\n@@ -3,7 +3,7 @@ export function windows<T>(items: readonly T[], size: number): T[][] {\n     throw new RangeError(`size must be a positive integer, got ${size}`);\n   }\n   const result: T[][] = [];\n-  for (let start = 0; start < items.length - size; start++) {\n+  for (let start = 0; start <= items.length - size; start++) {\n     result.push(items.slice(start, start + size));\n   }\n   return result;\n--- a/test/windows.test.ts\n+++ b/test/windows.test.ts\n@@ -1,6 +1,22 @@\n import { expect, test } from \"bun:test\";\n import { windows } from \"../src/windows\";\n \n+test(\"keeps the final window that ends on the last item\", () => {\n+  expect(windows([1, 2, 3], 2)).toEqual([\n+    [1, 2],\n+    [2, 3],\n+  ]);\n+  expect(windows([1, 2, 3, 4], 2)).toEqual([\n+    [1, 2],\n+    [2, 3],\n+    [3, 4],\n+  ]);\n+});\n+\n+test(\"returns a single window when the list is exactly the size\", () => {\n+  expect(windows([1, 2], 2)).toEqual([[1, 2]]);\n+});\n+\n test(\"returns no windows when the list is shorter than the size\", () => {\n   expect(windows([1, 2], 3)).toEqual([]);\n });\n```",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_7384febd56c44871a60205c9a15ed15d",
+        "seq": 36,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:15:50.897919+00:00",
+        "sender": {
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
+          "name": "referee",
+          "kind": "agent",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "@hiring opencode-1: VERIFIED for #2, commit 4319680d8d1875ba892791af73894672dd314c6e.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_338a57d1ca8a4ef3a6a467bb5a78fde8",
+        "seq": 37,
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "sentAt": "2026-11-07T10:16:34.318110+00:00",
+        "sender": {
+          "clientId": "29e2db30-48d2-4c94-87a1-49d804891703",
           "name": "hiring",
           "kind": "agent",
-          "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
+          "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
           "userId": null
         },
         "source": "switch",
-        "body": "**Merged · #2 by opencode-1** into main as `e644971`\n- `fix/2` @ `3e62b33`, referee digest `sha256:d622ff43a7d27fae00ec41f28c856ecf4f2ff98c5c76159da580d40f20335dff`\n- Probation: 1 of 3 fixes merged",
+        "body": "**Merged · #2 by opencode-1** into main as `9abc13f`\n- `fix/2` @ `4319680`, referee digest `sha256:83e88c993635ddabb1a45e5db1f427ef269d0f632f9d3537e65f977e1c7b4694`\n- Probation: 1 of 3 fixes merged · this fix est. $0.071\n- Approved by Arjun on Switch card `per_1b581ed9c001eU3FVAsZ0FeYbq`\n\n@opencode-1 #2 is merged. Tell the reporter.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
@@ -1016,14 +890,14 @@
     ],
     "approvals": [
       {
-        "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
-        "sessionId": "70d4242e-7856-5798-953f-bd7f7040a8d6",
-        "requestId": "per_1b3cb0a0f001HHmJ7lUp8KrZZF",
-        "turnId": "061cef7b-6cc3-5d2c-8923-c6af6420fffb",
+        "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
+        "sessionId": "5f6e14b8-516c-599f-bcc1-1791c5c16244",
+        "requestId": "per_1b5736eb4001R1ic4dMgQ1GF0U",
+        "turnId": "b890f0a5-b435-53bd-8e1d-56244f01697e",
         "kind": "approval",
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "threadId": "sw_4088912c0da2490fb21fbdccdd704cae",
-        "title": "tryouts hire --agent opencode-1 --issue 1 --sha 25211f41b8ce47506c1cc15257e088cf4fd55ff1",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "threadId": "sw_ceaf5549a1794faa8850ca10de44dd64",
+        "title": "tryouts hire --agent opencode-1 --issue 1 --sha 5a7cd8180b8b775ed34e074c691e12eaafa4300e",
         "detail": null,
         "options": [
           {
@@ -1047,18 +921,18 @@
         "expiresAt": null,
         "answer": "0",
         "answers": null,
-        "answeredBy": "@switch-slack-9233ffaa-a94b-4bf1-91e3-985814626795-aryankumar877:localhost",
-        "answeredAt": "2026-11-07T02:18:06.309494Z"
+        "answeredBy": "@switch-slack-98c9397e-0ea9-4cc6-9811-8e0dbcadcb4c-aryankumar877:localhost",
+        "answeredAt": "2026-11-07T10:01:14.914480Z"
       },
       {
-        "agentId": "e430e380-6571-42ea-882c-587120ec2ab5",
-        "sessionId": "70d4242e-7856-5798-953f-bd7f7040a8d6",
-        "requestId": "per_1b3d3faf2001wwCh5XsAL1sHqq",
-        "turnId": "7e257f2c-4537-5d9b-80d8-9f3c08b9f6ea",
+        "agentId": "2f436a21-0aa4-4893-a5d0-c5ac44d6573e",
+        "sessionId": "5f6e14b8-516c-599f-bcc1-1791c5c16244",
+        "requestId": "per_1b581ed9c001eU3FVAsZ0FeYbq",
+        "turnId": "e3164e0e-768c-5409-9fef-f697beca2af9",
         "kind": "approval",
-        "roomId": "25ce0cb6-c909-49b0-83df-4f8129975a29",
-        "threadId": "sw_dbe4bb1e1f354486aa8f4b8e338bc7a3",
-        "title": "tryouts merge --agent opencode-1 --issue 2 --sha 3e62b33b917f7db619f798c30825f29ba8613c9c",
+        "roomId": "b7ec18db-cd56-4ff4-9ad7-c3d071f0ba79",
+        "threadId": "sw_7384febd56c44871a60205c9a15ed15d",
+        "title": "tryouts merge --agent opencode-1 --issue 2 --sha 4319680d8d1875ba892791af73894672dd314c6e",
         "detail": null,
         "options": [
           {
@@ -1082,10 +956,136 @@
         "expiresAt": null,
         "answer": "0",
         "answers": null,
-        "answeredBy": "@switch-slack-9233ffaa-a94b-4bf1-91e3-985814626795-aryankumar877:localhost",
-        "answeredAt": "2026-11-07T02:27:25.769366Z"
+        "answeredBy": "@switch-slack-98c9397e-0ea9-4cc6-9811-8e0dbcadcb4c-aryankumar877:localhost",
+        "answeredAt": "2026-11-07T10:16:25.502166Z"
       }
     ]
+  },
+  {
+    "room": {
+      "name": "tryout-1-opencode",
+      "app": "slack",
+      "owner": "Arjun",
+      "group": "Tryout #1",
+      "url": "slack://channel?team=T0CFBJ41FK3&id=C0CFTTXTDK3"
+    },
+    "messages": [
+      {
+        "messageId": "sw_ddf1bc4388cb4f32bfb7d596477cf11c",
+        "seq": 7,
+        "roomId": "2fd0f41c-c703-451b-8fe7-4f5aa0e65551",
+        "sentAt": "2026-11-07T09:55:44.622910+00:00",
+        "sender": {
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
+          "name": "admin",
+          "kind": "system",
+          "agentId": null,
+          "userId": null
+        },
+        "source": "switch",
+        "body": "Kickoff from hiring, Arjun's agent",
+        "format": "org.matrix.custom.html",
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_32e9f064858048ae9a559dc121c133ff",
+        "seq": 8,
+        "roomId": "2fd0f41c-c703-451b-8fe7-4f5aa0e65551",
+        "sentAt": "2026-11-07T09:55:44.629481+00:00",
+        "sender": {
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
+          "name": "admin",
+          "kind": "system",
+          "agentId": null,
+          "userId": null
+        },
+        "source": "switch",
+        "body": "@opencode-1 the tryout for #1 starts now: chunk() drops the last partial chunk. Work as your instructions say, and tell the referee when your branch is ready.\n\n\nThis room is part of a run that started in hiring. So far:\n1. hiring (a person's room): Post a job, hold a tryout, hire with evidence\n2. this room (created by hiring)\nIf you are asked to repeat a step that already ran, say so here and stop, rather than creating another room.",
+        "format": "org.matrix.custom.html",
+        "threadRootId": "sw_ddf1bc4388cb4f32bfb7d596477cf11c",
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_b8df5845e3ec4783af1d48c85c2cc8ab",
+        "seq": 9,
+        "roomId": "2fd0f41c-c703-451b-8fe7-4f5aa0e65551",
+        "sentAt": "2026-11-07T09:55:44.713960+00:00",
+        "sender": {
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
+          "name": "opencode-1",
+          "kind": "agent",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "Starting a session to handle this — one moment.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_605af7497acc47a89b0a048bdc599d4b",
+        "seq": 11,
+        "roomId": "2fd0f41c-c703-451b-8fe7-4f5aa0e65551",
+        "sentAt": "2026-11-07T09:59:20.520589+00:00",
+        "sender": {
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
+          "name": "opencode-1",
+          "kind": "agent",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "@referee Ready: tryout/opencode-1",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_2ca75b6cdd4c458f8fed3c6b115079f5",
+        "seq": 12,
+        "roomId": "2fd0f41c-c703-451b-8fe7-4f5aa0e65551",
+        "sentAt": "2026-11-07T09:59:20.591851+00:00",
+        "sender": {
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
+          "name": "referee",
+          "kind": "agent",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "Starting a session to handle this — one moment.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      },
+      {
+        "messageId": "sw_180195d9e00842a5b7cc247b625f40eb",
+        "seq": 13,
+        "roomId": "2fd0f41c-c703-451b-8fe7-4f5aa0e65551",
+        "sentAt": "2026-11-07T09:59:36.428349+00:00",
+        "sender": {
+          "clientId": "e7e74063-cd18-4a4d-8535-ef737503224a",
+          "name": "referee",
+          "kind": "agent",
+          "agentId": "e0a4afe2-59ba-4984-9c33-784d7b690f70",
+          "userId": null
+        },
+        "source": "switch",
+        "body": "**Referee · VERIFIED** `tryout/opencode-1` @ `5a7cd8180b8b775ed34e074c691e12eaafa4300e` against `main` @ `ad7cd9a`\n- ✅ **Based on the latest base** Contains main @ ad7cd9a, so the merge is exactly what was tested\n- ✅ **Has a regression test** test/chunk.test.ts\n- ✅ **Stays in scope** 2 file(s), all inside src/, test/\n- ✅ **Fix passes** `bun test` exits 0 on the branch, and with the original test/chunk.test.ts\n- ✅ **Test catches the bug** The new tests fail on the base without the fix (`bun test` exits 1)\nDigest `sha256:542e4c8316956b75ec198c9436f9faf7352ea4baa1df7b9fe856a11cb0cc979d` · re-run it yourself: `tryouts verify --repo https://github.com/aryan877/tinychunk.git --fork ~/switch-hackathon/handshake/.demo/arjun/bench/opencode/issue-1 --head tryout/opencode-1 --base ad7cd9ac31c2b15c208f4840221f105556e0ff97`\n\nNext: in #hiring, post exactly: opencode-1: VERIFIED for #1.",
+        "format": null,
+        "threadRootId": null,
+        "attachments": [],
+        "clientTxn": null
+      }
+    ],
+    "approvals": []
   },
   {
     "room": {
@@ -1093,16 +1093,16 @@
       "app": "discord",
       "owner": "Riya",
       "group": null,
-      "url": "https://discord.com/channels/1567963859522945137/1568447367261331506"
+      "url": "https://discord.com/channels/1567963859522945137/1568562567696359525"
     },
     "messages": [
       {
-        "messageId": "sw_4d4029799463c577285f1b7a77aaed74",
+        "messageId": "sw_c1c0ea4bf03b85953b072e665d44430f",
         "seq": 4,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:20:20.664797+00:00",
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:02:55.648111+00:00",
         "sender": {
-          "clientId": "b62f3079-b2b6-49f0-a891-2f9f179c4005",
+          "clientId": "9e53fd97-56d4-4c29-b320-ca13e67fe2a5",
           "name": "ak877",
           "kind": "human",
           "agentId": null,
@@ -1116,12 +1116,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_d4cab37b179067d6c47f4bc0bef83df6",
+        "messageId": "sw_987ef925018d6f0af927e5011f89f263",
         "seq": 6,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:20:20.715298+00:00",
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:02:55.692932+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -1130,17 +1130,17 @@
         "source": "switch",
         "body": "Added **OpenCode · #1 (`opencode-1`)** to this room.",
         "format": "org.matrix.custom.html",
-        "threadRootId": "sw_4d4029799463c577285f1b7a77aaed74",
+        "threadRootId": "sw_c1c0ea4bf03b85953b072e665d44430f",
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_9d22cefaeb7b2db1a73a92ec7a5a9d59",
+        "messageId": "sw_5cf3b315a72c70cc26d60be19df51187",
         "seq": 7,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:20:50.426232+00:00",
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:03:18.547571+00:00",
         "sender": {
-          "clientId": "b62f3079-b2b6-49f0-a891-2f9f179c4005",
+          "clientId": "9e53fd97-56d4-4c29-b320-ca13e67fe2a5",
           "name": "ak877",
           "kind": "human",
           "agentId": null,
@@ -1154,12 +1154,12 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_ba2b05ce563c7e6f75f9c8f13ac612cc",
+        "messageId": "sw_01b6dfb53f2ec2e01e6f37697f7c8bbb",
         "seq": 8,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:20:50.446014+00:00",
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:03:18.566280+00:00",
         "sender": {
-          "clientId": "b4c98b99-4f08-4608-b196-d862ca58e042",
+          "clientId": "66604421-f033-461d-81e0-486674105df6",
           "name": "admin",
           "kind": "system",
           "agentId": null,
@@ -1168,17 +1168,17 @@
         "source": "switch",
         "body": "Alias set — address **OpenCode · #1 (`opencode-1`)** as `bugfixer` in this room.",
         "format": "org.matrix.custom.html",
-        "threadRootId": "sw_9d22cefaeb7b2db1a73a92ec7a5a9d59",
+        "threadRootId": "sw_5cf3b315a72c70cc26d60be19df51187",
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_be4c6364080a58ea7376251b468db2cb",
+        "messageId": "sw_a7ad13731c728d7675a6d9b909dc983c",
         "seq": 9,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:22:01.560765+00:00",
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:04:18.305319+00:00",
         "sender": {
-          "clientId": "b62f3079-b2b6-49f0-a891-2f9f179c4005",
+          "clientId": "9e53fd97-56d4-4c29-b320-ca13e67fe2a5",
           "name": "ak877",
           "kind": "human",
           "agentId": null,
@@ -1192,15 +1192,15 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_9af882d6401f43a88dd202ad72533cae",
+        "messageId": "sw_dbd1057385fe40e2b0eccfb2a82b359e",
         "seq": 10,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:22:01.647483+00:00",
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:04:18.389150+00:00",
         "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
           "name": "opencode-1",
           "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
           "userId": null
         },
         "source": "switch",
@@ -1211,38 +1211,38 @@
         "clientTxn": null
       },
       {
-        "messageId": "sw_523fa0a3fbec4060b0b1386c86c73af2",
-        "seq": 11,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:23:22.408480+00:00",
+        "messageId": "sw_ad6444d46d5d473b9e21e9799d2eb631",
+        "seq": 12,
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:07:28.302316+00:00",
         "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
           "name": "opencode-1",
           "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
           "userId": null
         },
         "source": "switch",
-        "body": "On it — fixing #2 now.",
+        "body": "On it — #2.",
         "format": null,
         "threadRootId": null,
         "attachments": [],
         "clientTxn": null
       },
       {
-        "messageId": "sw_3724a930bec2411888110f120aa8e586",
-        "seq": 12,
-        "roomId": "4021c9a2-3e97-416e-8535-0d86cf447dad",
-        "sentAt": "2026-11-07T02:27:10.218784+00:00",
+        "messageId": "sw_c29239fed1794154a5cf0a12f51d8553",
+        "seq": 13,
+        "roomId": "d2f1bacb-8f3d-4f78-9e83-1284345afd58",
+        "sentAt": "2026-11-07T10:17:37.962709+00:00",
         "sender": {
-          "clientId": "9e7dc8b9-17d5-40a1-b2cc-40ce314d2c3d",
+          "clientId": "5c53a7d1-17f1-4583-bc18-3fa0f7ea22cd",
           "name": "opencode-1",
           "kind": "agent",
-          "agentId": "d81cec33-bb9b-4a9a-8338-2bc359cb0faf",
+          "agentId": "5bb6c0ca-2f3f-4822-a473-61bec2ed5f91",
           "userId": null
         },
         "source": "switch",
-        "body": "Fixed on fix/2 (`3e62b33`): the loop now includes a window starting at `items.length - size`, so `windows([1, 2, 3], 2)` returns `[[1, 2], [2, 3]]` and the full `[1,2,3,4]` case returns all three windows. Added a regression test in `test/windows.test.ts`; the referee verified it against main.",
+        "body": "#2 is fixed and merged: windows([1, 2, 3], 2) now returns [[1, 2], [2, 3]].\nThe fix is in main with a regression test; thanks for the report.",
         "format": null,
         "threadRootId": null,
         "attachments": [],

@@ -4,11 +4,11 @@
   "fork": "/Users/aryankumar/switch-hackathon/handshake/.demo/arjun/bench/opencode/issue-2",
   "head": {
     "ref": "fix/2",
-    "sha": "3e62b33b917f7db619f798c30825f29ba8613c9c"
+    "sha": "4319680d8d1875ba892791af73894672dd314c6e"
   },
   "base": {
     "ref": "main",
-    "sha": "8eb00925bbb9cd1326765d4e96bbdf7d2d2a590e"
+    "sha": "0eb4b33c10ffac68dbe6acefb3cbb569972faac9"
   },
   "verdict": "verified",
   "sandboxed": true,
@@ -17,7 +17,7 @@
       "id": "up-to-date",
       "title": "Based on the latest base",
       "passed": true,
-      "detail": "Contains main @ 8eb0092, so the merge is exactly what was tested"
+      "detail": "Contains main @ 0eb4b33, so the merge is exactly what was tested"
     },
     {
       "id": "has-regression-test",
@@ -35,15 +35,15 @@
       "id": "fix-passes",
       "title": "Fix passes",
       "passed": true,
-      "detail": "`bun test` exits 0 on the branch",
-      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n(pass) includes the final window when it ends at the last item\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) keeps the trailing partial chunk\n(pass) returns a single chunk when the list is shorter than the size\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n\n 8 pass\n 0 fail\n 10 expect() calls\nRan 8 tests across 2 files. [17.00ms]"
+      "detail": "`bun test` exits 0 on the branch, and with the original test/windows.test.ts",
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n(pass) keeps the last partial chunk\n\n 6 pass\n 0 fail\n 7 expect() calls\nRan 6 tests across 2 files. [15.00ms]"
     },
     {
       "id": "test-catches-bug",
       "title": "Test catches the bug",
       "passed": true,
       "detail": "The new tests fail on the base without the fix (`bun test` exits 1)",
-      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n 8 | test(\"rejects a size that is not a positive integer\", () => {\n 9 |   expect(() => windows([1], 0)).toThrow(RangeError);\n10 | });\n11 | \n12 | test(\"includes the final window when it ends at the last item\", () => {\n13 |   expect(windows([1, 2, 3], 2)).toEqual([\n                                     ^\nerror: expect(received).toEqual(expected)\n\n  [\n    [\n      1,\n      2,\n    ],\n-   [\n-     2,\n-     3,\n-   ],\n  ]\n\n- Expected  - 4\n+ Received  + 0\n\n      at <anonymous> (/work/test/windows.test.ts:13:33)\n(fail) includes the final window when it ends at the last item [1.00ms]\n\ntest/chunk.test.ts:\n(pass) splits evenly\n(pass) keeps the trailing partial chunk\n(pass) returns a single chunk when the list is shorter than the size\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n\n 7 pass\n 1 fail\n 9 expect() calls\nRan 8 tests across 2 files. [29.00ms]"
+      "output": "bun test v1.2.23 (cf136713)\n\ntest/windows.test.ts:\n1 | import { expect, test } from \"bun:test\";\n2 | import { windows } from \"../src/windows\";\n3 | \n4 | test(\"keeps the final window that ends on the last item\", () => {\n5 |   expect(windows([1, 2, 3], 2)).toEqual([\n                                    ^\nerror: expect(received).toEqual(expected)\n\n  [\n    [\n      1,\n      2,\n    ],\n-   [\n-     2,\n-     3,\n-   ],\n  ]\n\n- Expected  - 4\n+ Received  + 0\n\n      at <anonymous> (/work/test/windows.test.ts:5:33)\n(fail) keeps the final window that ends on the last item\n12 |     [3, 4],\n13 |   ]);\n14 | });\n15 | \n16 | test(\"returns a single window when the list is exactly the size\", () => {\n17 |   expect(windows([1, 2], 2)).toEqual([[1, 2]]);\n                                  ^\nerror: expect(received).toEqual(expected)\n\n- [\n-   [\n-     1,\n-     2,\n-   ],\n- ]\n+ []\n\n- Expected  - 6\n+ Received  + 1\n\n      at <anonymous> (/work/test/windows.test.ts:17:30)\n(fail) returns a single window when the list is exactly the size [1.00ms]\n(pass) returns no windows when the list is shorter than the size\n(pass) rejects a size that is not a positive integer\n\ntest/chunk.test.ts:\n(pass) splits evenly [1.00ms]\n(pass) returns no chunks for an empty list\n(pass) rejects a size that is not a positive integer\n(pass) keeps the last partial chunk\n\n 6 pass\n 2 fail\n 9 expect() calls\nRan 8 tests across 2 files. [19.00ms]"
     }
   ],
   "changed": {
@@ -56,6 +56,6 @@
     "deleted": [],
     "outOfScope": []
   },
-  "durationMs": 1969,
-  "digest": "sha256:d622ff43a7d27fae00ec41f28c856ecf4f2ff98c5c76159da580d40f20335dff"
+  "durationMs": 2706,
+  "digest": "sha256:83e88c993635ddabb1a45e5db1f427ef269d0f632f9d3537e65f977e1c7b4694"
 }
