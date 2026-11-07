@@ -688,7 +688,7 @@ export function Architecture() {
                 <span>
                   <span className="block text-heading-20">Switch</span>
                   <span className="block font-mono text-[11.5px] leading-4 text-gray-900">
-                    on our server
+                    self-hosted
                   </span>
                 </span>
               </div>
@@ -712,8 +712,8 @@ export function Architecture() {
             <div className="relative mt-14 rounded-2xl border border-dashed border-gray-alpha-500 bg-gray-alpha-100 px-3 pt-8 pb-5 [grid-area:3/1/4/3] min-[900px]:mt-0 min-[900px]:px-6 min-[900px]:py-9 min-[900px]:[grid-area:1/5]">
               <p className="absolute top-0 left-4 z-20 flex -translate-y-1/2 items-center gap-1.5 rounded-full border border-gray-alpha-400 bg-background-200 px-2.5 py-1 font-mono text-[11px] leading-4 text-gray-1000">
                 <Terminal className="size-3.5" />
-                team-server
-                <span className="text-gray-900">· agent controller</span>
+                agent machine
+                <span className="text-gray-900">· your laptop or a server</span>
               </p>
               <div
                 className={cn(
