@@ -85,14 +85,14 @@ first job on probation. `make judge` re-checks every verdict from [`evidence/`](
 
 ## How it works
 
-| #   | Where         | What happens                                                                                                                                                                                              |
-| --- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Slack         | The team lead posts a job: _"@hiring we need a bug fixer. Hold a tryout on #1 with Claude Code, Codex and OpenCode."_                                                                                     |
-| 2   | Switch        | The **hiring manager agent creates the three candidates itself**, each with its own private room.                                                                                                         |
-| 3   | Switch        | Each candidate gets a **token budget**. Each one writes a test and a fix.                                                                                                                                 |
-| 4   | Referee       | Plain code runs the **same five checks** on every fix, then runs each fix against **its rivals' tests**. The scoreboard numbers come from **Switch usage**.                                               |
-| 5   | Slack, GitHub | The scoreboard shows the diff and a pull request. The hire is an **"Allow once" button only the team lead can press**. It merges the exact checked code and closes the issue.                             |
-| 6   | Discord       | The hiring manager tries to add the hire to the community's #bugs. **Switch says no**: not the team lead's room. Someone there lets it in as `@bugfixer`. Strangers can't give it work. Probation 1 of 3. |
+| #   | Where         | What happens                                                                                                                                                                                                |
+| --- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Slack         | The team lead posts a job: _"@hiring we need a bug fixer. Hold a tryout on #1 with Claude Code, Codex and OpenCode."_                                                                                       |
+| 2   | Switch        | The **hiring manager agent creates the three candidates itself**, each with its own private room.                                                                                                           |
+| 3   | Switch        | Each candidate gets a **token budget**. Each one writes a test and a fix.                                                                                                                                   |
+| 4   | Referee       | Plain code runs the **same five checks** on every fix, then runs each fix against **its rivals' tests**. The scoreboard numbers come from **Switch usage**.                                                 |
+| 5   | Slack, GitHub | The scoreboard shows the diff, and opens a pull request when `gh` is logged in. The hire is an **"Allow once" button only the team lead can press**. It merges the exact checked code and closes the issue. |
+| 6   | Discord       | The hiring manager tries to add the hire to the community's #bugs. **Switch says no**: not the team lead's room. Someone there lets it in as `@bugfixer`. Strangers can't give it work. Probation 1 of 3.   |
 
 ## How it's built
 
