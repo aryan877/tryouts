@@ -30,6 +30,7 @@ export interface Agent {
   owner_id: string | null;
   owner_name: string | null;
   created_at: string;
+  addressing_policy: { rules: AddressingRule[] } | null;
 }
 
 export type Provider = "opencode" | "codex" | "claude";
@@ -87,6 +88,7 @@ export interface AddressingRule {
   agents?: "*" | string[];
   owner?: boolean;
   owner_agents?: boolean;
+  platform?: boolean;
 }
 
 export interface Room {

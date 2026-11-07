@@ -62,6 +62,24 @@ async function usedApprovals(): Promise<Set<string>> {
   return new Set(records.flatMap((r) => [r.hire, ...r.probation].map((fix) => fix.approval)));
 }
 
+const ownerOnly = (agent: Agent) => {
+  const rules = agent.addressing_policy?.rules ?? [];
+  return (
+    rules.length > 0 &&
+    rules.every((rule) => Array.isArray(rule.users) && rule.users.length === 0 && !rule.platform)
+  );
+};
+
+export function answeredByOwner(
+  card: ApprovalRecord,
+  ownerId: string,
+  agent: Agent | undefined,
+): boolean {
+  const by = card.answeredBy ?? "";
+  if (by.startsWith("user:")) return by === `user:${ownerId}`;
+  return by !== "" && agent?.owner_id === ownerId && ownerOnly(agent);
+}
+
 export async function approvedCard(
   config: Config,
   owner: Gateway,
@@ -82,7 +100,7 @@ export async function approvedCard(
   if (
     card?.state !== "answered" ||
     chosen?.decision !== "accept" ||
-    card.answeredBy !== `user:${me.id}`
+    !answeredByOwner(card, me.id, hiring)
   ) {
     throw new Error(
       `Switch shows no "Allow once" from ${me.name} on ${AGENTS.hiring.name}'s card for: ${command}`,
