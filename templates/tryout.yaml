@@ -75,6 +75,7 @@ resources:
     name: "claude-{issue}"
     display_name: "Claude Code · #{issue}"
     description: "Trying out for the bug-fixer job on #{issue}"
+    icon_url: https://tryouts.aryankumar.dev/agents/claude.png
     provider: claude
     machine: "{machine}"
     directory: "{bench}/claude"
@@ -82,7 +83,7 @@ resources:
     auto_approve: false
     addressing: owner-agents
     instructions: |
-      You are {claude.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+      You are {claude.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, runs your new test against the other candidates' fixes, and suggests the cheapest verified fix.
 
       1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{claude.name} there.
       2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.
@@ -114,6 +115,7 @@ resources:
     name: "codex-{issue}"
     display_name: "Codex · #{issue}"
     description: "Trying out for the bug-fixer job on #{issue}"
+    icon_url: https://tryouts.aryankumar.dev/agents/codex.png
     provider: codex
     model: "{codex_model}"
     advanced_config:
@@ -125,7 +127,7 @@ resources:
     auto_approve: false
     addressing: owner-agents
     instructions: |
-      You are {codex.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+      You are {codex.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, runs your new test against the other candidates' fixes, and suggests the cheapest verified fix.
 
       1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{codex.name} there.
       2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.
@@ -157,6 +159,7 @@ resources:
     name: "opencode-{issue}"
     display_name: "OpenCode · #{issue}"
     description: "Trying out for the bug-fixer job on #{issue}"
+    icon_url: https://tryouts.aryankumar.dev/agents/opencode.png
     provider: opencode
     model: "{opencode_model}"
     machine: "{machine}"
@@ -165,7 +168,7 @@ resources:
     auto_approve: false
     addressing: owner-agents
     instructions: |
-      You are {opencode.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+      You are {opencode.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, runs your new test against the other candidates' fixes, and suggests the cheapest verified fix.
 
       1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{opencode.name} there.
       2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.
@@ -197,6 +200,7 @@ resources:
     name: "opencode2-{issue}"
     display_name: "OpenCode 2 · #{issue}"
     description: "Trying out for the bug-fixer job on #{issue}"
+    icon_url: https://tryouts.aryankumar.dev/agents/opencode.png
     provider: opencode
     model: "{opencode2_model}"
     machine: "{machine}"
@@ -205,7 +209,7 @@ resources:
     auto_approve: false
     addressing: owner-agents
     instructions: |
-      You are {opencode2.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, and the hire goes to the best verified work.
+      You are {opencode2.name}, trying out for the bug-fixer job on {repository}. Other agents are trying out for the same job, each in its own room. A plain-code referee checks everyone the same way, runs your new test against the other candidates' fixes, and suggests the cheapest verified fix.
 
       1. Clone {repository} into a new folder named issue-{issue} inside your working directory, and create the branch tryout/{opencode2.name} there.
       2. Write a regression test that fails on main, then fix the code. Change only src/ and test/, and keep the change small.

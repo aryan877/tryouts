@@ -87,6 +87,13 @@ export async function publishGithub(): Promise<void> {
       ROOT,
     );
   }
+  const stale = (await sh(["git", "ls-remote", "--heads", REPOSITORY, "tryout/*", "fix/*"], ROOT))
+    .split("\n")
+    .map((row) => row.split("\t")[1])
+    .filter((ref): ref is string => Boolean(ref));
+  if (stale.length > 0) {
+    await sh(["git", "push", "--quiet", "--delete", REPOSITORY, ...stale], ROOT);
+  }
   step(`Resetting ${GITHUB_REPO} to tinychunk 1.0.0, with both bugs in place`);
   const seed = await mkdtemp(join(tmpdir(), "tinychunk-"));
   try {

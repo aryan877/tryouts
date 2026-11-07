@@ -80,7 +80,10 @@ export async function start(): Promise<void> {
       join(dirname(DATA_DIR), "controller.log"),
     ],
     ROOT,
-    { PATH: `${BIN_DIR}:${dirname(process.execPath)}:${process.env.PATH}` },
+    {
+      PATH: `${BIN_DIR}:${dirname(process.execPath)}:${process.env.PATH}`,
+      OPENCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS: "600000",
+    },
   );
   await Bun.write(PID_FILE, pid);
 }

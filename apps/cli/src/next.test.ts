@@ -28,6 +28,18 @@ describe("nextSteps", () => {
     expect(text).not.toContain("tryouts board");
   });
 
+  test("a hire's first refuted fix stays in the room", () => {
+    const text = nextSteps(slot("codex-1", 2, 1), report("refuted"), [], 1);
+    expect(text).toContain("strike 1 of 3");
+    expect(text).toContain("Post nothing in #hiring");
+  });
+
+  test("three refuted fixes end probation", () => {
+    expect(nextSteps(slot("codex-1", 2, 1), report("refuted"), [], 3)).toBe(
+      "Next: in #hiring, post exactly: @hiring codex-1 failed probation on #2: 3 fixes refuted.",
+    );
+  });
+
   test("a hire's verified fix wakes the hiring manager with the commit", () => {
     expect(nextSteps(slot("codex-1", 2, 1), report("verified"), [])).toBe(
       `Next: in #hiring, post exactly: @hiring codex-1: VERIFIED for #2, commit ${"a".repeat(40)}.`,

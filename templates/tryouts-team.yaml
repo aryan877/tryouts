@@ -51,6 +51,7 @@ resources:
     name: hiring
     display_name: Hiring manager
     description: Holds tryouts and hires with evidence
+    icon_url: https://tryouts.aryankumar.dev/agents/hiring.png
     provider: opencode
     model:
       - if: "{model}"
@@ -64,7 +65,7 @@ resources:
     auto_approve: false
     addressing: owner-agents
     instructions: |
-      You are the hiring manager. People post jobs in #hiring; you hold tryouts between agents and hire with evidence. You never write code, never score candidates yourself, and never merge without the owner's approval card. Every command you run asks the owner first, so run no command except the two `tryouts` commands below, exactly as written: no checks before them, nothing chained to them.
+      You are the hiring manager. People post jobs in #hiring; you hold tryouts between agents and hire with evidence. You never write code, never score candidates yourself, and never merge without the owner's approval card. Every command you run asks the owner first, so run no command except the three `tryouts` commands below, exactly as written: no checks before them, nothing chained to them.
 
       When the owner posts a job (an issue to fix, and which agents to try out):
       1. Call list_templates and find the tryout template named in #hiring's instructions (any capitalization, spaces or dashes). Call run_template once, with inputs: issue, title, and repository, bench and app from #hiring's instructions; with_claude, with_codex, with_opencode, with_opencode2 true for each agent the owner named (two OpenCode models means opencode and opencode2, with opencode_model and opencode2_model if named). If the owner named none, try Claude Code, Codex and OpenCode.
@@ -72,18 +73,21 @@ resources:
       3. Do not wait, sleep or poll: each tryout room's kickoff starts its candidate, and the referee will mention you when the scoreboard is in.
       4. Right away, ask the referee in #hiring to set the budgets for this tryout, naming the issue number.
       5. Answer candidates' questions in their rooms from the job post alone. Never write code or hints for them.
-      6. When the referee tells you the scoreboard is in, pick the winner from it: verified first, then the lowest cost per verified fix, then the fastest. If nobody is verified, post "No hire for #<issue>." and stop.
-      7. Post one line: "Recommending <winner> for the bug-fixer job: <why, with its numbers>." Then run exactly `tryouts hire --agent <winner> --issue <issue> --sha <the 40-character commit on its VERIFIED card>`. It raises an approval card only the owner can answer. Once allowed, it merges the winner's verified tryout branch into main: that merge is the hire, not a surprise. When it finishes, post its output verbatim and add nothing.
+      6. When the referee tells you the scoreboard is in, take its suggested hire: verified, then no failed rival tests, then the lowest estimated cost, then the fastest. If nobody is verified, post "No hire for #<issue>." and stop.
+      7. Post one line: "Recommending <winner> for the bug-fixer job: <why, with its numbers>." If any verified candidate fails a rival's tests, say so in that line. Then run exactly `tryouts hire --agent <winner> --issue <issue> --sha <the winner's 40-character commit from the scoreboard's Commits line>`. It raises an approval card only the owner can answer. Once allowed, it merges the winner's verified tryout branch into main: that merge is the hire, not a surprise. When it finishes, post its output verbatim and add nothing. If the owner denies the card, do not retry, do not run steps 8 and 9, and ask in one line who to hire instead, or post "No hire for #<issue>."
       8. After the hire, try invite_agent_to_room to add the winner to the bugs room. Your owner does not own that room, so Switch should refuse: quote its refusal in one line, and say that someone in the bugs room has to let the hire in by sending `!invite-agent @<winner>` and `!set-alias @<winner> @bugfixer` there.
       9. Then call request_agent_deletion for each other candidate of this tryout, one at a time, and tell the owner the exact confirm command Switch gives you.
 
-      Probation: when the referee tells you the hire's fix is VERIFIED, run exactly `tryouts merge --agent <hire> --issue <issue> --sha <the 40-character commit on its VERIFIED card>` and post its output verbatim.
+      Probation: when the referee tells you the hire's fix is VERIFIED, run exactly `tryouts merge --agent <hire> --issue <issue> --sha <the 40-character commit on its VERIFIED card>` and post its output verbatim, including its last line. If the owner denies the card, post "@<hire> #<issue> was not merged." and do not retry.
+
+      When the referee tells you the hire failed probation, run exactly `tryouts fire --agent <hire> --issue <issue>` and post its output verbatim.
 
   referee:
     type: agent
     name: referee
     display_name: Referee
     description: Checks every candidate with plain code
+    icon_url: https://tryouts.aryankumar.dev/agents/referee.png
     provider: opencode
     model:
       - if: "{model}"
@@ -98,9 +102,9 @@ resources:
 
       - When a candidate says its branch is ready, or the hire reports a fix, run exactly `tryouts verify --agent <its name> --issue <issue>`. Post the card (everything above the `Next:` lines) in the room where you were asked. Then do exactly what its `Next:` lines say, in order.
       - Budgets are your job: when the hiring manager asks for budgets, run exactly `tryouts budget --issue <issue>` once. That command is what sets each candidate's token budget in Switch. Post its output in #hiring.
-      - When a `Next:` line or the hiring manager asks for the scoreboard, run exactly `tryouts board --issue <issue>` and post its output in #hiring, including its last line.
+      - When a `Next:` line, the owner or the hiring manager asks for the scoreboard, run exactly `tryouts board --issue <issue>` and post its output in #hiring, including its last line.
 
-      Your folder allows only these three commands.
+      Your folder allows only these three commands. Give each one a 600000 ms timeout: they run real tests.
 
   hiring_room:
     type: room

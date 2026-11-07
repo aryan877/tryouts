@@ -42,7 +42,16 @@ const locked = (bash: Record<string, "allow" | "ask" | "deny">) => ({
     websearch: "deny",
     external_directory: "deny",
   },
+  experimental: { continue_loop_on_deny: true },
 });
+
+const NO_PUSH = {
+  opencode: {
+    $schema: "https://opencode.ai/config.json",
+    permission: { bash: { "git push*": "deny", "gh *": "deny" } },
+  },
+  claude: { permissions: { deny: ["Bash(git push:*)", "Bash(gh:*)"] } },
+};
 
 export async function prepareFolders(root: string): Promise<Folders> {
   const folders = {
@@ -51,7 +60,10 @@ export async function prepareFolders(root: string): Promise<Folders> {
     bench: join(root, "bench"),
   };
   const configs: [string, ReturnType<typeof locked>][] = [
-    [folders.hiring, locked({ "tryouts hire *": "ask", "tryouts merge *": "ask" })],
+    [
+      folders.hiring,
+      locked({ "tryouts hire *": "ask", "tryouts merge *": "ask", "tryouts fire *": "ask" }),
+    ],
     [
       folders.referee,
       locked({
@@ -68,6 +80,17 @@ export async function prepareFolders(root: string): Promise<Folders> {
   for (const vendor of Object.keys(VENDORS)) {
     await mkdir(join(folders.bench, vendor), { recursive: true });
   }
+  for (const vendor of ["opencode", "opencode2"]) {
+    await Bun.write(
+      join(folders.bench, vendor, "opencode.json"),
+      `${JSON.stringify(NO_PUSH.opencode, null, 2)}\n`,
+    );
+  }
+  await mkdir(join(folders.bench, "claude", ".claude"), { recursive: true });
+  await Bun.write(
+    join(folders.bench, "claude", ".claude", "settings.json"),
+    `${JSON.stringify(NO_PUSH.claude, null, 2)}\n`,
+  );
   return folders;
 }
 
