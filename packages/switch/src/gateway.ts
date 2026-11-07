@@ -199,10 +199,13 @@ export class Gateway {
       `/collaborations/${bridgeId}/directory?query=${encodeURIComponent(query)}`,
     ).then((result) => result.users.find((user) => user.username === query) ?? null);
   bridgeAccounts = (bridgeId: string) =>
-    this.call<{ external_username: string; claimed_by: { user_name: string }[] }[]>(
-      "GET",
-      `/collaborations/${bridgeId}/users`,
-    );
+    this.call<
+      {
+        id: string;
+        external_username: string;
+        claimed_by: { user_id: string; user_name: string }[];
+      }[]
+    >("GET", `/collaborations/${bridgeId}/users`);
   setAgentGreetings = (bridgeId: string, enabled: boolean) =>
     this.call("PATCH", `/collaborations/${bridgeId}`, { agent_greetings_enabled: enabled });
   claimIdentity = (bridgeId: string, externalUserId: string, username: string) =>

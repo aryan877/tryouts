@@ -1,5 +1,7 @@
-import { parseCandidate, VENDORS, type Vendor } from "@tryouts/kit";
-import type { Verdict } from "@tryouts/referee";
+import { mkdir } from "node:fs/promises";
+import { join } from "node:path";
+import { parseCandidate, tryoutRoom, VENDORS, type Vendor } from "@tryouts/kit";
+import { type Fix, type FixStat, type RivalReport, rivals, type Verdict } from "@tryouts/referee";
 import {
   type Agent,
   administers,
@@ -7,8 +9,8 @@ import {
   type Gateway,
   type UsageTotal,
 } from "@tryouts/switch";
-import { commitTime, latest, slotOf } from "./bench";
-import type { Accounts, Config, Price } from "./config";
+import { commitTime, latest, type Slot, slotOf } from "./bench";
+import { type Accounts, type Config, type Price, STATE_DIR } from "./config";
 
 export interface Tally {
   input: number;
@@ -28,7 +30,10 @@ export interface Entry {
   failed: string[];
   sha: string | null;
   digest: string | null;
+  tests: string[];
   seconds: number | null;
+  diff: { added: number; removed: number; files: string[] } | null;
+  rivals: { passed: number; total: number; failed: string[] } | null;
   tally: Tally;
   counted: boolean;
   budget: { spent: number; limit: number; exhausted: boolean } | null;
@@ -58,6 +63,7 @@ export function rank(entries: Entry[]): Entry[] {
   return [...entries].sort(
     (a, b) =>
       STANDING[a.verdict ?? "pending"] - STANDING[b.verdict ?? "pending"] ||
+      (a.rivals?.failed.length ?? 0) - (b.rivals?.failed.length ?? 0) ||
       Number(b.counted) - Number(a.counted) ||
       a.tally.cost - b.tally.cost ||
       (a.seconds ?? Number.POSITIVE_INFINITY) - (b.seconds ?? Number.POSITIVE_INFINITY),
@@ -101,6 +107,13 @@ export function numbers(entry: Entry): string {
   return parts.filter(Boolean).join(" · ");
 }
 
+function rivalTests(entry: Entry): string | null {
+  if (!entry.rivals || entry.rivals.total === 0) return null;
+  return entry.rivals.failed.length > 0
+    ? `⚠️ fails ${entry.rivals.failed.join(", ")}'s tests`
+    : `rival tests ${entry.rivals.passed}/${entry.rivals.total}`;
+}
+
 function line(entry: Entry, place: number): string {
   const status =
     entry.verdict === "verified"
@@ -109,7 +122,13 @@ function line(entry: Entry, place: number): string {
         ? `❌ REFUTED: ${entry.failed.join(", ").toLowerCase()}`
         : "⏳ no branch yet";
   const spent = entry.budget?.exhausted ? " · 🛑 budget spent" : "";
-  return `${place}. **${entry.agent}** · ${entry.label} · ${status} · ${numbers(entry)}${spent}`;
+  const facts = [
+    status,
+    rivalTests(entry),
+    entry.diff ? `+${entry.diff.added} −${entry.diff.removed}` : null,
+    numbers(entry),
+  ];
+  return `${place}. **${entry.agent}** · ${entry.label} · ${facts.filter(Boolean).join(" · ")}${spent}`;
 }
 
 export function renderBoard(issue: number, entries: Entry[]): string {
@@ -119,13 +138,13 @@ export function renderBoard(issue: number, entries: Entry[]): string {
     `**Tryout #${issue} · scoreboard**`,
     ...ranked.map((entry, i) => line(entry, i + 1)),
     pick
-      ? `Suggested hire: **${pick.agent}**, verified at the lowest estimated cost.`
+      ? `Suggested hire: **${pick.agent}**, ${pick.rivals?.failed.length ? "verified" : "verified and clean against its rivals' tests"}, at the lowest estimated cost.`
       : uncounted(ranked).length > 0
         ? `No suggestion yet: Switch has not counted ${uncounted(ranked)
             .map((e) => e.agent)
             .join(", ")}'s tokens, so costs can't be compared. Run the board again in a minute.`
         : `No candidate is verified yet, so there is no hire to suggest.`,
-    "Tokens are Switch's usage counts, added when each turn ends. Dollars are list-price estimates; time runs from the agent's creation to its last commit.",
+    "Rival tests run each fix against the other candidates' new tests. Tokens are Switch's usage counts, added when each turn ends. Dollars are list-price estimates, not bills. Time runs from the agent's creation to when it said Ready.",
   ].join("\n");
 }
 
@@ -157,9 +176,78 @@ export async function collect(
     const entries = await Promise.all(
       agents.map((agent) => entryOf(config, owner, agent, issue, usage, budgets)),
     );
-    if (uncounted(entries).length === 0 || Date.now() >= deadline) return entries;
+    if (uncounted(entries).length === 0 || Date.now() >= deadline) {
+      return withRivals(config, issue, entries);
+    }
     await Bun.sleep(5_000);
   }
+}
+
+export interface SavedRivals {
+  fixes: Fix[];
+  report: RivalReport;
+}
+
+const rivalsFile = (issue: number) => join(STATE_DIR, "rivals", `${issue}.json`);
+
+export async function savedRivals(issue: number): Promise<SavedRivals | null> {
+  const file = Bun.file(rivalsFile(issue));
+  return (await file.exists()) ? ((await file.json()) as SavedRivals) : null;
+}
+
+export const fixStat = async (issue: number, agent: string): Promise<FixStat | null> =>
+  (await savedRivals(issue))?.report.stats[agent] ?? null;
+
+async function withRivals(config: Config, issue: number, entries: Entry[]): Promise<Entry[]> {
+  const verified = entries.filter((entry) => entry.verdict === "verified" && entry.sha);
+  if (verified.length === 0) return entries;
+  const fixes = verified.map((entry) => {
+    const slot = slotOf(config, entry.agent, issue);
+    return {
+      name: entry.agent,
+      fork: slot.fork,
+      head: slot.branch,
+      sha: entry.sha as string,
+      tests: entry.tests,
+    };
+  });
+  const file = Bun.file(rivalsFile(issue));
+  const saved = (await file.exists()) ? ((await file.json()) as SavedRivals) : null;
+  const known = saved?.fixes.length
+    ? fixes.every((fix) => saved.fixes.some((f) => f.name === fix.name && f.sha === fix.sha))
+    : false;
+  const report = known
+    ? (saved as SavedRivals).report
+    : await rivals({ repo: config.repository, fixes });
+  if (!known) {
+    await mkdir(join(STATE_DIR, "rivals"), { recursive: true });
+    await Bun.write(rivalsFile(issue), `${JSON.stringify({ fixes, report }, null, 2)}\n`);
+  }
+  return entries.map((entry) => {
+    const stat = report.stats[entry.agent];
+    const duels = report.duels.filter((duel) => duel.fix === entry.agent);
+    return {
+      ...entry,
+      diff: stat ? { added: stat.added, removed: stat.removed, files: stat.files } : null,
+      rivals: stat
+        ? {
+            passed: duels.filter((duel) => duel.passed).length,
+            total: duels.length,
+            failed: duels.filter((duel) => !duel.passed).map((duel) => duel.tests),
+          }
+        : null,
+    };
+  });
+}
+
+async function saidReady(gateway: Gateway, slot: Slot): Promise<Date | null> {
+  const room = (await gateway.rooms()).find((r) => r.name === tryoutRoom(slot.vendor, slot.tryout));
+  if (!room) return null;
+  const me = await gateway.me();
+  await gateway.joinChat(room.id, me.id).catch(() => undefined);
+  const messages = await gateway.chatMessages(room.id).catch(() => []);
+  const said = messages.findLast((m) => m.sender.name === slot.agent && m.body.includes("Ready:"));
+  return said ? new Date(said.sentAt) : null;
 }
 
 async function entryOf(
@@ -178,7 +266,7 @@ async function entryOf(
   ]);
   const model = managed?.definition.model ?? null;
   const sha = checked?.report.head.sha ?? null;
-  const finished = sha ? await commitTime(slot, sha) : null;
+  const finished = sha ? ((await saidReady(gateway, slot)) ?? (await commitTime(slot, sha))) : null;
   const budget = budgets.find((b) => b.agent_id === agent.id && b.metric === "output_tokens");
   const price = (name: string) => config.prices[name] ?? (config.prices[vendor.provider] as Price);
   return {
@@ -191,13 +279,16 @@ async function entryOf(
     failed: checked?.report.checks.filter((c) => !c.passed).map((c) => c.title) ?? [],
     sha,
     digest: checked?.report.digest ?? null,
+    tests: checked?.report.changed.tests ?? [],
+    diff: null,
+    rivals: null,
     seconds: finished ? (finished.getTime() - Date.parse(agent.created_at)) / 1000 : null,
     tally: tally(
       usage.filter((row) => row.client_name === agent.name),
       price,
     ),
     counted: usage.some(
-      (row) => row.client_name === agent.name && row.metric === "turns" && row.amount > 0,
+      (row) => row.client_name === agent.name && row.metric === "output_tokens" && row.amount > 0,
     ),
     budget: budget
       ? { spent: budget.spent, limit: budget.amount_limit, exhausted: budget.exhausted }

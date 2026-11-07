@@ -81,8 +81,13 @@ export async function pending(
     agents.map(async ({ name }) => {
       const slot = slotOf(config, name, tryout);
       const head = await headOf(slot);
-      const carded = head && (await history(slot)).some((c) => c.report.head.sha === head);
-      return carded ? null : name;
+      const checks = await history(slot);
+      const card = checks.findLast((c) => c.report.head.sha === head);
+      const settled =
+        card &&
+        (card.report.verdict === "verified" ||
+          new Set(checks.map((c) => c.report.head.sha)).size >= 2);
+      return settled ? null : name;
     }),
   );
   return waiting.filter((name): name is string => name !== null);

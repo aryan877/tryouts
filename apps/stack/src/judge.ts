@@ -2,8 +2,9 @@
 import { mkdtemp, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import type { SavedRivals } from "@tryouts/cli/board";
 import type { TryoutRecord } from "@tryouts/kit/record";
-import { git, type ProofReport, verify } from "@tryouts/referee";
+import { git, type ProofReport, rivals, verify } from "@tryouts/referee";
 import { ROOT } from "./config";
 
 const EVIDENCE = join(ROOT, "evidence");
@@ -25,6 +26,25 @@ async function replay(dir: string, origin: string, name: string): Promise<void> 
   expect(
     again.digest === recorded.digest && again.verdict === recorded.verdict,
     `${name}: ${again.verdict.toUpperCase()} again, digest ${again.digest.slice(0, 19)}… ${again.digest === recorded.digest ? "matches" : `differs from ${recorded.digest.slice(0, 19)}…`}`,
+  );
+}
+
+async function duels(dir: string, origin: string, issue: number): Promise<void> {
+  const file = Bun.file(join(dir, "rivals.json"));
+  if (!(await file.exists())) return;
+  const recorded = (await file.json()) as SavedRivals;
+  const again = await rivals({
+    repo: origin,
+    base: recorded.report.base,
+    fixes: recorded.fixes.map((fix) => ({
+      ...fix,
+      fork: join(dir, "branches", `${fix.name}-${issue}.bundle`),
+    })),
+  });
+  const held = recorded.report.duels.filter((duel) => duel.passed).length;
+  expect(
+    again.digest === recorded.report.digest,
+    `rival tests: ${held} of ${recorded.report.duels.length} pass again, digest ${again.digest === recorded.report.digest ? "matches" : "differs"}`,
   );
 }
 
@@ -50,6 +70,7 @@ for (const folder of (await readdir(EVIDENCE).catch(() => [])).filter((f) =>
     for (const name of (await readdir(join(dir, "reports"))).map((f) => f.replace(/\.json$/, ""))) {
       await replay(dir, origin, name);
     }
+    await duels(dir, origin, record.issue);
     if (record.hire) {
       const { hire } = record;
       await merged(origin, `hire of ${hire.agent}`, hire.sha, hire.merged, hire.digest);

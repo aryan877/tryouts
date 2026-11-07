@@ -1,7 +1,7 @@
 import { mkdir, readdir, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { history, slotOf } from "@tryouts/cli/bench";
-import { collect, type Entry, rank, tenantOf } from "@tryouts/cli/board";
+import { collect, type Entry, rank, savedRivals, tenantOf } from "@tryouts/cli/board";
 import { type Config, loadConfig, PRICES_AS_OF, STATE_DIR, signIn } from "@tryouts/cli/config";
 import { type Fix, type HireRecord, loadRecord } from "@tryouts/cli/hire";
 import { ISSUES, PEOPLE, type PersonKey, ROOMS } from "@tryouts/kit";
@@ -338,6 +338,8 @@ async function writeEvidence(
     Bun.write(join(dir, "budgets.json"), json(await admin.budgets(tenant))),
     ...(hire ? [Bun.write(join(dir, "hire.json"), json(hire))] : []),
   ]);
+  const duels = await savedRivals(result.issue);
+  if (duels) await Bun.write(join(dir, "rivals.json"), json(duels));
   await git(await mirror(), "bundle", "create", join(dir, "origin.bundle"), "--all");
   const branches = [
     ...result.candidates.map((c) => ({

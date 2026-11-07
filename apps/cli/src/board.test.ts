@@ -14,6 +14,9 @@ const entry = (agent: string, overrides: Partial<Entry>): Entry => ({
   failed: [],
   sha: "a".repeat(40),
   digest: "sha256:x",
+  tests: ["test/a.test.ts"],
+  diff: null,
+  rivals: null,
   seconds: 300,
   tally: zero,
   counted: true,
@@ -100,4 +103,25 @@ describe("renderBoard", () => {
 
 test("duration reads like a clock", () => {
   expect([duration(42), duration(250), duration(3_725)]).toEqual(["42s", "4m 10s", "1h 02m"]);
+});
+
+describe("rival tests", () => {
+  const clean = { passed: 2, total: 2, failed: [] };
+  const fake = { passed: 0, total: 2, failed: ["claude-1", "codex-1"] };
+
+  test("a fix that fails its rivals' tests ranks below a dearer clean one", () => {
+    const ranked = rank([
+      entry("opencode-1", { rivals: fake, tally: { ...zero, cost: 0.01 } }),
+      entry("claude-1", { rivals: clean, tally: { ...zero, cost: 0.4 } }),
+    ]);
+    expect(ranked.map((e) => e.agent)).toEqual(["claude-1", "opencode-1"]);
+  });
+
+  test("the board names whose tests a fix failed and its size", () => {
+    const text = renderBoard(1, [
+      entry("opencode-1", { rivals: fake, diff: { added: 6, removed: 1, files: ["src/a.ts"] } }),
+    ]);
+    expect(text).toContain("fails claude-1, codex-1's tests");
+    expect(text).toContain("+6 −1");
+  });
 });
