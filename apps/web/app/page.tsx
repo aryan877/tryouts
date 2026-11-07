@@ -10,6 +10,7 @@ const LIMITS = [
   "All candidates run on one machine as the same user, so a determined candidate could read the team lead's Switch login. Run candidates as another user to close that.",
   "Anyone in the bugs room can invite an agent; Switch only stops agents from inviting themselves.",
   "A budget stops new messages to an agent, not a turn it is already running.",
+  "Time on the scoreboard comes from the candidate's own commit, so a candidate could fake its speed.",
   "Token counts arrive when a turn ends.",
   "Dollar figures are estimates at list prices.",
   "One bug is a sample of one.",

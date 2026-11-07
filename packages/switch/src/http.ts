@@ -9,6 +9,8 @@ export class HttpError extends Error {
   }
 }
 
+const TIMEOUT_MS = 60_000;
+
 export async function request<T>(
   base: string,
   method: string,
@@ -22,6 +24,7 @@ export async function request<T>(
     headers: body === undefined ? headers : { ...headers, "Content-Type": "application/json" },
     body: body === undefined ? null : JSON.stringify(body),
     cache: "no-store",
+    signal: AbortSignal.timeout(TIMEOUT_MS),
   });
   const text = await response.text();
   if (!response.ok) throw new HttpError(response.status, method, url, text);

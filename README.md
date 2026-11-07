@@ -11,8 +11,8 @@ lead hires the winner with one **Allow once** button in **Slack**, and the commu
 **Discord**. Built on [Switch](https://github.com/sandbox-quantum/switch).
 
 <a href="https://github.com/sandbox-quantum/switch"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/switch-wordmark-dark.svg">
-  <img src="docs/images/switch-wordmark.svg" alt="Built on Switch by SandboxAQ" width="150">
+<source media="(prefers-color-scheme: dark)" srcset="docs/images/switch-wordmark-dark.svg">
+<img src="docs/images/switch-wordmark.svg" alt="Built on Switch by SandboxAQ" width="150">
 </picture></a>
 
 [![Live](https://img.shields.io/badge/live-tryouts.aryankumar.dev-4ade80?style=flat-square)](https://tryouts.aryankumar.dev)
@@ -44,11 +44,11 @@ who makes the call, and a probation period.
 This is the run in the video, on a real repo: [aryan877/tinychunk](https://github.com/aryan877/tinychunk),
 issue #1, _"chunk() drops the last partial chunk"_.
 
-| Candidate                   | Model                    | Referee     | Time   | Tokens in / out | Est. cost  |
-| --------------------------- | ------------------------ | ----------- | ------ | --------------- | ---------- |
-| claude-1 · Claude Code      | Claude Code's default    | ✅ verified | 21s    | 440.5k / 1.5k   | $0.449     |
-| codex-1 · Codex             | gpt-5.6-luna             | ✅ verified | 43s    | 558.9k / 1.3k   | $0.141     |
-| **opencode-1 · OpenCode**   | deepseek-v4.1-flash      | ✅ verified | 4m 08s | 797.6k / 1.7k   | **$0.044** |
+| Candidate                 | Model                 | Referee     | Time   | Tokens in / out | Est. cost  |
+| ------------------------- | --------------------- | ----------- | ------ | --------------- | ---------- |
+| claude-1 · Claude Code    | Claude Code's default | ✅ verified | 21s    | 440.5k / 1.5k   | $0.449     |
+| codex-1 · Codex           | gpt-5.6-luna          | ✅ verified | 43s    | 558.9k / 1.3k   | $0.141     |
+| **opencode-1 · OpenCode** | deepseek-v4.1-flash   | ✅ verified | 4m 08s | 797.6k / 1.7k   | **$0.044** |
 
 All three fixed it. OpenCode was hired: the same result for about a tenth of Claude Code's cost. Token
 counts come from Switch's usage API; dollars are list-price estimates.
@@ -214,6 +214,7 @@ evidence/         Raw Switch usage, budgets and transcripts, git bundles, refere
 - A budget stops new messages to an agent, not a turn it is already running.
 - A test can pass all five checks while testing something other than the issue. That's why a person
   presses the button.
+- Time on the scoreboard comes from the candidate's own commit, so a candidate could fake its speed.
 - Token counts arrive when a turn ends; dollars are list-price estimates; one bug is a sample of one.
 
 ## License

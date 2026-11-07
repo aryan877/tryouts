@@ -45,8 +45,13 @@ export async function headOf(slot: Slot): Promise<string | null> {
   );
 }
 
+const COMMITTER_TIME = /^committer .* (\d+) [+-]\d{4}$/m;
+
 export async function commitTime(slot: Slot, sha: string): Promise<Date> {
-  return new Date(Number(await git(slot.fork, "show", "-s", "--format=%ct", sha)) * 1000);
+  const commit = await git(slot.fork, "-c", "core.fsmonitor=false", "cat-file", "commit", sha);
+  const seconds = COMMITTER_TIME.exec(commit)?.[1];
+  if (!seconds) throw new Error(`Cannot read the commit time of ${sha} in ${slot.fork}.`);
+  return new Date(Number(seconds) * 1000);
 }
 
 export async function check(config: Config, slot: Slot): Promise<Checked> {

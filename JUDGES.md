@@ -65,6 +65,6 @@ In Switch Console, go to Resources → Templates → Upload template → Load fr
   is an approval card that only Arjun can answer.
 - **Not enforced:** anyone in #bugs may type `!invite-agent`; every candidate runs as the same OS user
   on one machine, so a determined candidate could read the team lead's Switch login from the
-  `tryouts` config and act as him; usage is counted when a turn ends; dollars are list-price
+  `tryouts` config and act as him; time on the scoreboard comes from the candidate's own commit; usage is counted when a turn ends; dollars are list-price
   estimates; one bug is a sample of one; a test can still pass the five checks while testing a
   different behaviour than the issue describes, which is why the hire is a human's button.

@@ -17,7 +17,9 @@
   command, used once: candidates run in auto mode with `tryouts` on their PATH. A press in Slack or
   Discord is recorded as the presser's chat identity, not `user:<id>`; it counts because the hiring
   manager's addressing policy admits no human but its owner. The card is claimed (a file created
-  with `wx` under `approvals/`) before the merge starts, so a failed merge cannot reuse it.
+  with `wx` under `approvals/`) before the merge starts, so a failed merge cannot reuse it. The
+  CLI never runs a git command in a candidate's fork that could execute a program from its config:
+  commit times come from `git cat-file`, not `git show`.
 - `packages/switch` wraps only the Switch and Mattermost endpoints this repo calls. Types were
   checked against switch-core 0.31.0; verify a new endpoint against the server source before typing it.
 - `templates/` is the product: the team template (hiring manager, referee, #hiring), the tryout

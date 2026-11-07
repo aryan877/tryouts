@@ -195,7 +195,7 @@ resources:
     type: agent
     if: "{with_opencode2}"
     name: "opencode2-{issue}"
-    display_name: "OpenCode · #{issue}"
+    display_name: "OpenCode 2 · #{issue}"
     description: "Trying out for the bug-fixer job on #{issue}"
     provider: opencode
     model: "{opencode2_model}"
