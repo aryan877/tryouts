@@ -23,7 +23,7 @@ const commands: Record<string, () => Promise<void>> = {
     ${PEOPLE.lead.chat} / ${passwords.lead}   (${PEOPLE.lead.role})
     ${PEOPLE.community.chat} / ${passwords.community}   (${PEOPLE.community.role})
   Repository         ${REPOSITORY}
-  Post a job         @hiring we need a bug fixer. Hold a tryout on #${ISSUES.tryout.number} with Claude Code, Codex and OpenCode.
+  Post a job         @hiring we need a bug fixer. Hold a tryout on #${ISSUES.tryout.number} (${ISSUES.tryout.title}) with Claude Code, Codex and OpenCode.
   Full run           bun run e2e
 `);
   },
