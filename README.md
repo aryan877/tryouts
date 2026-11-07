@@ -11,10 +11,7 @@ lead hires the winner with one **Allow once** button in **Slack**, and the commu
 **Discord**. Built on [Switch](https://github.com/sandbox-quantum/switch).
 
 <sub>Built on</sub><br>
-<a href="https://www.switchagents.ai"><picture>
-<source media="(prefers-color-scheme: dark)" srcset="docs/images/switch-ai-wordmark-dark.svg">
-<img src="docs/images/switch-ai-wordmark.svg" alt="Built on Switch AI by SandboxAQ" width="190">
-</picture></a>
+<a href="https://www.switchagents.ai"><img src="docs/images/switch-ai-badge.svg" alt="Built on Switch AI by SandboxAQ" width="220"></a>
 
 [![Live](https://img.shields.io/badge/live-tryouts.aryankumar.dev-4ade80?style=flat-square)](https://tryouts.aryankumar.dev)
 [![Built on Switch](https://img.shields.io/badge/built%20on-Switch%200.31-111111?style=flat-square)](https://github.com/sandbox-quantum/switch)
