@@ -13,7 +13,6 @@ export interface Post {
   type: string;
   create_at: number;
   update_at: number;
-  props?: { attachments?: { actions?: { id: string; name: string }[] }[] };
 }
 
 export class Mattermost {
@@ -80,36 +79,4 @@ export class Mattermost {
     );
     return Object.values(page.posts).sort((a, b) => a.create_at - b.create_at);
   };
-  press = (postId: string, actionId: string) =>
-    this.call("POST", `/posts/${postId}/actions/${actionId}`, {});
 }
-
-export interface ApprovalPost {
-  request: string;
-  command: string;
-  answer: string | null;
-  answeredBy: string | null;
-}
-
-const OPEN_APPROVAL = /\*\*Permission needed\*\* · request `(\w+)`\s+(.+?)\s+Reply with/s;
-const ANSWERED_APPROVAL = /^\*\*(.+?)\*\* · request `(\w+)`\n([\s\S]+?)\nChosen by @([\w.-]+)/;
-
-export function parseApprovalPost(message: string): ApprovalPost | null {
-  const answered = ANSWERED_APPROVAL.exec(message);
-  if (answered) {
-    const [, answer, request, command, answeredBy] = answered as unknown as string[];
-    return {
-      request: request as string,
-      command: command as string,
-      answer: answer as string,
-      answeredBy: answeredBy as string,
-    };
-  }
-  const open = OPEN_APPROVAL.exec(message);
-  if (!open) return null;
-  const [, request, command] = open as unknown as string[];
-  return { request: request as string, command: command as string, answer: null, answeredBy: null };
-}
-
-export const actionsOf = (post: Post) =>
-  (post.props?.attachments ?? []).flatMap((attachment) => attachment.actions ?? []);

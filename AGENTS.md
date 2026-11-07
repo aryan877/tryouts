@@ -4,14 +4,20 @@
 - `packages/referee` is the trust boundary. Keep it deterministic: no model calls, rules read from
   `referee.json` at the tip of the base branch, every test run in a fresh exported tree through
   `sandbox.ts`, git hooks off. Every change there needs a test that builds the attack and fails
-  without the fix.
+  without the fix. Trees are exported with `--worktree-attributes`, and a changed `.gitattributes`
+  is out of scope, so a branch cannot hide files from the run. "Fix passes" also runs the original
+  version of every test file the branch changed, so an old test cannot be weakened. The digest covers
+  each check's id and result, not its wording.
 - `apps/cli` is the `tryouts` command the agents run: `verify`, `board` and `budget` (the referee
   runs in auto mode and its folder allows only these), `hire` and `merge` (the hiring manager is not
   in auto mode, so Switch turns every command it runs into an approval card for its owner). It
   validates every argument, derives paths from its config, caches referee reports and hire records
   next to the config, and merges only the exact approved commit. `hire` and `merge` also refuse unless
   Switch's chat activity shows the owner's "Allow once" on the hiring manager's card for that exact
-  command, used once: candidates run in auto mode with `tryouts` on their PATH.
+  command, used once: candidates run in auto mode with `tryouts` on their PATH. A press in Slack or
+  Discord is recorded as the presser's chat identity, not `user:<id>`; it counts because the hiring
+  manager's addressing policy admits no human but its owner. The card is claimed (a file created
+  with `wx` under `approvals/`) before the merge starts, so a failed merge cannot reuse it.
 - `packages/switch` wraps only the Switch and Mattermost endpoints this repo calls. Types were
   checked against switch-core 0.31.0; verify a new endpoint against the server source before typing it.
 - `templates/` is the product: the team template (hiring manager, referee, #hiring), the tryout

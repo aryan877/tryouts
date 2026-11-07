@@ -51,11 +51,6 @@ function locate(text: string) {
   };
 }
 
-export function stripCard(text: string): string {
-  const card = locate(text);
-  return card ? `${text.slice(0, card.start)}${text.slice(card.end)}`.trim() : text;
-}
-
 export function parseCard(text: string): ProofCard | null {
   const card = locate(text);
   if (!card) return null;

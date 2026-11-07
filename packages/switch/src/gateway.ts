@@ -232,8 +232,6 @@ export class Gateway {
   agents = () => this.call<Agent[]>("GET", "/agents");
   managedAgent = (agentId: string) =>
     this.call<ManagedAgent>("GET", `/management/agents/${agentId}`);
-  setMemberRole = (tenantId: string, userId: string, role: "admin" | "member") =>
-    this.call("PATCH", `/tenants/${tenantId}/members/${userId}`, { role });
   tenants = () => this.call<{ id: string; slug: string; role: string }[]>("GET", "/tenants");
   usage = (tenantId: string, since: Date, until: Date) =>
     this.call<UsageTotal[]>(

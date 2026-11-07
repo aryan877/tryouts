@@ -1,6 +1,9 @@
 import { describe, expect, test } from "bun:test";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import type { AddressingRule, Agent, ApprovalRecord } from "@tryouts/switch";
-import { answeredByOwner } from "./hire";
+import { answeredByOwner, claimApproval } from "./hire";
 
 const OWNER = "u-arjun";
 const ownerRule: AddressingRule = {
@@ -57,5 +60,22 @@ describe("answeredByOwner", () => {
 
   test("an unanswered card does not count", () => {
     expect(answeredByOwner(card(null), OWNER, hiring([ownerRule]))).toBe(false);
+  });
+});
+
+describe("claimApproval", () => {
+  test("an Allow once is used up before the merge, so a failed merge cannot reuse it", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "tryouts-approvals-"));
+    try {
+      await claimApproval("per_1", dir);
+      await expect(claimApproval("per_1", dir)).rejects.toThrow("Approval per_1 was already used.");
+      await claimApproval("per_2", dir);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("an id that is not a Switch approval id is refused", async () => {
+    await expect(claimApproval("../hires/x", tmpdir())).rejects.toThrow("not a Switch approval id");
   });
 });

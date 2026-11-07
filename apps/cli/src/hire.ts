@@ -1,4 +1,4 @@
-import { mkdir, readdir } from "node:fs/promises";
+import { mkdir, readdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { AGENTS, ALIAS, VENDORS } from "@tryouts/kit";
 import { merge } from "@tryouts/referee";
@@ -80,6 +80,21 @@ export function answeredByOwner(
   return by !== "" && agent?.owner_id === ownerId && ownerOnly(agent);
 }
 
+const APPROVAL_ID = /^[A-Za-z0-9_-]+$/;
+
+export async function claimApproval(
+  requestId: string,
+  dir = join(STATE_DIR, "approvals"),
+): Promise<void> {
+  if (!APPROVAL_ID.test(requestId)) throw new Error(`"${requestId}" is not a Switch approval id.`);
+  await mkdir(dir, { recursive: true });
+  await writeFile(join(dir, requestId), `${new Date().toISOString()}\n`, { flag: "wx" }).catch(
+    (error: NodeJS.ErrnoException) => {
+      throw error.code === "EEXIST" ? new Error(`Approval ${requestId} was already used.`) : error;
+    },
+  );
+}
+
 export async function approvedCard(
   config: Config,
   owner: Gateway,
@@ -107,6 +122,7 @@ export async function approvedCard(
     );
   }
   if (used.has(card.requestId)) throw new Error(`Approval ${card.requestId} was already used.`);
+  await claimApproval(card.requestId);
   return card;
 }
 

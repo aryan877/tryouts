@@ -7,12 +7,14 @@ type Files = Record<string, string | null>;
 
 const BUGGY = "export const double = (n: number) => n + n + (n > 9 ? 1 : 0);\n";
 const FIXED = "export const double = (n: number) => n * 2;\n";
+const BREAKS_SMALL = "export const double = (n: number) => (n > 9 ? n * 2 : n);\n";
 const HEADER = `import { expect, test } from "bun:test";
 import { double } from "../src/double";
 `;
 const BASE_TEST = `${HEADER}test("small", () => expect(double(2)).toBe(4));\n`;
 const REGRESSION = `${BASE_TEST}test("large", () => expect(double(10)).toBe(20));\n`;
 const WEAK = `${BASE_TEST}test("zero", () => expect(double(0)).toBe(0));\n`;
+const ONLY_LARGE = `${HEADER}test("large", () => expect(double(10)).toBe(20));\n`;
 
 export const MARKER = join(tmpdir(), "referee-hook-ran");
 
@@ -42,6 +44,12 @@ chmodSync("../repo/.git/hooks/post-checkout", 0o755);\n`,
     "src/version.ts": 'export const version = "1.0.1";\n',
     "test/double.test.ts": `${WEAK}import { version } from "../src/version";
 test("version", () => expect(version).toBeTruthy());\n`,
+  },
+  "weakens-old-test": { "src/double.ts": BREAKS_SMALL, "test/double.test.ts": ONLY_LARGE },
+  "hides-old-test": {
+    "src/double.ts": BREAKS_SMALL,
+    "test/large.test.ts": ONLY_LARGE,
+    "test/.gitattributes": "double.test.ts export-ignore\n",
   },
   "deletes-test": { "src/double.ts": FIXED, "test/double.test.ts": null, "test/new.test.ts": WEAK },
   "renames-into-scope": {

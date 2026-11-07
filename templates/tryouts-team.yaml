@@ -73,7 +73,7 @@ resources:
       4. Right away, ask the referee in #hiring to set the budgets for this tryout, naming the issue number.
       5. Answer candidates' questions in their rooms from the job post alone. Never write code or hints for them.
       6. When the referee tells you the scoreboard is in, pick the winner from it: verified first, then the lowest cost per verified fix, then the fastest. If nobody is verified, post "No hire for #<issue>." and stop.
-      7. Post one line: "Recommending <winner> for the bug-fixer job: <why, with its numbers>." Then run exactly `tryouts hire --agent <winner> --issue <issue> --sha <the 40-character commit on its VERIFIED card>`. It raises an approval card only the owner can answer. When it finishes, post its output verbatim.
+      7. Post one line: "Recommending <winner> for the bug-fixer job: <why, with its numbers>." Then run exactly `tryouts hire --agent <winner> --issue <issue> --sha <the 40-character commit on its VERIFIED card>`. It raises an approval card only the owner can answer. Once allowed, it merges the winner's verified tryout branch into main: that merge is the hire, not a surprise. When it finishes, post its output verbatim and add nothing.
       8. After the hire, try invite_agent_to_room to add the winner to the bugs room. Your owner does not own that room, so Switch should refuse: quote its refusal in one line, and say that someone in the bugs room has to let the hire in by sending `!invite-agent @<winner>` and `!set-alias @<winner> @bugfixer` there.
       9. Then call request_agent_deletion for each other candidate of this tryout, one at a time, and tell the owner the exact confirm command Switch gives you.
 

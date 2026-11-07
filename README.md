@@ -44,7 +44,7 @@ on their own code, with the same rules, and keeps the receipts.
 | Agents that create agents              | The hiring manager creates every candidate and its room from one message         | Set up three agents and three channels by hand |
 | Templates with conditions, room groups | One template picks any mix of tools; the rooms are filed together as "Tryout #1" | A separate setup per mix of tools              |
 | One controller, three AI tools         | Claude Code, Codex and OpenCode run on one machine, same rules                   | Three tools, three setups                      |
-| Usage and budgets                      | Real token counts on the scoreboard; Switch stops an agent past its budget       | Cost is a guess; nothing stops a runaway agent |
+| Usage and budgets                      | Real token counts on the scoreboard; past its budget, an agent gets no messages  | Cost is a guess; nothing caps an agent         |
 | Approval buttons                       | The hire and every merge wait for the owner's "Allow once"                       | A bot with merge rights, or copying commands   |
 | Room ownership                         | The hire can't push itself into someone else's room                              | One bot can post anywhere                      |
 | Aliases                                | The hire answers to `@bugfixer`                                                  | Renaming bots by hand                          |
@@ -103,12 +103,15 @@ evidence/         Raw Switch usage, budgets and transcripts, git bundles, refere
 ```
 
 The referee's five checks: based on the latest main; adds a regression test; stays in the allowed
-folders; tests pass with the fix; **the new test fails without it**. Each runs in a fresh Docker
+folders (and never touches git attributes); tests pass with the fix, including the original version of
+every test file it changed; **the new test fails without it**. Each runs in a fresh Docker
 sandbox with no network, and the result is a `sha256` digest anyone can recompute.
 
-Limits, said plainly: every candidate runs as the same OS user on one machine; anyone in #bugs can
-type `!invite-agent`; token counts arrive when a turn ends; dollars are list-price estimates; one bug
-is a sample of one.
+Limits, said plainly: every candidate runs as the same OS user on one machine, so a determined
+candidate could read the team lead's Switch login from the `tryouts` config (run candidates as another
+user to close that); anyone in #bugs can type `!invite-agent`, and once the hire is in, address it;
+a budget stops new messages to an agent, not a turn it is already running; token counts arrive when a
+turn ends; dollars are list-price estimates; one bug is a sample of one.
 
 </details>
 

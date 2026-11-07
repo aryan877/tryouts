@@ -271,8 +271,8 @@ const FEATURES: {
   {
     Icon: Gauge,
     name: "Usage and budgets",
-    use: "Real token counts on the scoreboard. Switch stops any agent that goes over its budget.",
-    without: "Cost is a guess, and nothing stops a runaway agent.",
+    use: "Real token counts on the scoreboard. Past its budget, an agent gets no more messages.",
+    without: "Cost is a guess, and nothing caps an agent.",
     Visual: Budgets,
   },
   {

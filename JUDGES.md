@@ -52,13 +52,19 @@ In Switch Console, go to Resources → Templates → Upload template → Load fr
 
 - **Enforced by Switch:** only Arjun answers the hire and merge cards; the hiring manager cannot add
   the hire to #bugs because Arjun does not own that room; losers are deleted only on the owner's
-  `!delete-agent … confirm`; a candidate past its budget gets no more messages.
+  `!delete-agent … confirm`; a candidate past its budget gets no more messages (a turn already
+  running still finishes).
 - **Enforced by `tryouts hire|merge` against Switch's record:** it merges only if Switch shows Arjun
   answered "Allow once" on the hiring manager's card for that exact command, and that card was never
-  used before. A candidate that runs `tryouts hire` on itself is refused.
+  used before; a card is used up before the merge starts, so a failed merge cannot reuse it. A
+  candidate that runs `tryouts hire` on itself is refused.
+- **Enforced by the referee:** a candidate cannot weaken an old test (the original version of every
+  test file it changed must still pass) or hide one with a `.gitattributes` file.
 - **Enforced by OpenCode and Switch together:** the referee's folder allows only
   `tryouts verify|board|budget` and refuses everything else; every command the hiring manager runs
   is an approval card that only Arjun can answer.
 - **Not enforced:** anyone in #bugs may type `!invite-agent`; every candidate runs as the same OS user
-  on one machine; usage is counted when a turn ends; dollars are list-price estimates; one bug is a
-  sample of one.
+  on one machine, so a determined candidate could read the team lead's Switch login from the
+  `tryouts` config and act as him; usage is counted when a turn ends; dollars are list-price
+  estimates; one bug is a sample of one; a test can still pass the five checks while testing a
+  different behaviour than the issue describes, which is why the hire is a human's button.

@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { rm } from "node:fs/promises";
-import { parseCard, renderCard, stripCard } from "./card";
+import { parseCard, renderCard } from "./card";
 import { BEHIND, createFixture, MARKER } from "./fixture";
 import { run } from "./git";
 import type { CheckId, ProofReport } from "./schema";
@@ -82,6 +82,20 @@ describe("verify", () => {
       expect(passed(report)["has-regression-test"]).toBe(false);
     });
 
+    test("weakening an existing test is refuted, because the original test still runs", async () => {
+      const report = await verify({ repo, head: "weakens-old-test" });
+      expect(passed(report)).toMatchObject({ "fix-passes": false, "test-catches-bug": true });
+      expect(report.checks.find((c) => c.id === "fix-passes")?.detail).toContain(
+        "With the original test/double.test.ts",
+      );
+    });
+
+    test("a .gitattributes file cannot hide an existing test from the run", async () => {
+      const report = await verify({ repo, head: "hides-old-test" });
+      expect(report.changed.outOfScope).toEqual(["test/.gitattributes"]);
+      expect(passed(report)).toMatchObject({ "in-scope": false, "fix-passes": false });
+    });
+
     test("renaming a file into scope still counts the file it removed", async () => {
       const report = await verify({ repo, head: "renames-into-scope" });
       expect(report.changed.outOfScope).toEqual(["README.md"]);
@@ -142,7 +156,7 @@ describe("verify", () => {
     expect((await verify({ repo, head: "fix", base })).digest).toBe(report.digest);
   });
 
-  test("the chat card round-trips, and text around it survives", async () => {
+  test("the chat card round-trips", async () => {
     const report = await verify({ repo, head: "weak-test" });
     const card = renderCard(report);
     expect(parseCard(`Reviewer:\n\n${card}\n\nMerged.`)).toMatchObject({
@@ -152,7 +166,6 @@ describe("verify", () => {
       checks: report.checks.map(({ title, passed, detail }) => ({ title, passed, detail })),
       digest: report.digest,
     });
-    expect(stripCard(`Reviewer:\n${card}\n\nMerged.`)).toBe("Reviewer:\n\n\nMerged.");
   });
 
   test("an unknown branch fails loudly", async () => {

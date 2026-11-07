@@ -72,7 +72,7 @@ export async function verify({
     const deletedTests = changes.filter((c) => isTest(c) && c.status === "D").map((c) => c.path);
     const outOfScope = changes
       .map((c) => c.path)
-      .filter((path) => !config.scope.some((dir) => path.startsWith(dir)));
+      .filter((path) => isAttributes(path) || !config.scope.some((dir) => path.startsWith(dir)));
     const command = config.test.join(" ");
 
     const checks: Check[] = [
@@ -102,18 +102,11 @@ export async function verify({
         detail:
           outOfScope.length === 0
             ? `${changes.length} file(s), all inside ${config.scope.join(", ")}`
-            : `Outside ${config.scope.join(", ")}: ${outOfScope.join(", ")}`,
+            : `Not allowed: ${outOfScope.join(", ")} (only ${config.scope.join(", ")}, never git attributes)`,
       },
     ];
 
-    const onHead = await testTree(clone, config, join(work, "head"), headSha);
-    checks.push({
-      id: "fix-passes",
-      title: "Fix passes",
-      passed: passed(onHead),
-      detail: outcome(onHead, command, "on the branch"),
-      output: tail(onHead.output),
-    });
+    checks.push(await fixPasses(clone, config, work, { since, headSha, changes, isTest, command }));
 
     const added = changes.filter((c) => c.status === "A").map((c) => c.path);
     checks.push(
@@ -150,6 +143,46 @@ export async function verify({
   } finally {
     await rm(work, { recursive: true, force: true });
   }
+}
+
+async function fixPasses(
+  clone: string,
+  config: ProofConfig,
+  work: string,
+  revisions: {
+    since: string;
+    headSha: string;
+    changes: Change[];
+    isTest: (change: Change) => boolean;
+    command: string;
+  },
+): Promise<Check> {
+  const check = { id: "fix-passes", title: "Fix passes" } as const;
+  const { command } = revisions;
+  const onHead = await testTree(clone, config, join(work, "head"), revisions.headSha);
+  const reworked = revisions.changes
+    .filter((c) => revisions.isTest(c) && c.status === "M")
+    .map((c) => c.path);
+  if (!passed(onHead) || reworked.length === 0) {
+    return {
+      ...check,
+      passed: passed(onHead),
+      detail: outcome(onHead, command, "on the branch"),
+      output: tail(onHead.output),
+    };
+  }
+  const original = await testTree(clone, config, join(work, "original"), revisions.headSha, {
+    sha: revisions.since,
+    paths: reworked,
+  });
+  return {
+    ...check,
+    passed: passed(original),
+    detail: passed(original)
+      ? `${outcome(onHead, command, "on the branch")}, and with the original ${reworked.join(", ")}`
+      : `With the original ${reworked.join(", ")}, ${outcome(original, command, "on the branch")}: an existing test was weakened`,
+    output: tail(original.output),
+  };
 }
 
 async function testCatchesBug(
@@ -201,6 +234,8 @@ async function testTree(
 }
 
 const passed = (result: RunResult) => !result.timedOut && result.code === 0;
+
+const isAttributes = (path: string) => path.split("/").at(-1) === ".gitattributes";
 
 function outcome(result: RunResult, command: string, where: string): string {
   return result.timedOut
