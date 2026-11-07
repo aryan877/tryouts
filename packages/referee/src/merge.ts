@@ -40,7 +40,10 @@ export async function merge({
   if (report.head.sha !== sha) {
     return refuse(`${head} moved to ${report.head.sha.slice(0, 7)} after ${sha} was approved.`);
   }
-  if (report.verdict !== "verified") return refuse("the referee does not verify it.");
+  if (report.verdict !== "verified") {
+    const failed = report.checks.filter((check) => !check.passed).map((check) => check.title);
+    return refuse(`the referee no longer verifies it. Failed: ${failed.join("; ")}.`);
+  }
 
   const work = await mkdtemp(join(tmpdir(), "referee-merge-"));
   try {
@@ -63,7 +66,11 @@ export async function merge({
       [`Referee: ${report.digest}`, ...trailers].join("\n"),
       report.head.sha,
     );
-    await git(work, "push", "--quiet", "origin", `HEAD:refs/heads/${base}`);
+    try {
+      await git(work, "push", "--quiet", "origin", `HEAD:refs/heads/${base}`);
+    } catch {
+      return refuse(`${base} moved while this was merging. Press Allow once on a new card.`);
+    }
     return { report, merged: await git(work, "rev-parse", "HEAD"), reason: null };
   } finally {
     await rm(work, { recursive: true, force: true });

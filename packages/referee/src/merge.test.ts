@@ -1,5 +1,5 @@
 import { afterEach, expect, test } from "bun:test";
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { chmod, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { BRANCHES, createFixture } from "./fixture";
@@ -115,4 +115,32 @@ test("a contributor's fork is verified and merged without write access to origin
   expect(report.fork).toBe(fork);
   expect(merged).not.toBeNull();
   expect(await tip("main^2")).toBe(sha);
+});
+
+test("a push the upstream refuses comes back as a reason, with main untouched", async () => {
+  const { origin, tip } = await upstream();
+  const main = await tip("main");
+  const hook = join(origin, "hooks", "pre-receive");
+  await writeFile(hook, "#!/bin/sh\nexit 1\n");
+  await chmod(hook, 0o755);
+  const { merged, reason } = await merge({
+    repo: origin,
+    committer,
+    head: "fix",
+    sha: await tip("fix"),
+  });
+  expect(merged).toBeNull();
+  expect(reason).toContain("moved while this was merging");
+  expect(await tip("main")).toBe(main);
+});
+
+test("a refusal names the checks that failed", async () => {
+  const { origin, tip } = await upstream();
+  const { reason } = await merge({
+    repo: origin,
+    committer,
+    head: "no-fix",
+    sha: await tip("no-fix"),
+  });
+  expect(reason).toContain("Failed:");
 });

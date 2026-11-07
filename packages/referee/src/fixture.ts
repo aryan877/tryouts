@@ -45,6 +45,15 @@ chmodSync("../repo/.git/hooks/post-checkout", 0o755);\n`,
     "test/double.test.ts": `${WEAK}import { version } from "../src/version";
 test("version", () => expect(version).toBeTruthy());\n`,
   },
+  "fix-too": {
+    "src/double.ts": "export const double = (n: number) => 2 * n;\n",
+    "test/double.test.ts": `${BASE_TEST}test("large too", () => expect(double(11)).toBe(22));\n`,
+  },
+  "fake-fix": {
+    "src/double.ts": `${BUGGY}export const fixed = true;\n`,
+    "test/double.test.ts": `${BASE_TEST}import { fixed } from "../src/double";
+test("fixed", () => expect(fixed).toBe(true));\n`,
+  },
   "weakens-old-test": { "src/double.ts": BREAKS_SMALL, "test/double.test.ts": ONLY_LARGE },
   "hides-old-test": {
     "src/double.ts": BREAKS_SMALL,

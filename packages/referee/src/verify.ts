@@ -221,7 +221,7 @@ async function testCatchesBug(
   };
 }
 
-async function testTree(
+export async function testTree(
   clone: string,
   config: ProofConfig,
   dir: string,
@@ -233,7 +233,7 @@ async function testTree(
   return runTests(config, dir);
 }
 
-const passed = (result: RunResult) => !result.timedOut && result.code === 0;
+export const passed = (result: RunResult) => !result.timedOut && result.code === 0;
 
 const isAttributes = (path: string) => path.split("/").at(-1) === ".gitattributes";
 
@@ -268,7 +268,7 @@ async function resolve(clone: string, ref: string, name: string): Promise<string
   return output;
 }
 
-async function resolveBase(clone: string, base: string): Promise<string> {
+export async function resolveBase(clone: string, base: string): Promise<string> {
   if (!FULL_SHA.test(base)) return resolve(clone, `refs/remotes/origin/${base}`, base);
   const sha = await resolve(clone, base, base);
   const upstream = await git(clone, "for-each-ref", "--contains", sha, "refs/remotes/origin");
@@ -276,10 +276,31 @@ async function resolveBase(clone: string, base: string): Promise<string> {
   return sha;
 }
 
-async function readConfig(clone: string, sha: string): Promise<ProofConfig> {
+export async function readConfig(clone: string, sha: string): Promise<ProofConfig> {
   const { code, output } = await run(["git", "show", `${sha}:${CONFIG_FILE}`], clone);
   if (code !== 0) throw new Error(`The base has no ${CONFIG_FILE}; the maintainer must add one.`);
   return ProofConfig.parse(JSON.parse(output));
+}
+
+export async function checkRules(repo: string, base = "main"): Promise<void> {
+  const work = await mkdtemp(join(tmpdir(), "referee-rules-"));
+  try {
+    await git(
+      work,
+      "clone",
+      "--quiet",
+      "--depth=1",
+      "--no-checkout",
+      "--branch",
+      base,
+      "--",
+      repo,
+      ".",
+    );
+    await readConfig(work, await git(work, "rev-parse", "HEAD"));
+  } finally {
+    await rm(work, { recursive: true, force: true });
+  }
 }
 
 function tail(text: string): string {
